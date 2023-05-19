@@ -1,0 +1,19 @@
+.anchorpane {
+    -fx-background-color:  #976EEF;
+}
+
+.btn-login {
+    -fx-background-color: #976EEF; 
+}
+
+.password-field {
+    -fx-background-color: transparent;
+    -fx-border-color: #976EEF;
+    -fx-border-width: 0px 0px 2px 0px;
+}
+
+.text-field {
+    -fx-background-color: transparent; 
+    -fx-border-color: #976EEF;
+    -fx-border-width: 0px 0px 2px 0px;
+}
