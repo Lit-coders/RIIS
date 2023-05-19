@@ -21,4 +21,4 @@ cjx clone <link>
 4. Click on the `Run` or `Debug` button to run the project.
 
 --- 
-<div align="center">Enjor your coding! 😊</div>
+<div align="center">Enjoy your coding! 😊</div>
