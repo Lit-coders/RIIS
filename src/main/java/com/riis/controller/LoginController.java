@@ -1,11 +1,14 @@
 package com.riis.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginController { 
+public class LoginController implements Controller { 
 
     @FXML
     private TextField username;
@@ -15,6 +18,25 @@ public class LoginController {
 
     @FXML
     private Button loginButton;
+
+    public Stage stage;
+
+    public LoginController(Stage stage) {
+        this.stage = stage;
+    }
+
+    public LoginController() {
+    }
+
+    public void getView() throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/Login.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    } 
 
     @FXML
     private void login() throws Exception {
@@ -33,7 +55,7 @@ public class LoginController {
                 stage.close();
 
                 SidebarController sidebarController = new SidebarController(stage);
-                sidebarController.render();
+                sidebarController.getView();
 
             } else {
                 System.out.println("Login Failed");

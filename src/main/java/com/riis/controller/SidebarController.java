@@ -1,6 +1,7 @@
 package com.riis.controller;
 
-import java.io.IOException;
+
+import com.riis.view.Sidebar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,20 +10,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
-public class SidebarController {
-    @FXML private VBox myVBox;
-    @FXML private HBox hbox1;
-    @FXML private HBox hbox2;
-    @FXML private HBox hbox3;
-    @FXML private HBox hbox4;
-    @FXML private HBox hbox5;
+public class SidebarController implements Controller {
+    @FXML private VBox sidebar;
+    @FXML private HBox overview;
+    @FXML private HBox requests;
+    @FXML private HBox new_resident;
+    @FXML private HBox id_renewal;
+    @FXML private HBox replace_id;
     public Stage stage;
     public HBox previousClickedHbox = null;
+    public HBox clickedHbox = overview;
 
     public SidebarController(Stage stage) {
         this.stage = stage;
@@ -31,17 +34,37 @@ public class SidebarController {
     public SidebarController() {
     }
 
-    public void initialize() {
-        checkHBox(hbox1);
+    public void initialize() throws Exception {
+        checkHBox(overview);
+    }
+
+    public Parent getRoot() throws Exception {
+        return  FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
+    }
+
+    public void getView() throws Exception {
+        Parent root = getRoot();
+        BorderPane borderPane = (BorderPane) root;
+        Sidebar.borderPane = borderPane;
+        showView(overview);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Information officer");
+        stage.setMaximized(true);
+        stage.show();
+
     }
 
     @FXML
-    private void handleHBoxClick(MouseEvent event) {
+    private void handleHBoxClick(MouseEvent event) throws Exception {
         // Uncheck the previous clicked HBox
         uncheckPreviousHBox();
 
         // Get the clicked HBox
         HBox clickedHBox = (HBox) event.getSource();
+
+        showView(clickedHBox);
 
         // Set the previous clicked HBox
         previousClickedHbox = clickedHBox;
@@ -50,23 +73,12 @@ public class SidebarController {
         checkHBox(clickedHBox);
         
         // Set the style of the other HBoxes
-        for (Node node : myVBox.getChildren()) {
+        for (Node node : sidebar.getChildren()) {
             if (node instanceof HBox && node != clickedHBox) {
                 uncheckHBox((HBox) node);
             }
         }
 
-    }
-
-    public void render() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.setTitle("Information officer");
-        stage.setMaximized(true);
-        stage.show();
     }
 
     public void checkHBox(HBox hbox) {
@@ -88,10 +100,20 @@ public class SidebarController {
             label.setStyle("-fx-text-fill: #825FE5;");
             svgPath.setStyle("-fx-stroke: #825FE5;");
         } else {
-            Label label = (Label) hbox1.getChildren().get(1);
-            SVGPath svgPath = (SVGPath) hbox1.getChildren().get(0);
+            Label label = (Label) overview.getChildren().get(1);
+            SVGPath svgPath = (SVGPath) overview.getChildren().get(0);
             label.setStyle("-fx-text-fill: #825FE5;");
             svgPath.setStyle("-fx-stroke: #825FE5;");
         }
+    }
+
+    public void showView(HBox clickedHBox) throws Exception {
+        if(clickedHBox == overview) {
+            OverviewController overviewController = new OverviewController();
+            overviewController.getView();
+        } else if(clickedHBox == requests) {
+            RequestsController requestsController = new RequestsController();
+            requestsController.getView();
+        } 
     }
 }
