@@ -20,6 +20,10 @@ cjx clone <link>
 3. There will be `Run | Debug` button right above the `public static void main(String[] args)` method.
 4. Click on the `Run` or `Debug` button to run the project.
 
+# To contribute to the project
+
+1. It is recommended to use Visual Studio Code as the IDE and CJX CLI as the CLI tool.
+2. Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for the contribution guidelines.
 --- 
 <div align="center">Enjoy your coding!! 😊</div>
 
