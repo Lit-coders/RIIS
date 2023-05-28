@@ -25,5 +25,5 @@ cjx clone <link>
 1. It is recommended to use Visual Studio Code as the IDE and CJX CLI as the CLI tool.
 2. Read the [CONTRIBUTING.md](CONTRIBUTING.md) file for the contribution guidelines.
 --- 
-<div align="center">Enjoy your coding!!! 😊</div>
+<div align="center">Enjoy your coding!! 😊</div>
 
