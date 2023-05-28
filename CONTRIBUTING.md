@@ -50,17 +50,16 @@ git push origin <your_name + dev>
     ```
     - Pull the changes from the original repository to your local repository.
     ```bash
-    git pull upstream dev
+    git pull upstream main
     ```
     - Push the changes from your local repository to your forked repository. 
     ```bash
-    git push origin dev
+    git push origin HEAD:dev
     ```
 
 2. Pushing changes from your local repository to your forked repository after making changes:
-    - Add your forked repository as an upstream to your local repository.
     ```bash
-    git push origin dev
+    git push origin HEAD:dev
     ```
 
 3. If you are contributing a new page:
