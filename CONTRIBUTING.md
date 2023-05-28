@@ -48,14 +48,35 @@ git push origin <your_name + dev>
     ```bash
     git remote add upstream https://github.com/Lit-coders/RIIS.git
     ```
-    - Pull the changes from the original repository to your local repository.
+        This is done only once.
+    - First make sure you stash or commit your changes before pulling from the original repository because you might lose your changes or you have to be in a stable state to pull from the original repository.
+    ```bash
+    git stash // or git commit -m "commit message" # to stash or commit your changes
+    ```
+    - Pull the changes from the original repository to your local repository main branch.
     ```bash
     git pull upstream main
     ```
-    - Push the changes from your local repository to your forked repository. 
+    - Push the changes from your local repository to your forked repository main branch.
+    ```bash
+    git push origin HEAD:main
+    ```
+        This is because when you pull from the original repo it doesn't update your forked repo but only your local repo.
+        This is the only time you will push to the `main` branch of your forked repository. ( The rules of git flow are not followed here.)
+    - Update the branch you created with the `main` branch because the `main` branch of your local repository is now updated with the latest changes from the original repository.
+    ```bash
+    git checkout <your_branch>
+    git merge main
+    ```
+    - Write commit messages for the merge.
+    ```bash
+    git commit -m "Merge latest changes from main into <your_branch>"
+    ```
+    - Push the changes from your local repository to your forked repository because the branch you created is now updated with the latest changes from the original repository and now you have to update your forked repository with the latest changes from your local repository. 
     ```bash
     git push origin HEAD:dev
     ```
+        This is because when you pull from the original repo it doesn't update your forked repo but only your local repo
 
 2. Pushing changes from your local repository to your forked repository after making changes:
     ```bash
@@ -94,6 +115,7 @@ git push origin <your_name + dev>
 ### Key points to remember
 
 - Remember you will have 2 branches in your local repository. The `main` branch and the branch you created.
-- Always push with the branch you created and pull with the `main` branch.
+- Always push with the branch you created and pull with the `main` branch. 
 - Always make sure the branch you created is up-to-date with the `main` branch.
 - Always make sure the `main` branch is up-to-date with the `main` branch of the original repository.
+
