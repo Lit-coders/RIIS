@@ -28,7 +28,8 @@ git checkout -b <your_name + dev> origin/dev
 4. Make your changes to the code base.
 5. Commit and push your changes to your forked repository to the branch you created.
 ```bash
-git push origin <your_name + dev>
+git push --set-upstream origin dev # For the first time only
+git push origin HEAD:dev # For always
 ```
 6. Create a pull request from your forked repository to the `dev` branch 
     of the [RIIS repository](https://github.com/Lit-Coders/RIIS/tree/dev).
