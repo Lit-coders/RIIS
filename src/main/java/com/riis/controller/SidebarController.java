@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -121,12 +120,26 @@ public class SidebarController implements Controller {
 
     public void showView(HBox clickedHBox) throws Exception {
         if(clickedHBox == overview) {
+            // titlebar.setText("Overview");
             OverviewController overviewController = new OverviewController();
             overviewController.getView();
         } else if(clickedHBox == requests) {
+            titlebar.setText("Requests");
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
-        } 
+        } else if(clickedHBox == new_resident) {
+            titlebar.setText("New Resident Form");
+            NewResidentController newResidentController = new NewResidentController();
+            newResidentController.getView();
+        } else if(clickedHBox == replace_id) {
+            titlebar.setText("Replace Lost Id");
+            ReplaceController replaceController = new ReplaceController();
+            replaceController.getView();
+        } else if(clickedHBox == id_renewal) {
+            titlebar.setText("Renew Expired Id");
+            RenewalController renewalController = new RenewalController();
+            renewalController.getView();
+        }
     }
 
     @FXML
