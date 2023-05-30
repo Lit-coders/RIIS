@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1060.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/replace.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.RenewalController">
+<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/replace.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.RenewalController">
    <children>
-      <HBox fx:id="search_box" alignment="CENTER" layoutX="6.0" layoutY="8.0" prefHeight="38.0" prefWidth="482.0" spacing="10.0">
+      <HBox fx:id="search_box" alignment="CENTER" layoutX="6.0" layoutY="8.0" prefHeight="38.0" prefWidth="450.0" spacing="10.0">
          <children>
             <Button fx:id="re_search_btn" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0">
                <graphic>
@@ -25,18 +25,18 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="re_search_field" prefHeight="26.0" prefWidth="434.0" promptText="Search here ..." />
+            <TextField fx:id="re_search_field" prefHeight="26.0" prefWidth="382.0" promptText="Search here ..." />
          </children>
       </HBox>
-      <ListView fx:id="replace_list" layoutX="6.0" layoutY="68.0" prefHeight="534.0" prefWidth="482.0" />
-      <VBox fx:id="detail_box" alignment="TOP_CENTER" layoutX="511.0" layoutY="9.0" prefHeight="594.0" prefWidth="541.0" spacing="30.0">
+      <ListView fx:id="replace_list" layoutX="6.0" layoutY="68.0" prefHeight="546.0" prefWidth="450.0" />
+      <VBox fx:id="detail_box" alignment="TOP_CENTER" layoutX="479.0" layoutY="9.0" prefHeight="546.0" prefWidth="482.0" spacing="30.0">
          <children>
             <ImageView fitHeight="138.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/user.png" />
                </image>
             </ImageView>
-            <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" styleClass="detail_hbox">
+            <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="detail_hbox">
                <children>
                   <Label prefHeight="25.0" prefWidth="100.0" styleClass="detailLabel" text="Full Name :" />
                   <Label prefHeight="25.0" prefWidth="200.0" styleClass="detailLabel" text="Selameneh Denekew" />
@@ -45,7 +45,7 @@
                   <Insets left="100.0" right="10.0" />
                </padding>
             </HBox>
-            <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" styleClass="detail_hbox">
+            <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="detail_hbox">
                <children>
                   <Label prefHeight="25.0" prefWidth="100.0" styleClass="detailLabel" text="Phone Number :" />
                   <Label prefHeight="25.0" prefWidth="200.0" styleClass="detailLabel" text="+251907070707" />
@@ -54,7 +54,7 @@
                   <Insets left="100.0" right="10.0" />
                </padding>
             </HBox>
-            <HBox fx:id="detail_hbox1" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" styleClass="detail_hbox">
+            <HBox fx:id="detail_hbox1" alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="detail_hbox">
                <children>
                   <Label prefHeight="25.0" prefWidth="100.0" styleClass="detailLabel" text="Sex :" />
                   <Label prefHeight="25.0" prefWidth="200.0" styleClass="detailLabel" text="Male" />
@@ -63,7 +63,7 @@
                   <Insets left="100.0" right="10.0" />
                </padding>
             </HBox>
-            <HBox fx:id="detail_hbox2" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" styleClass="detail_hbox">
+            <HBox fx:id="detail_hbox2" alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="detail_hbox">
                <padding>
                   <Insets left="100.0" right="10.0" />
                </padding>
@@ -72,7 +72,7 @@
                   <Label prefHeight="25.0" prefWidth="200.0" styleClass="detailLabel" text="May 24, 2020" />
                </children>
             </HBox>
-            <HBox fx:id="detail_hbox3" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" styleClass="detail_hbox">
+            <HBox fx:id="detail_hbox3" alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="detail_hbox">
                <padding>
                   <Insets left="100.0" right="10.0" />
                </padding>
@@ -86,14 +86,9 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </VBox>
-      <Button fx:id="re_approve_btn" layoutX="288.0" layoutY="634.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" text="Approve" textFill="#976eef">
+      <Button fx:id="re_approve_btn" layoutX="620.0" layoutY="581.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" text="Approve" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Button fx:id="re_clear_btn" layoutX="511.0" layoutY="634.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" text="Clear" textFill="#976eef">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
