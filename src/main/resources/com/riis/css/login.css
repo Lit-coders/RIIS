@@ -1,19 +1,27 @@
 .anchorpane {
-    -fx-background-color:  #976EEF;
+  -fx-background-color: #976eef;
 }
 
 .btn-login {
-    -fx-background-color: #976EEF; 
+  -fx-background-color: #976eef;
 }
 
 .password-field {
-    -fx-background-color: transparent;
-    -fx-border-color: #976EEF;
-    -fx-border-width: 0px 0px 2px 0px;
+  -fx-background-color: transparent;
+  -fx-border-color: #976eef;
+  -fx-border-width: 0px 0px 2px 0px;
 }
 
 .text-field {
-    -fx-background-color: transparent; 
-    -fx-border-color: #976EEF;
-    -fx-border-width: 0px 0px 2px 0px;
+  -fx-background-color: transparent;
+  -fx-border-color: #976eef;
+  -fx-border-width: 0px 0px 2px 0px;
+}
+
+#close_btn {
+  -fx-background-color: transparent;
+}
+
+#close_btn:hover {
+  -fx-background-color: #976eef;
 }
