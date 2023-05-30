@@ -1,4 +1,4 @@
-package com.riis.view;
+package com.riis.utils;
 
 import javafx.scene.layout.BorderPane;
 
