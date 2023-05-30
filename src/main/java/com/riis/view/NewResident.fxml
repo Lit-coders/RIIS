@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1020.0" style="-fx-background-color: #F5F0F0;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="-2.0" layoutY="-1.0" prefHeight="700.0" prefWidth="664.0" scaleX="0.9" scaleY="0.9" style="-fx-background-radius: 20; -fx-background-color: white;" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="-1.0">
+         <children>
+            <VBox alignment="CENTER" layoutX="9.0" layoutY="30.0" prefHeight="708.0" prefWidth="294.0">
+               <children>
+                  <VBox prefHeight="169.0" prefWidth="174.0" style="-fx-background-color: #EEE4E4; -fx-background-radius: 20;" stylesheets="@../../../../../../../../../JavaFx%20Projects/stylesheet.css">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="70.0" right="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/images/Vector.svg" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="70.0" top="25.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label prefHeight="51.0" prefWidth="102.0" text="  Upload photo" textFill="#3330e1">
+                           <VBox.margin>
+                              <Insets left="45.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button id="uploadPhoto" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" style="-fx-background-color: #976EEF; -fx-text-fill: white; -fx-background-radius: 20;" text="Browse">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="45.0" right="40.0" top="30.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <styleClass>
+                        <String fx:value="upload-image" />
+                        <String fx:value="font" />
+                     </styleClass>
+                  </VBox>
+                  <Label prefHeight="9.0" prefWidth="85.0" styleClass="txtField" stylesheets="@../../../../../../../../../JavaFx%20Projects/stylesheet.css" text="Name" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="150.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="Name" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;" styleClass="txtField:hover" stylesheets="@../../../../../../../../../JavaFx%20Projects/stylesheet.css">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="11.0" prefWidth="148.0" text="  Father's name" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="100.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="FName" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="15.0" prefWidth="171.0" text="Grand Father's name" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="70.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="GFName" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="133.0" text="Date of Birth" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="110.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="DOB" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="13.0" prefWidth="143.0" text="Place of Birth" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="100.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="POB" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label prefHeight="9.0" prefWidth="142.0" text="Phone Number" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="100.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="phoneNumber" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="322.0" layoutY="60.0" prefHeight="636.0" prefWidth="317.0">
+               <children>
+                  <Label prefHeight="11.0" prefWidth="59.0" text="   Sex" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="210.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="Sex" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="88.0" text="Citizenship" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="170.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="Citizenship" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <Label prefHeight="21.0" prefWidth="109.0" text="Maritial Status" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="150.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="maritalStatus" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <Label prefHeight="0.0" prefWidth="68.0" text="    Job" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="210.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="Job" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <TextFlow>
+                     <VBox.margin>
+                        <Insets right="150.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label prefHeight="21.0" prefWidth="158.0" text="         Mother's Name" textFill="#3330e1" />
+                     </children>
+                  </TextFlow>
+                  <TextField id="MName" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <TextFlow>
+                     <VBox.margin>
+                        <Insets right="180.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="199.0" text="         Blood Type" textFill="#3330e1" />
+                     </children>
+                  </TextFlow>
+                  <TextField id="bloodType" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="112.0" text="House Number" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets right="150.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField id="houseNumber" prefHeight="31.0" prefWidth="321.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <TextFlow prefHeight="14.0" prefWidth="186.0">
+                     <VBox.margin>
+                        <Insets right="90.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label prefHeight="9.0" prefWidth="231.0" text="         Emergency Contact Full Name " textFill="#3330e1" />
+                     </children>
+                  </TextFlow>
+                  <TextField id="emergencyName" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets bottom="16.0" left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </TextField>
+                  <Label prefHeight="17.0" prefWidth="266.0" text=" Emergency Contact Phone" textFill="#3330e1">
+                     <padding>
+                        <Insets right="90.0" />
+                     </padding>
+                  </Label>
+                  <TextField id="emergencyPhone" prefHeight="31.0" prefWidth="261.0" style="-fx-background-radius: 10;">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+            <Label layoutX="126.0" layoutY="7.0" prefHeight="75.0" prefWidth="387.0" style="-fx-font-weight: 700; -fx-font-size: 30;" stylesheets="@../../../../../../../../../JavaFx%20Projects/stylesheet.css" text="  Resident Information" textFill="#976eef">
+               <padding>
+                  <Insets left="50.0" top="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="50.0" />
+         </padding>
+      </Pane>
+      <VBox layoutX="678.0" layoutY="4.0" prefHeight="637.0" prefWidth="457.0" scaleX="0.9" scaleY="0.9" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.topAnchor="4.0">
+         <children>
+            <Label prefHeight="69.0" prefWidth="383.0" style="-fx-font-size: 30px; -fx-font-weight: 700;" stylesheets="@../../../../../../../../../JavaFx%20Projects/stylesheet.css" text="House Owner Information" textFill="#976eef">
+               <VBox.margin>
+                  <Insets left="60.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <VBox prefHeight="169.0" prefWidth="138.0" style="-fx-background-color: #EEE4E4; -fx-background-radius: 20;" styleClass="upload-image" stylesheets="@../../../../../../../../../JavaFx%20Projects/stylesheet.css">
+               <VBox.margin>
+                  <Insets bottom="45.0" left="160.0" right="190.0" top="40.0" />
+               </VBox.margin>
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../../Downloads/Vector.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="70.0" right="60.0" top="25.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="27.0" prefWidth="101.0" text="   Upload photo" textFill="#3330e1">
+                     <VBox.margin>
+                        <Insets left="45.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button id="uploadMap" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: #976EEF; -fx-text-fill: white; -fx-background-radius: 20;" text="  Browse">
+                     <VBox.margin>
+                        <Insets left="45.0" right="40.0" top="30.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Label text="Name" textFill="#3330e1">
+               <VBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </VBox.margin>
+            </Label>
+            <TextField id="HOName" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;">
+               <VBox.margin>
+                  <Insets bottom="16.0" left="80.0" right="80.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </TextField>
+            <Label text="Father's Name" textFill="#3330e1">
+               <VBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </VBox.margin>
+            </Label>
+            <TextField id="HOFName" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;">
+               <VBox.margin>
+                  <Insets bottom="16.0" left="80.0" right="80.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Grand Father's Name" textFill="#3330e1">
+               <VBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </VBox.margin>
+            </Label>
+            <TextField id="HOGFName" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;">
+               <VBox.margin>
+                  <Insets bottom="16.0" left="80.0" right="80.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Phone Number" textFill="#3330e1">
+               <VBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </VBox.margin>
+            </Label>
+            <TextField id="HOPhoneNumber" prefHeight="33.0" prefWidth="238.0" style="-fx-background-radius: 10;">
+               <VBox.margin>
+                  <Insets bottom="16.0" left="80.0" right="80.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <Button id="clearBtn" layoutX="975.0" layoutY="625.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="142.0" style="-fx-border-color: #976EEF; -fx-background-color: white; -fx-text-fill: #976EEF; -fx-font-weight: 700; -fx-background-radius: 20; -fx-border-radius: 20;" text="Clear" />
+      <Button id="approveBtn" layoutX="783.0" layoutY="625.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="142.0" style="-fx-background-color: #976EEF; -fx-text-fill: white; -fx-marigin: 0 28px; -fx-font-weight: 700; -fx-border-radius: 20; -fx-background-radius: 20;" text="Approve" />
+   </children>
+</AnchorPane>
