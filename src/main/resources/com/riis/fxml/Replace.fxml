@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/replace.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.ReplaceController">
+<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" stylesheets="@../css/replace.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.RenewalController">
    <children>
       <HBox fx:id="search_box" alignment="CENTER" layoutX="6.0" layoutY="8.0" prefHeight="38.0" prefWidth="450.0" spacing="10.0">
          <children>
@@ -20,7 +20,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/search.png" />
+                        <Image url="@../icons/search.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -29,11 +29,11 @@
          </children>
       </HBox>
       <ListView fx:id="replace_list" layoutX="6.0" layoutY="68.0" prefHeight="546.0" prefWidth="450.0" />
-      <VBox fx:id="detail_box" alignment="TOP_CENTER" layoutX="479.0" layoutY="9.0" prefHeight="546.0" prefWidth="482.0" spacing="30.0">
+      <VBox fx:id="detail_box" alignment="TOP_CENTER" layoutX="475.0" layoutY="9.0" prefHeight="546.0" prefWidth="482.0" spacing="30.0">
          <children>
             <ImageView fitHeight="138.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/user.png" />
+                  <Image url="@../icons/user.png" />
                </image>
             </ImageView>
             <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" styleClass="detail_hbox">
@@ -86,7 +86,7 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </VBox>
-      <Button fx:id="re_approve_btn" layoutX="620.0" layoutY="581.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" text="Approve" textFill="WHITE">
+      <Button fx:id="re_approve_btn" layoutX="620.0" layoutY="575.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="200.0" text="Approve" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
