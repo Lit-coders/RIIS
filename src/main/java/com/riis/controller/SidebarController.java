@@ -57,7 +57,7 @@ public class SidebarController implements Controller {
         Sidebar.borderPane = borderPane;
         showView(overview);
 
-        Scene scene = new Scene(root, 1400, 800);
+        Scene scene = new Scene(root, 1300, 700);
         stage.setScene(scene);
         stage.setTitle("Information officer");
 // stage.setMaximized(true);
