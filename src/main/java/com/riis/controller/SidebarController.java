@@ -1,6 +1,5 @@
 package com.riis.controller;
 
-
 import com.riis.view.Sidebar;
 
 import javafx.fxml.FXML;
@@ -17,12 +16,18 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 public class SidebarController implements Controller {
-    @FXML private VBox sidebar;
-    @FXML private HBox overview;
-    @FXML private HBox requests;
-    @FXML private HBox new_resident;
-    @FXML private HBox id_renewal;
-    @FXML private HBox replace_id;
+    @FXML
+    private VBox sidebar;
+    @FXML
+    private HBox overview;
+    @FXML
+    private HBox requests;
+    @FXML
+    private HBox new_resident;
+    @FXML
+    private HBox id_renewal;
+    @FXML
+    private HBox replace_id;
     public Stage stage;
     public HBox previousClickedHbox = null;
     public HBox clickedHbox = overview;
@@ -30,7 +35,7 @@ public class SidebarController implements Controller {
     public SidebarController(Stage stage) {
         this.stage = stage;
     }
-    
+
     public SidebarController() {
     }
 
@@ -39,7 +44,7 @@ public class SidebarController implements Controller {
     }
 
     public Parent getRoot() throws Exception {
-        return  FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
+        return FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
     }
 
     public void getView() throws Exception {
@@ -48,10 +53,10 @@ public class SidebarController implements Controller {
         Sidebar.borderPane = borderPane;
         showView(overview);
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,1300,700);
         stage.setScene(scene);
         stage.setTitle("Information officer");
-        stage.setMaximized(true);
+        // stage.setMaximized(true);
         stage.show();
 
     }
@@ -71,7 +76,7 @@ public class SidebarController implements Controller {
 
         // Set the style of the clicked HBox
         checkHBox(clickedHBox);
-        
+
         // Set the style of the other HBoxes
         for (Node node : sidebar.getChildren()) {
             if (node instanceof HBox && node != clickedHBox) {
@@ -108,12 +113,15 @@ public class SidebarController implements Controller {
     }
 
     public void showView(HBox clickedHBox) throws Exception {
-        if(clickedHBox == overview) {
+        if (clickedHBox == overview) {
             OverviewController overviewController = new OverviewController();
             overviewController.getView();
-        } else if(clickedHBox == requests) {
+        } else if (clickedHBox == requests) {
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
-        } 
+        } else if (clickedHBox == new_resident) {
+            NewResidentController newResidentController = new NewResidentController();
+            newResidentController.getView();
+        }
     }
 }
