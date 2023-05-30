@@ -1,6 +1,6 @@
 package com.riis.controller;
 
-import com.riis.view.Sidebar;
+import com.riis.utils.Sidebar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class NewResidentController implements Controller {
     @FXML
@@ -29,31 +30,31 @@ public class NewResidentController implements Controller {
     private TextField phoneNumber;
 
     @FXML
-    private TextField Sex;
+    private TextField sex;
 
     @FXML
-    private TextField Citizenship;
+    private TextField citizenship;
 
     @FXML
-    private TextField maritalStatus;
+    private TextField marital_status;
 
     @FXML
-    private TextField Job;
+    private TextField job;
 
     @FXML
     private TextField MName;
 
     @FXML
-    private TextField bloodType;
+    private TextField btype;
 
     @FXML
-    private TextField houseNmber;
+    private TextField house_number;
 
     @FXML
-    private TextField emergencyName;
+    private TextField ECF;
 
     @FXML
-    private TextField emergencyPhone;
+    private TextField ECP;
 
     @FXML
     private TextField HOName;
@@ -65,13 +66,13 @@ public class NewResidentController implements Controller {
     private TextField HOGFName;
 
     @FXML
-    private TextField HOPhoneNumber;
+    private TextField HOP;
 
     @FXML
-    private Button uploadPhoto;
+    private Button upload_photo;
 
     @FXML
-    private Button uploadMap;
+    private Button upload_map;
 
     @FXML
     private Button approveBtn;
@@ -79,10 +80,16 @@ public class NewResidentController implements Controller {
     @FXML
     private Button clearBtn;
 
+    @FXML
+    private VBox R_imageHolder;
+
+    @FXML 
+    private VBox H_imageHolder;
+
 
     @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/NewResident.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/NewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         Sidebar.borderPane.setCenter(anchorPane);
 
