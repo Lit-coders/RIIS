@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
    <top>
       <HBox fx:id="header" prefHeight="30.0" prefWidth="1400.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -19,7 +19,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/user.png" />
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/user.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -28,7 +28,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/setting.png" />
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/setting.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -44,7 +44,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/minus.png" />
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/minus.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -53,7 +53,7 @@
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/maximize.png" />
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/maximize.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -65,7 +65,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/close.png" />
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/close.png" />
                      </image>
                   </ImageView>
                </graphic>
