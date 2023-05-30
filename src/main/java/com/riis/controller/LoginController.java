@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginController implements Controller { 
 
@@ -35,6 +36,7 @@ public class LoginController implements Controller {
 
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     } 
 

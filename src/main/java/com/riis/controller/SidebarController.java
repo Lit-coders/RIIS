@@ -3,6 +3,8 @@ package com.riis.controller;
 
 import com.riis.view.Sidebar;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +19,13 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 public class SidebarController implements Controller {
+    @FXML private HBox header;
+    @FXML private Label titlebar;
+    @FXML private Button user_btn;
+    @FXML private Button setting_btn;
+    @FXML private Button mini_btn;
+    @FXML private Button max_btn;
+    @FXML private Button close_btn;
     @FXML private VBox sidebar;
     @FXML private HBox overview;
     @FXML private HBox requests;
@@ -48,10 +57,10 @@ public class SidebarController implements Controller {
         Sidebar.borderPane = borderPane;
         showView(overview);
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 1400, 800);
         stage.setScene(scene);
         stage.setTitle("Information officer");
-        stage.setMaximized(true);
+// stage.setMaximized(true);
         stage.show();
 
     }
@@ -109,11 +118,39 @@ public class SidebarController implements Controller {
 
     public void showView(HBox clickedHBox) throws Exception {
         if(clickedHBox == overview) {
+            // titlebar.setText("Overview");
             OverviewController overviewController = new OverviewController();
             overviewController.getView();
         } else if(clickedHBox == requests) {
+            titlebar.setText("Requests");
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
-        } 
+        } else if(clickedHBox == replace_id) {
+            titlebar.setText("Replace Lost Id");
+            ReplaceController replaceController = new ReplaceController();
+            replaceController.getView();
+        } else if(clickedHBox == id_renewal) {
+            titlebar.setText("Renew Expired Id");
+            RenewalController renewalController = new RenewalController();
+            renewalController.getView();
+        }
+    }
+
+    @FXML
+    private void closeStage(ActionEvent event) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void maximizeStage(ActionEvent event) {
+        Stage stage = (Stage) max_btn.getScene().getWindow();
+        stage.setMaximized(true);
+    }
+
+    @FXML
+    private void minimizeStage(ActionEvent event) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.setIconified(true);
     }
 }
