@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
+   <top>
+      <HBox fx:id="header" prefHeight="30.0" prefWidth="1400.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="user_btn" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/user.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="setting_btn" mnemonicParsing="false" prefWidth="0.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/setting.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Label fx:id="titlebar" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="1048.0" text="Overview" textAlignment="CENTER" textFill="#825fe5">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Button fx:id="mini_btn" mnemonicParsing="false" onAction="#minimizeStage" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/minus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="max_btn" mnemonicParsing="false" onAction="#maximizeStage" prefHeight="32.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/maximize.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="8.0" />
+               </padding>
+            </Button>
+            <Button fx:id="close_btn" mnemonicParsing="false" onAction="#closeStage" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="750.0" prefWidth="300.0" styleClass="vbox" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="227.0" text="Midre Genete Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
+               <font>
+                  <Font name="Inter Medium" size="31.0" />
+               </font>
+            </Label>
+            <HBox fx:id="overview" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M10.5,6a7.5,7.5 0 1,0 7.5,7.5h-7.5V6z M13.5,10.5H21A7.5,7.5 0 0 0 13.5,3v7.5z" fill="#ffffff00" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="Overview" textFill="#825fe5">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="requests" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M14.857,17.082a23.848,23.848,0,005.454-1.31A8.967,8.967,0,0118,9.75v-.7V9A6,6,0,006,9v.75a8.967,8.967,0,01-2.312,6.022c1.733.64,3.56,1.085,5.455,1.31m5.714,0a24.255,24.255,0,01-5.714,0m5.714,0a3,3,0,11-5.714,0" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="Requests" textFill="#825fe5">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="new_resident" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M12,9v6m3-3H9m12,0a9,9,0,11-18,0,9,9,0,0118,0z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="New Resident" textFill="#825fe5">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="id_renewal" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M12,6v6h4.5m4.5,0a9,9,0,11-18,0,9,9,0,0118,0z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="ID Renewal" textFill="#825fe5">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="replace_id" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M9.879,7.519c1.171-1.025,3.071-1.025,4.242,0,1.172,1.025,1.172,2.687,0,3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45,1.827v.75M21,12a9,9,0,11-18,0,9,9,0,0118,0zm-9,5.25h.008v.008H12v-.008z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="Replace Lost ID" textFill="#825fe5">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets bottom="29.0" top="29.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+   </left>
+</BorderPane>
