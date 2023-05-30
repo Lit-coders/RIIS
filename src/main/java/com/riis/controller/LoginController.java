@@ -1,5 +1,6 @@
 package com.riis.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Controller { 
+    @FXML
+    private Button close_btn;
 
     @FXML
     private TextField username;
@@ -86,4 +89,9 @@ public class LoginController implements Controller {
         return false;
     }
 
+    @FXML
+    void closeLoginStage(ActionEvent event) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.close();
+    }
 }

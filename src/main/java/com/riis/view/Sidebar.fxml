@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
    <top>
       <HBox fx:id="header" prefHeight="30.0" prefWidth="1400.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -33,14 +33,14 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="titlebar" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1149.0" text="Overview" textAlignment="CENTER" textFill="#825fe5">
+            <Label fx:id="titlebar" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="1048.0" text="Overview" textAlignment="CENTER" textFill="#825fe5">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <font>
                   <Font size="20.0" />
                </font></Label>
-            <Button fx:id="mini_btn" mnemonicParsing="false" onAction="#minimizeStage" prefHeight="30.0" prefWidth="40.0">
+            <Button fx:id="mini_btn" mnemonicParsing="false" onAction="#minimizeStage" prefHeight="40.0" prefWidth="40.0">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="max_btn" mnemonicParsing="false" onAction="#maximizeStage" prefHeight="30.0" prefWidth="40.0">
+            <Button fx:id="max_btn" mnemonicParsing="false" onAction="#maximizeStage" prefHeight="32.0" prefWidth="40.0">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,7 +61,7 @@
                   <Insets bottom="4.0" left="4.0" right="4.0" top="8.0" />
                </padding>
             </Button>
-            <Button fx:id="close_btn" mnemonicParsing="false" onAction="#closeStage" prefHeight="30.0" prefWidth="40.0">
+            <Button fx:id="close_btn" mnemonicParsing="false" onAction="#closeStage" prefHeight="40.0" prefWidth="40.0">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
