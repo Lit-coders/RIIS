@@ -1,0 +1,53 @@
+#body_anchor {
+  -fx-background-color: #d9d9d9;
+}
+
+#search_box {
+  -fx-background-color: white;
+  -fx-background-radius: 15px;
+}
+
+#re_search_field {
+  -fx-background-color: transparent;
+}
+
+#re_search_btn {
+  -fx-background-color: transparent;
+}
+
+#re_search_btn:hover {
+  -fx-background-color: rgba(109, 100, 100, 0.434);
+  -fx-background-radius: 15px;
+}
+#replace_list {
+  -fx-background-color: white;
+  -fx-background-radius: 15px;
+}
+
+#re_approve_btn,
+#re_clear_btn {
+  -fx-background-color: transparent;
+  -fx-border-color: #976eef;
+}
+
+#re_approve_btn:hover,
+#re_clear_btn:hover {
+  -fx-background-color: #976eef;
+  -fx-text-fill: white;
+}
+
+#detail_box {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 15px;
+}
+
+.detail_hbox {
+  -fx-background-color: #eee6e6;
+}
+.detail_hbox:hover {
+  -fx-background-color: #eee6e6ab;
+}
+
+.detailLabel {
+  -fx-font-weight: 800;
+}
