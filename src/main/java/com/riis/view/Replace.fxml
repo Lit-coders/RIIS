@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1060.0" stylesheets="@css/replace.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.ReplaceController">
+<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1060.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/replace.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.ReplaceController">
    <children>
       <HBox fx:id="search_box" alignment="CENTER" layoutX="6.0" layoutY="8.0" prefHeight="38.0" prefWidth="482.0" spacing="10.0">
          <children>
@@ -20,7 +20,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/search.png" />
+                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/search.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -33,7 +33,7 @@
          <children>
             <ImageView fitHeight="138.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@icons/user.png" />
+                  <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/user.png" />
                </image>
             </ImageView>
             <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" styleClass="detail_hbox">
