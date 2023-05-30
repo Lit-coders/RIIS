@@ -5,7 +5,7 @@
 
 #header {
   -fx-background-color: white;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 5);
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 12, 0, 0, 3);
 }
 
 #user_btn,
@@ -14,12 +14,6 @@
 #max_btn,
 #close_btn {
   -fx-background-color: transparent;
-}
-
-#user_btn,
-#setting_btn {
-  -fx-border-color: rgba(50, 55, 95, 0.5);
-  -fx-border-width: 0 2 0 0;
 }
 
 #user_btn:hover,

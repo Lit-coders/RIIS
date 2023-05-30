@@ -1,10 +1,10 @@
 package com.riis.controller;
 
-import com.riis.view.Sidebar;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+
+import com.riis.utils.Sidebar;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,7 +52,7 @@ public class RenewalController implements Controller{
 
     @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/Renewal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Renewal.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
         Sidebar.borderPane.setCenter(anchorPane);

@@ -1,7 +1,7 @@
 package com.riis.controller;
 
 
-import com.riis.view.Sidebar;
+import com.riis.utils.Sidebar;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -35,6 +35,7 @@ public class SidebarController implements Controller {
     public Stage stage;
     public HBox previousClickedHbox = null;
     public HBox clickedHbox = overview;
+    public Boolean isMaximized = false;
 
     public SidebarController(Stage stage) {
         this.stage = stage;
@@ -48,7 +49,7 @@ public class SidebarController implements Controller {
     }
 
     public Parent getRoot() throws Exception {
-        return  FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
+        return  FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar.fxml"));
     }
 
     public void getView() throws Exception {
@@ -145,7 +146,13 @@ public class SidebarController implements Controller {
     @FXML
     private void maximizeStage(ActionEvent event) {
         Stage stage = (Stage) max_btn.getScene().getWindow();
+        if(isMaximized) {
+            stage.setMaximized(false);
+            isMaximized = false;
+            return;
+        } 
         stage.setMaximized(true);
+        isMaximized = true;
     }
 
     @FXML

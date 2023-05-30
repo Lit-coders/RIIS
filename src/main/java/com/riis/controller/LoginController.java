@@ -33,7 +33,7 @@ public class LoginController implements Controller {
     }
 
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
 
         Scene scene = new Scene(root);
 

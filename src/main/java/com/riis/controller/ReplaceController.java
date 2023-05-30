@@ -1,6 +1,6 @@
 package com.riis.controller;
 
-import com.riis.view.Sidebar;
+import com.riis.utils.Sidebar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +49,7 @@ public class ReplaceController implements Controller{
 
     @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/Replace.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Replace.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
         Sidebar.borderPane.setCenter(anchorPane);

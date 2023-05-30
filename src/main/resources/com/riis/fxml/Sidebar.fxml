@@ -11,29 +11,29 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../../../../../RIIS/src/main/resources/com/riis/css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../css/sidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.SidebarController">
    <top>
       <HBox fx:id="header" prefHeight="30.0" prefWidth="1400.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="user_btn" mnemonicParsing="false">
+            <Button fx:id="user_btn" mnemonicParsing="false" prefHeight="32.0" prefWidth="23.0">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/user.png" />
+                        <Image url="@../icons/user.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="setting_btn" mnemonicParsing="false" prefWidth="0.0">
+            <Button fx:id="setting_btn" mnemonicParsing="false" prefHeight="32.0" prefWidth="12.0">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/setting.png" />
+                        <Image url="@../icons/setting.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="titlebar" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="1048.0" text="Overview" textAlignment="CENTER" textFill="#825fe5">
+            <Label fx:id="titlebar" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="1043.0" text="Overview" textAlignment="CENTER" textFill="#825fe5">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -44,16 +44,16 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/minus.png" />
+                        <Image url="@../icons/minus.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="max_btn" mnemonicParsing="false" onAction="#maximizeStage" prefHeight="32.0" prefWidth="40.0">
+            <Button fx:id="max_btn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#maximizeStage" prefHeight="32.0" prefWidth="40.0">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/maximize.png" />
+                        <Image url="@../icons/maximize.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -65,7 +65,7 @@
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../RIIS/src/main/resources/com/riis/icons/close.png" />
+                        <Image url="@../icons/close.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -76,7 +76,7 @@
    <left>
       <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="750.0" prefWidth="300.0" styleClass="vbox" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="227.0" text="Midre Genete Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="227.0" text="Midre Genet Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
                <font>
                   <Font name="Inter Medium" size="31.0" />
                </font>
