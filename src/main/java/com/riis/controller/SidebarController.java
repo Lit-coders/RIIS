@@ -1,7 +1,7 @@
 package com.riis.controller;
 
 
-import com.riis.view.Sidebar;
+import com.riis.utils.Sidebar;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -49,7 +49,7 @@ public class SidebarController implements Controller {
     }
 
     public Parent getRoot() throws Exception {
-        return  FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
+        return  FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar.fxml"));
     }
 
     public void getView() throws Exception {
