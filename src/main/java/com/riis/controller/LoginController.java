@@ -1,5 +1,6 @@
 package com.riis.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,8 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginController implements Controller { 
+    @FXML
+    private Button close_btn;
 
     @FXML
     private TextField username;
@@ -29,12 +33,13 @@ public class LoginController implements Controller {
     }
 
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/view/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
 
         Scene scene = new Scene(root);
 
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     } 
 
@@ -84,4 +89,9 @@ public class LoginController implements Controller {
         return false;
     }
 
+    @FXML
+    void closeLoginStage(ActionEvent event) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.close();
+    }
 }

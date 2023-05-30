@@ -1,12 +1,16 @@
 package com.riis.controller;
 
-import com.riis.view.Sidebar;
 
+import com.riis.utils.Sidebar;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -16,21 +20,23 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 public class SidebarController implements Controller {
-    @FXML
-    private VBox sidebar;
-    @FXML
-    private HBox overview;
-    @FXML
-    private HBox requests;
-    @FXML
-    private HBox new_resident;
-    @FXML
-    private HBox id_renewal;
-    @FXML
-    private HBox replace_id;
+    @FXML private HBox header;
+    @FXML private Label titlebar;
+    @FXML private Button user_btn;
+    @FXML private Button setting_btn;
+    @FXML private Button mini_btn;
+    @FXML private Button max_btn;
+    @FXML private Button close_btn;
+    @FXML private VBox sidebar;
+    @FXML private HBox overview;
+    @FXML private HBox requests;
+    @FXML private HBox new_resident;
+    @FXML private HBox id_renewal;
+    @FXML private HBox replace_id;
     public Stage stage;
     public HBox previousClickedHbox = null;
     public HBox clickedHbox = overview;
+    public Boolean isMaximized = false;
 
     public SidebarController(Stage stage) {
         this.stage = stage;
@@ -44,7 +50,7 @@ public class SidebarController implements Controller {
     }
 
     public Parent getRoot() throws Exception {
-        return FXMLLoader.load(getClass().getResource("/com/riis/view/Sidebar.fxml"));
+        return  FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar.fxml"));
     }
 
     public void getView() throws Exception {
@@ -53,10 +59,11 @@ public class SidebarController implements Controller {
         Sidebar.borderPane = borderPane;
         showView(overview);
 
-        Scene scene = new Scene(root,1300,700);
+        Scene scene = new Scene(root, 1300, 700);
         stage.setScene(scene);
         stage.setTitle("Information officer");
         // stage.setMaximized(true);
+// stage.setMaximized(true);
         stage.show();
 
     }
@@ -113,15 +120,36 @@ public class SidebarController implements Controller {
     }
 
     public void showView(HBox clickedHBox) throws Exception {
-        if (clickedHBox == overview) {
+        if(clickedHBox == overview) {
             OverviewController overviewController = new OverviewController();
             overviewController.getView();
-        } else if (clickedHBox == requests) {
+        } else if(clickedHBox == requests) {
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
-        } else if (clickedHBox == new_resident) {
-            NewResidentController newResidentController = new NewResidentController();
-            newResidentController.getView();
+        } 
+    }
+
+    @FXML
+    private void closeStage(ActionEvent event) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void maximizeStage(ActionEvent event) {
+        Stage stage = (Stage) max_btn.getScene().getWindow();
+        if (isMaximized) {
+            stage.setMaximized(false);
+            isMaximized = false;
+            return;
         }
+        stage.setMaximized(true);
+        isMaximized = true;
+    }
+
+    @FXML
+    private void minimizeStage(ActionEvent event) {
+        Stage stage = (Stage) close_btn.getScene().getWindow();
+        stage.setIconified(true);
     }
 }
