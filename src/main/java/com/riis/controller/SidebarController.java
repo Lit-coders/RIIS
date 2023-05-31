@@ -40,7 +40,7 @@ public class SidebarController implements Controller {
     public SidebarController(Stage stage) {
         this.stage = stage;
     }
-    
+
     public SidebarController() {
     }
 
@@ -61,6 +61,7 @@ public class SidebarController implements Controller {
         Scene scene = new Scene(root, 1300, 700);
         stage.setScene(scene);
         stage.setTitle("Information officer");
+        // stage.setMaximized(true);
 // stage.setMaximized(true);
         stage.show();
 
@@ -81,7 +82,7 @@ public class SidebarController implements Controller {
 
         // Set the style of the clicked HBox
         checkHBox(clickedHBox);
-        
+
         // Set the style of the other HBoxes
         for (Node node : sidebar.getChildren()) {
             if (node instanceof HBox && node != clickedHBox) {
@@ -126,6 +127,10 @@ public class SidebarController implements Controller {
             titlebar.setText("Requests");
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
+        } else if(clickedHBox == new_resident) {
+            titlebar.setText("New Resident Form");
+            NewResidentController newResidentController = new NewResidentController();
+            newResidentController.getView();
         } else if(clickedHBox == replace_id) {
             titlebar.setText("Replace Lost Id");
             ReplaceController replaceController = new ReplaceController();
@@ -146,11 +151,11 @@ public class SidebarController implements Controller {
     @FXML
     private void maximizeStage(ActionEvent event) {
         Stage stage = (Stage) max_btn.getScene().getWindow();
-        if(isMaximized) {
+        if (isMaximized) {
             stage.setMaximized(false);
             isMaximized = false;
             return;
-        } 
+        }
         stage.setMaximized(true);
         isMaximized = true;
     }
