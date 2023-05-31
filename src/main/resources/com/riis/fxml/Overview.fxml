@@ -1,15 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.OverviewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" styleClass="anchor-pane" stylesheets="@../css/overview.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.OverviewController">
    <children>
-      <HBox prefHeight="46.0" prefWidth="588.0">
+      <VBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" prefHeight="98.0" prefWidth="948.0" styleClass="simple-info" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="9.0">
          <children>
-            <Label alignment="BASELINE_CENTER" contentDisplay="CENTER" text="Overview" />
+            <HBox>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="greeting" styleClass="simple-info-greeting" text="Good morning," />
+                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="Helen">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </HBox>
+            <HBox>
+               <VBox.margin>
+                  <Insets left="15.0" />
+               </VBox.margin>
+               <children>
+                  <Label fx:id="date" styleClass="simple-info-time" text="30 Apr 2023">
+                     <padding>
+                        <Insets right="25.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="time" styleClass="simple-info-time" text="6:00 PM" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
+      <FlowPane layoutX="14.0" layoutY="115.0" prefHeight="509.0" prefWidth="933.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="232.0" prefWidth="231.0" styleClass="residents">
+               <children>
+                  <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="96.0" prefWidth="231.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="131.0" styleClass="tot-residents" text="Residents">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Label>
+                        <MenuButton mnemonicParsing="false" styleClass="drop-down" text="Today">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                          </items>
+                        </MenuButton>
+                     </children>
+                  </HBox>
+                  <AnchorPane prefHeight="200.0">
+                     <children>
+                        <Label fx:id="tot_residents" layoutX="63.0" text="27" textFill="#7d4bd2">
+                           <font>
+                              <Font size="96.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <Pane prefHeight="232.0" prefWidth="231.0" style="-fx-background-color: white;" styleClass="pane">
+               <children>
+                  <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="63.0" prefWidth="231.0">
+                     <children>
+                        <Label prefHeight="20.0" prefWidth="129.0" styleClass="tot-residents" text="Gender">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                        </Label>
+                        <MenuButton mnemonicParsing="false" styleClass="drop-down" text="Today">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                        </MenuButton>
+                     </children>
+                  </HBox>
+                  <VBox alignment="TOP_CENTER" layoutY="65.0" prefHeight="167.0" prefWidth="116.0" styleClass="pane">
+                     <children>
+                        <Label fx:id="tot_residents_male" styleClass="gender-stat" text="15">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="gender-stat-labels" text="Male" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="65.0" prefHeight="167.0" prefWidth="115.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="tot_residents_female" styleClass="gender-stat" text="12">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <Label styleClass="gender-stat-labels" text="Female" />
+                     </children>
+                  </VBox>
+               </children>
+               <FlowPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </FlowPane.margin>
+            </Pane>
+            <AnchorPane prefHeight="232.0" prefWidth="464.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+               <children>
+                  <BarChart prefHeight="232.0" prefWidth="464.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="yAxis" side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="257.0" prefWidth="701.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+               <FlowPane.margin>
+                  <Insets top="10.0" />
+               </FlowPane.margin>
+               <children>
+                  <ListView fx:id="listView" prefHeight="257.0" prefWidth="701.0" />
+               </children>
+            </AnchorPane>
+            <VBox prefHeight="232.0" prefWidth="231.0" styleClass="residents">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="65.0" prefWidth="231.0" spacing="2.0">
+                     <children>
+                        <Label fx:id="loggedInUserFullName" styleClass="last-login-title" text="Helen Shiferaw" />
+                        <Label styleClass="last-login-title" text="Last login" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER">
+                           <children>
+                              <Label fx:id="lastLoginNum" text="1" textFill="#7d4bd2">
+                                 <font>
+                                    <Font size="96.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lastLoginLetter" text="d" textFill="#7d4bd2">
+                                 <font>
+                                    <Font size="96.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <Label styleClass="last-login-title" text="ago" />
+                     </children>
+                  </VBox>
+               </children>
+               <FlowPane.margin>
+                  <Insets left="10.0" right="6.0" top="10.0" />
+               </FlowPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="7.0" />
+               </padding>
+            </VBox>
+         </children>
+      </FlowPane>
    </children>
 </AnchorPane>
