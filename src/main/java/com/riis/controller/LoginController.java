@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.SVGPath;
@@ -24,6 +26,7 @@ public class LoginController implements Controller {
 
     @FXML
     private Button loginButton;
+
 
     @FXML
     private Parent root;
@@ -119,6 +122,19 @@ public class LoginController implements Controller {
     private void closeLoginStage(MouseEvent event) {
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void handleKeyPress(KeyEvent event) throws Exception {
+        if(event.getSource() == username){
+            if (event.getCode()== KeyCode.ENTER){
+                password.requestFocus();
+            }
+        } else if(event.getSource() == password){
+            if (event.getCode()== KeyCode.ENTER){
+                login();
+            }
+        }
     }
 
     private void handleHoverCloseButton() {
