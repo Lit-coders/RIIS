@@ -1,18 +1,20 @@
 package com.riis.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Controller { 
     @FXML
-    private Button close_btn;
+    private HBox close_btn;
 
     @FXML
     private TextField username;
@@ -23,13 +25,37 @@ public class LoginController implements Controller {
     @FXML
     private Button loginButton;
 
+    @FXML
+    private Parent root;
+
     public Stage stage;
+    private double xOffset;
+    private double yOffset;
+    
 
     public LoginController(Stage stage) {
         this.stage = stage;
     }
 
     public LoginController() {
+    }
+
+    public void initialize() throws Exception {
+        setupDragHandlers();
+        handleHoverCloseButton();
+    }
+
+    private void setupDragHandlers() {
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
     }
 
     public void getView() throws Exception {
@@ -90,8 +116,18 @@ public class LoginController implements Controller {
     }
 
     @FXML
-    void closeLoginStage(ActionEvent event) {
+    private void closeLoginStage(MouseEvent event) {
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
+    }
+
+    private void handleHoverCloseButton() {
+        SVGPath closeIcon = (SVGPath) close_btn.getChildren().get(0);
+        close_btn.setOnMouseEntered(e -> {
+            closeIcon.setStyle("-fx-stroke: white;");
+        });
+        close_btn.setOnMouseExited(e -> {
+            closeIcon.setStyle("-fx-stroke: #976eef;");
+        });
     }
 }
