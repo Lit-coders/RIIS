@@ -49,6 +49,7 @@ public class SidebarController implements Controller {
 
     public void initialize() throws Exception {
         setupDragHandlers();
+        Sidebar.titlebar = titlebar;
         checkHBox(overview);
     }
 
@@ -137,26 +138,30 @@ public class SidebarController implements Controller {
 
     public void showView(HBox clickedHBox) throws Exception {
         if(clickedHBox == overview) {
-            // titlebar.setText("Overview");
+            setTitlebar("Overview");
             OverviewController overviewController = new OverviewController();
             overviewController.getView();
         } else if(clickedHBox == requests) {
-            titlebar.setText("Requests");
+            setTitlebar("Requests");
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
         } else if(clickedHBox == new_resident) {
-            titlebar.setText("New Resident Form");
+            setTitlebar("New Resident Form");
             NewResidentController newResidentController = new NewResidentController();
             newResidentController.getView();
         } else if(clickedHBox == replace_id) {
-            titlebar.setText("Replace Lost Id");
+            setTitlebar("Replace Lost Id");
             ReplaceController replaceController = new ReplaceController();
             replaceController.getView();
         } else if(clickedHBox == id_renewal) {
-            titlebar.setText("Renew Expired Id");
+            setTitlebar("Renew Expired Id");
             RenewalController renewalController = new RenewalController();
             renewalController.getView();
         }
+    }
+
+    private void setTitlebar(String title) {
+        Sidebar.titlebar.setText(title);
     }
 
     @FXML
