@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -23,6 +25,7 @@ public class LoginController implements Controller {
     @FXML
     private Button loginButton;
 
+
     public Stage stage;
 
     public LoginController(Stage stage) {
@@ -30,6 +33,11 @@ public class LoginController implements Controller {
     }
 
     public LoginController() {
+    }
+
+    @FXML 
+    public void initialize() throws Exception {
+
     }
 
     public void getView() throws Exception {
@@ -93,5 +101,18 @@ public class LoginController implements Controller {
     void closeLoginStage(ActionEvent event) {
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void handleKeyPress(KeyEvent event) throws Exception {
+        if(event.getSource() == username){
+            if (event.getCode()== KeyCode.ENTER){
+                password.requestFocus();
+            }
+        } else if(event.getSource() == password){
+            if (event.getCode()== KeyCode.ENTER){
+                login();
+            }
+        }
     }
 }
