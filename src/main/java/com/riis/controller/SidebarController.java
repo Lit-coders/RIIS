@@ -32,10 +32,13 @@ public class SidebarController implements Controller {
     @FXML private HBox new_resident;
     @FXML private HBox id_renewal;
     @FXML private HBox replace_id;
+    @FXML private Parent root;
     public Stage stage;
     public HBox previousClickedHbox = null;
     public HBox clickedHbox = overview;
     public Boolean isMaximized = false;
+    private double xOffset;
+    private double yOffset;
 
     public SidebarController(Stage stage) {
         this.stage = stage;
@@ -45,7 +48,22 @@ public class SidebarController implements Controller {
     }
 
     public void initialize() throws Exception {
+        setupDragHandlers();
+        Sidebar.titlebar = titlebar;
         checkHBox(overview);
+    }
+
+    private void setupDragHandlers() {
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
     }
 
     public Parent getRoot() throws Exception {
@@ -120,26 +138,30 @@ public class SidebarController implements Controller {
 
     public void showView(HBox clickedHBox) throws Exception {
         if(clickedHBox == overview) {
-            // titlebar.setText("Overview");
+            setTitlebar("Overview");
             OverviewController overviewController = new OverviewController();
             overviewController.getView();
         } else if(clickedHBox == requests) {
-            titlebar.setText("Requests");
+            setTitlebar("Requests");
             RequestsController requestsController = new RequestsController();
             requestsController.getView();
         } else if(clickedHBox == new_resident) {
-            titlebar.setText("New Resident Form");
+            setTitlebar("New Resident Form");
             NewResidentController newResidentController = new NewResidentController();
             newResidentController.getView();
         } else if(clickedHBox == replace_id) {
-            titlebar.setText("Replace Lost Id");
+            setTitlebar("Replace Lost Id");
             ReplaceController replaceController = new ReplaceController();
             replaceController.getView();
         } else if(clickedHBox == id_renewal) {
-            titlebar.setText("Renew Expired Id");
+            setTitlebar("Renew Expired Id");
             RenewalController renewalController = new RenewalController();
             renewalController.getView();
         }
+    }
+
+    private void setTitlebar(String title) {
+        Sidebar.titlebar.setText(title);
     }
 
     @FXML
