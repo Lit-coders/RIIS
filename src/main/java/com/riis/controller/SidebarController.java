@@ -32,10 +32,13 @@ public class SidebarController implements Controller {
     @FXML private HBox new_resident;
     @FXML private HBox id_renewal;
     @FXML private HBox replace_id;
+    @FXML private Parent root;
     public Stage stage;
     public HBox previousClickedHbox = null;
     public HBox clickedHbox = overview;
     public Boolean isMaximized = false;
+    private double xOffset;
+    private double yOffset;
 
     public SidebarController(Stage stage) {
         this.stage = stage;
@@ -45,7 +48,21 @@ public class SidebarController implements Controller {
     }
 
     public void initialize() throws Exception {
+        setupDragHandlers();
         checkHBox(overview);
+    }
+
+    private void setupDragHandlers() {
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
     }
 
     public Parent getRoot() throws Exception {
