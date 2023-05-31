@@ -35,11 +35,6 @@ public class LoginController implements Controller {
     public LoginController() {
     }
 
-    @FXML 
-    public void initialize() throws Exception {
-
-    }
-
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
 
