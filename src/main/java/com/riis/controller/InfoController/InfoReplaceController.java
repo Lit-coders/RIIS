@@ -1,5 +1,6 @@
-package com.riis.controller;
+package com.riis.controller.InfoController;
 
+import com.riis.controller.Controller;
 import com.riis.utils.Sidebar;
 
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ReplaceController implements Controller{
+public class InfoReplaceController implements Controller{
 
     @FXML
     private AnchorPane bocy_anchor;
@@ -49,7 +50,7 @@ public class ReplaceController implements Controller{
 
     @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Replace.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoReplace.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
         Sidebar.borderPane.setCenter(anchorPane);

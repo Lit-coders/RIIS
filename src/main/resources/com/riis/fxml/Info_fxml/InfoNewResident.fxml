@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" stylesheets="@../css/newResident.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.NewResidentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" stylesheets="@../../css/Info_css/InfoNewResident.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.InfoController.InfoNewResidentController">
    <children>
       <Pane prefHeight="550.0" prefWidth="415.0" styleClass="right-pane" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0">
          <children>
-            <Label layoutX="68.0" layoutY="6.0" styleClass="header" text="House Owner Information" textAlignment="CENTER" textFill="#976eef" />
-            <VBox fx:id="H_imageHolder" layoutX="121.0" layoutY="80.0" prefHeight="169.0" prefWidth="174.0" styleClass="upload">
+            <Label layoutX="68.0" layoutY="16.0" styleClass="header" text="House Owner Information" textAlignment="CENTER" textFill="#976eef" />
+            <VBox fx:id="H_imageHolder" layoutX="121.0" layoutY="71.0" prefHeight="169.0" prefWidth="174.0" styleClass="upload">
                <children>
                   <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/upload.png" />
+                        <Image url="@../../icons/upload.png" />
                      </image>
                      <VBox.margin>
                         <Insets left="65.0" top="25.0" />
@@ -37,7 +37,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox layoutX="94.0" layoutY="293.0" prefHeight="244.0" prefWidth="244.0">
+            <VBox layoutX="94.0" layoutY="283.0" prefHeight="244.0" prefWidth="244.0">
                <children>
                   <Label text="Name" textFill="#3330e1">
                      <VBox.margin>
@@ -95,7 +95,7 @@
                      <children>
                         <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/upload.png" />
+                              <Image url="@../../icons/upload.png" />
                            </image>
                            <VBox.margin>
                               <Insets left="65.0" top="25.0" />
@@ -170,7 +170,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="phoneNumber" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field" >
+                        <TextField id="phoneNumber" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
