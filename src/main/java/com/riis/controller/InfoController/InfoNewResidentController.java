@@ -1,5 +1,6 @@
-package com.riis.controller;
+package com.riis.controller.InfoController;
 
+import com.riis.controller.Controller;
 import com.riis.utils.Sidebar;
 
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class NewResidentController implements Controller {
+public class InfoNewResidentController implements Controller {
     @FXML
     private TextField Name;
 
@@ -89,7 +90,7 @@ public class NewResidentController implements Controller {
 
     @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/NewResident.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoNewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         Sidebar.borderPane.setCenter(anchorPane);
 

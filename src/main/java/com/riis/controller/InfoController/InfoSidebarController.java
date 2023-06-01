@@ -1,6 +1,7 @@
-package com.riis.controller;
+package com.riis.controller.InfoController;
 
 
+import com.riis.controller.Controller;
 import com.riis.utils.Sidebar;
 
 import javafx.event.ActionEvent;
@@ -18,7 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
-public class SidebarController implements Controller {
+public class InfoSidebarController implements Controller {
     @FXML private HBox header;
     @FXML private Label titlebar;
     @FXML private Button user_btn;
@@ -40,11 +41,11 @@ public class SidebarController implements Controller {
     private double xOffset;
     private double yOffset;
 
-    public SidebarController(Stage stage) {
+    public InfoSidebarController(Stage stage) {
         this.stage = stage;
     }
 
-    public SidebarController() {
+    public InfoSidebarController() {
     }
 
     public void initialize() throws Exception {
@@ -73,7 +74,7 @@ public class SidebarController implements Controller {
     }
 
     public Parent getRoot() throws Exception {
-        return  FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar.fxml"));
+        return  FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoSidebar.fxml"));
     }
 
     public void getView() throws Exception {
@@ -146,23 +147,23 @@ public class SidebarController implements Controller {
     public void showView(HBox clickedHBox) throws Exception {
         if(clickedHBox == overview) {
             setTitlebar("Overview");
-            OverviewController overviewController = new OverviewController();
+            InfoOverviewController overviewController = new InfoOverviewController();
             overviewController.getView();
         } else if(clickedHBox == requests) {
             setTitlebar("Requests");
-            RequestsController requestsController = new RequestsController();
+            InfoRequestsController requestsController = new InfoRequestsController();
             requestsController.getView();
         } else if(clickedHBox == new_resident) {
             setTitlebar("New Resident Form");
-            NewResidentController newResidentController = new NewResidentController();
+            InfoNewResidentController newResidentController = new InfoNewResidentController();
             newResidentController.getView();
         } else if(clickedHBox == replace_id) {
             setTitlebar("Replace Lost Id");
-            ReplaceController replaceController = new ReplaceController();
+            InfoReplaceController replaceController = new InfoReplaceController();
             replaceController.getView();
         } else if(clickedHBox == id_renewal) {
             setTitlebar("Renew Expired Id");
-            RenewalController renewalController = new RenewalController();
+            InfoRenewalController renewalController = new InfoRenewalController();
             renewalController.getView();
         }
     }
