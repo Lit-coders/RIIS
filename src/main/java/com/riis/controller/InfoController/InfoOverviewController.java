@@ -1,5 +1,6 @@
-package com.riis.controller;
+package com.riis.controller.InfoController;
 
+import com.riis.controller.Controller;
 import com.riis.utils.Sidebar;
 
 import javafx.fxml.FXML;
@@ -12,7 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
-public class OverviewController implements Controller {
+public class InfoOverviewController implements Controller {
     @FXML
     private Label greeting;
 
@@ -53,7 +54,7 @@ public class OverviewController implements Controller {
     private ListView<HBox> listView;
 
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Overview.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoOverview.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
         Sidebar.borderPane.setCenter(anchorPane);
