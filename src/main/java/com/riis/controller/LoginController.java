@@ -62,13 +62,15 @@ public class LoginController implements Controller {
     }
 
     public void getView() throws Exception {
+        stage.close();
+
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
-
         Scene scene = new Scene(root);
+        Stage stage = new Stage();
 
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     } 
 
@@ -86,7 +88,6 @@ public class LoginController implements Controller {
             if (user.equals("username") && pass.equals("password")) {
                 System.out.println("Login Successful");
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.close();
 
                 SidebarController sidebarController = new SidebarController(stage);
                 sidebarController.getView();

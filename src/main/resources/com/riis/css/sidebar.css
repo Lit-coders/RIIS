@@ -9,7 +9,7 @@
 }
 
 #user_btn,
-#setting_btn,
+#logout_btn,
 #mini_btn,
 #max_btn,
 #close_btn {
@@ -17,7 +17,7 @@
 }
 
 #user_btn:hover,
-#setting_btn:hover,
+#logout_btn:hover,
 #mini_btn:hover,
 #max_btn:hover,
 #close_btn:hover {
