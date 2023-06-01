@@ -2,6 +2,7 @@ package com.riis.controller.InfoController;
 
 
 import com.riis.controller.Controller;
+import com.riis.controller.LoginController;
 import com.riis.utils.Sidebar;
 
 import javafx.event.ActionEvent;
