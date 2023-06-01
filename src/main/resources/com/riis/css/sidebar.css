@@ -19,11 +19,9 @@
 #user_btn:hover,
 #setting_btn:hover,
 #mini_btn:hover,
-#max_btn:hover {
-  -fx-background-color: rgba(0, 0, 0, 0.074);
-}
-
+#max_btn:hover,
 #close_btn:hover {
-  -fx-background-color: rgb(255, 0, 0);
-  -fx-background-radius: 0px; 
+  -fx-background-color: #976eef;
+  -fx-background-radius: 0;
+  -fx-border-radius: 0;
 }

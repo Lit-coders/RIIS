@@ -49,6 +49,12 @@ public class SidebarController implements Controller {
 
     public void initialize() throws Exception {
         setupDragHandlers();
+        setting_btn.setStyle("-fx-fill: #976eef;");
+        Sidebar.handleHover(close_btn);
+        Sidebar.handleHover(max_btn);
+        Sidebar.handleHover(mini_btn);
+        Sidebar.handleHover(setting_btn);
+        Sidebar.handleHover(user_btn);
         Sidebar.titlebar = titlebar;
         checkHBox(overview);
     }
