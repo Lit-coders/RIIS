@@ -1,0 +1,45 @@
+.left-pane {
+  -fx-background-color: white;
+  -fx-background-radius:20px;
+}
+.right-pane {
+  -fx-background-color: white;
+  -fx-background-radius:20px;
+}
+.approve-btn {
+  -fx-background-color: #976eef;
+  -fx-text-fill: white;
+  -fx-background-radius: 15px;
+  -fx-font-size: 17px;
+  -fx-font-weight: 300;
+}
+.clear-btn {
+  -fx-background-color: white;
+  -fx-text-fill: #976eef;
+  -fx-border-radius: 15px;
+  -fx-border-color: #976eef;
+  -fx-font-size: 17px;
+  -fx-font-weight: 300;
+}
+
+.txt-field{
+  -fx-background-radius: 20px;
+}
+
+.upload{
+  -fx-background-color: #ede9f7;
+  -fx-background-radius: 20px;
+}
+
+.browse{
+  -fx-background-color: #976eef;
+  -fx-background-radius: 20px;
+  -fx-text-fill: white;
+}
+.header{
+  -text-fill: #976eef;
+  -fx-font-size: 25px;
+  -fx-font-weight: 700;
+}
+
+
