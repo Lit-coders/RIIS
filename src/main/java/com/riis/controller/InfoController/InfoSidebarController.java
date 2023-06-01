@@ -2,6 +2,7 @@ package com.riis.controller.InfoController;
 
 
 import com.riis.controller.Controller;
+import com.riis.controller.LoginController;
 import com.riis.utils.Sidebar;
 
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ public class InfoSidebarController implements Controller {
     @FXML private HBox header;
     @FXML private Label titlebar;
     @FXML private Button user_btn;
-    @FXML private Button setting_btn;
+    @FXML private Button logout_btn;
     @FXML private Button mini_btn;
     @FXML private Button max_btn;
     @FXML private Button close_btn;
@@ -50,6 +51,12 @@ public class InfoSidebarController implements Controller {
 
     public void initialize() throws Exception {
         setupDragHandlers();
+        logout_btn.setStyle("-fx-fill: #976eef;");
+        Sidebar.handleHover(close_btn);
+        Sidebar.handleHover(max_btn);
+        Sidebar.handleHover(mini_btn);
+        Sidebar.handleHover(logout_btn);
+        Sidebar.handleHover(user_btn);
         Sidebar.titlebar = titlebar;
         checkHBox(overview);
     }
@@ -72,6 +79,7 @@ public class InfoSidebarController implements Controller {
     }
 
     public void getView() throws Exception {
+        stage.close();
         Parent root = getRoot();
         BorderPane borderPane = (BorderPane) root;
         Sidebar.borderPane = borderPane;
@@ -187,5 +195,13 @@ public class InfoSidebarController implements Controller {
     private void minimizeStage(ActionEvent event) {
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.setIconified(true);
+    }
+
+    @FXML
+    private void logout() throws Exception {
+        Stage stage = (Stage) logout_btn.getScene().getWindow();
+         
+        LoginController loginController = new LoginController(stage);
+        loginController.getView();
     }
 }

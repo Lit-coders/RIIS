@@ -71,13 +71,15 @@ public class LoginController implements Controller {
     }
 
     public void getView() throws Exception {
+        stage.close();
+
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
-
         Scene scene = new Scene(root);
+        Stage stage = new Stage();
 
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
         Connection connection=DatabaseConnection.getInstance();
         Statement statement=connection.createStatement();
