@@ -1,6 +1,9 @@
 -- SQLite
 INSERT into Employee VALUES ("helen","sdf","jd","von","lix","Information Officer");
-
+-- clear the All the tables
+DELETE FROM Resident;
+DELETE FROM MapHolder;
+DELETE FROM Employee;
 
     Create table Resident (
         ResidentID INTEGER PRIMARY KEY AUTOINCREMENT,
