@@ -8,35 +8,40 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="960.0" stylesheets="@../../css/Info_css/InfoNewResident.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.InfoController.InfoNewResidentController">
    <children>
-      <Pane prefHeight="550.0" prefWidth="415.0" styleClass="right-pane" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0">
+      <Pane layoutX="532.0" layoutY="4.0" prefHeight="550.0" prefWidth="415.0" styleClass="right-pane" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="4.0">
          <children>
             <Label layoutX="68.0" layoutY="16.0" styleClass="header" text="House Owner Information" textAlignment="CENTER" textFill="#976eef" />
-            <VBox fx:id="H_imageHolder" layoutX="121.0" layoutY="71.0" prefHeight="169.0" prefWidth="174.0" styleClass="upload">
+            <StackPane fx:id="mapImageHolder" layoutX="121.0" layoutY="71.0" style="-fx-border-radius: 20;">
                <children>
-                  <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../icons/upload.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets left="65.0" top="25.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Label prefHeight="17.0" prefWidth="83.0" text="  Upload Map" textFill="#3330e1">
-                     <VBox.margin>
-                        <Insets left="45.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Button id="uploadPhoto" fx:id="upload_map" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" styleClass="browse" text="Browse">
-                     <VBox.margin>
-                        <Insets bottom="20.0" left="45.0" right="40.0" top="30.0" />
-                     </VBox.margin>
-                  </Button>
+                  <VBox fx:id="H_imageHolder" prefHeight="169.0" prefWidth="174.0" styleClass="upload">
+                     <children>
+                        <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/upload.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="65.0" top="25.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label prefHeight="17.0" prefWidth="83.0" text="  Upload Map" textFill="#3330e1">
+                           <VBox.margin>
+                              <Insets left="45.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Button id="uploadPhoto" fx:id="upload_map" mnemonicParsing="false" onAction="#MapImageChoser" prefHeight="25.0" prefWidth="98.0" styleClass="browse" text="Browse">
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="45.0" right="40.0" top="30.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </StackPane>
             <VBox layoutX="94.0" layoutY="283.0" prefHeight="244.0" prefWidth="244.0">
                <children>
                   <Label text="Name" textFill="#3330e1">
@@ -44,7 +49,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOName" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
+                  <TextField id="HOName" fx:id="HOName" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -54,7 +59,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOFName" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="HOFName" fx:id="HOFName" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -64,7 +69,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOGFName" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="HOGFName" fx:id="HOGFName" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -74,7 +79,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOP" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="HOP" fx:id="HOP" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -91,28 +96,33 @@
             <Label alignment="CENTER" layoutX="77.0" layoutY="7.0" prefHeight="46.0" prefWidth="325.0" styleClass="header" text="  Resident Information" textFill="#976eef" />
             <Pane layoutX="7.0" layoutY="66.0" prefHeight="552.0" prefWidth="255.0">
                <children>
-                  <VBox fx:id="R_imageHolder" layoutX="37.0" layoutY="4.0" prefHeight="169.0" prefWidth="174.0" styleClass="upload">
+                  <StackPane fx:id="imageHolder" layoutX="37.0" layoutY="4.0" style="-fx-shape: M 0 0 L 0 1 L 1 1 L 1 0 Z;">
                      <children>
-                        <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../icons/upload.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets left="65.0" top="25.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label prefHeight="17.0" prefWidth="83.0" text="  Upload photo" textFill="#3330e1">
-                           <VBox.margin>
-                              <Insets left="45.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Button id="uploadPhoto" fx:id="upload_photo" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" styleClass="browse" text="Browse">
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="45.0" right="40.0" top="30.0" />
-                           </VBox.margin>
-                        </Button>
+                        <ImageView fx:id="residentImage" fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <VBox fx:id="R_imageHolder" prefHeight="169.0" prefWidth="174.0" styleClass="upload">
+                           <children>
+                              <ImageView fitHeight="94.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/upload.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets left="65.0" top="25.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label prefHeight="17.0" prefWidth="83.0" text="  Upload photo" textFill="#3330e1">
+                                 <VBox.margin>
+                                    <Insets left="45.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button id="uploadPhoto" fx:id="upload_photo" mnemonicParsing="false" onAction="#ResidentImageChoser" prefHeight="25.0" prefWidth="98.0" styleClass="browse" text="Browse">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="45.0" right="40.0" top="30.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </StackPane>
                   <VBox layoutX="-1.0" layoutY="189.0" prefHeight="345.0" prefWidth="244.0">
                      <children>
                         <Label styleClass="txtField" text="Name" textFill="#3330e1">
@@ -120,7 +130,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="Name" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
+                        <TextField id="Name" fx:id="Name" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -130,7 +140,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="FName" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                        <TextField id="FName" fx:id="FName" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -140,7 +150,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="GFName" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                        <TextField id="GFName" fx:id="GFName" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -150,7 +160,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="DOB" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                        <TextField id="DOB" fx:id="DOB" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -160,7 +170,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="POB" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                        <TextField id="POB" fx:id="POB" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -170,7 +180,7 @@
                               <Insets left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="phoneNumber" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                        <TextField id="phoneNumber" fx:id="phoneNumber" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -189,7 +199,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="MName" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="MName" fx:id="MName" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -199,7 +209,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="sex" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
+                  <TextField id="sex" fx:id="sex" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -209,7 +219,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="citizenship" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="citizenship" fx:id="citizenship" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -219,7 +229,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="marital_status" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="marital_status" fx:id="marital_status" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -229,7 +239,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="job" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="job" fx:id="job" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -239,7 +249,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="btype" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="btype" fx:id="btype" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -249,7 +259,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="house_number" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="house_number" fx:id="house_number" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -259,7 +269,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="ECF" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="ECF" fx:id="ECF" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -269,7 +279,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="ECP" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="ECP" fx:id="ECP" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -281,7 +291,7 @@
             </VBox>
          </children>
       </Pane>
-      <Button id="clearBtn" layoutX="768.0" layoutY="571.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="142.0" styleClass="clear-btn" text="Clear" />
-      <Button id="approveBtn" layoutX="593.0" layoutY="571.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="142.0" styleClass="approve-btn" text="Approve" />
+      <Button id="clearBtn" layoutX="768.0" layoutY="571.0" mnemonicParsing="false" onAction="#clearForm" prefHeight="38.0" prefWidth="142.0" styleClass="clear-btn" text="Clear" />
+      <Button id="approveBtn" layoutX="593.0" layoutY="571.0" mnemonicParsing="false" onAction="#addResidentAndMapHolder" prefHeight="38.0" prefWidth="142.0" styleClass="approve-btn" text="Approve" />
    </children>
 </AnchorPane>
