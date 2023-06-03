@@ -3,7 +3,7 @@ package com.riis.controller.AdminController;
 
 import com.riis.controller.Controller;
 import com.riis.controller.LoginController;
-import com.riis.utils.Sidebar;
+import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -49,12 +49,12 @@ public class AdminSidebarController implements Controller {
     public void initialize() throws Exception {
         setupDragHandlers();
         logout_btn.setStyle("-fx-fill: #976eef;");
-        Sidebar.handleHover(close_btn);
-        Sidebar.handleHover(max_btn);
-        Sidebar.handleHover(mini_btn);
-        Sidebar.handleHover(logout_btn);
-        Sidebar.handleHover(user_btn);
-        Sidebar.titlebar = titlebar;
+        SidebarModel.handleHover(close_btn);
+        SidebarModel.handleHover(max_btn);
+        SidebarModel.handleHover(mini_btn);
+        SidebarModel.handleHover(logout_btn);
+        SidebarModel.handleHover(user_btn);
+        SidebarModel.titlebar = titlebar;
         checkHBox(addEmployee);
     }
 
@@ -79,7 +79,7 @@ public class AdminSidebarController implements Controller {
         stage.close();
         Parent root = getRoot();
         BorderPane borderPane = (BorderPane) root;
-        Sidebar.borderPane = borderPane;
+        SidebarModel.borderPane = borderPane;
         showView(addEmployee);
 
         Scene scene = new Scene(root);
@@ -142,7 +142,7 @@ public class AdminSidebarController implements Controller {
     }
 
     private void setTitlebar(String title) {
-        Sidebar.titlebar.setText(title);
+        SidebarModel.titlebar.setText(title);
     }
 
     @FXML

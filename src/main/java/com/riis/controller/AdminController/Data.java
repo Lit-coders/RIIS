@@ -5,7 +5,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.riis.database.DatabaseConnection;
-import com.riis.model.Employee;
+import com.riis.model.databasemodel.Employee;
 
 public class Data {
 
