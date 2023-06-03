@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
 import com.riis.controller.Controller;
-import com.riis.utils.Sidebar;
+import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -56,6 +56,6 @@ public class InfoRenewalController implements Controller{
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoRenewal.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
     }
 }

@@ -1,8 +1,12 @@
 package com.riis.controller;
 
+
 import com.riis.auth.AuthenticationManager;
+import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
+import com.riis.controller.KebeleController.KebeleSidebarController;
+import com.riis.model.viewmodel.OverviewModel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,13 +37,14 @@ public class LoginController implements Controller {
     @FXML
     private Button loginButton;
 
-
     @FXML
     private Parent root;
 
     public Stage stage;
     private double xOffset;
     private double yOffset;
+
+    private OverviewModel overviewModel = OverviewModel.getInstance();
     
 
     public LoginController(Stage stage) {
@@ -48,7 +53,7 @@ public class LoginController implements Controller {
 
     public LoginController() {
     }
-
+    
     public void initialize() throws Exception {
         setupDragHandlers();
         handleHoverCloseButton();
@@ -69,8 +74,8 @@ public class LoginController implements Controller {
 
     public void getView() throws Exception {
         stage.close();
-
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
+        // Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoRequests.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
 
@@ -93,26 +98,27 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
+            overviewModel.setLoggedInUserText(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
                 case "Information Officer":
-                    stage.close();
                     InfoSidebarController sidebarController = new InfoSidebarController(stage);
                     sidebarController.getView();
                     break;
-                case "System Administer":
+                case "Finance Officer":
+                    FinSidebarController financeSidebarController = new FinSidebarController(stage);
+                    financeSidebarController.getView();
+                    break;
+                case "Kebele Manager":
+                    KebeleSidebarController kebeleSidebarController = new KebeleSidebarController(stage);
+                    kebeleSidebarController.getView();
+                    break;
+                case "System Administrator":
                     AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
                     adminSidebarController.getView();
                     break;
-                // case "Finance Officer":
-                //     FinanceSidebarController financeSidebarController = new FinanceSidebarController(stage);
-                //     financeSidebarController.getView();
-                //     break;
-                // case "Kebelle Officer":
-                //     KebelleSidebarController kebelleSidebarController = new KebelleSidebarController(stage);
-                //     kebelleSidebarController.getView();
-                //     break;
+
             }
         } else {
             showAlert(AlertType.ERROR, "login failed", "incorrect username or password");

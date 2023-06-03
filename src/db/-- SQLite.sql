@@ -1,6 +1,19 @@
 -- SQLite
-INSERT into Employee VALUES ("helen","sdf","jd","von","lix","Information Officer");
+INSERT into Employee VALUES ("abe","sdf","jd","von","lix","Kebele Manager");
+INSERT into Employee VALUES ("jdd","sdf","jd","von","lix","System Administrator");
+-- clear the All the tables
+DELETE FROM Resident;
+DELETE FROM MapHolder;
+DELETE FROM Employee;
 
+    CREATE table Employee (
+        username varchar(25) PRIMARY KEY,
+        password varchar(25),
+        Name varchar(25),
+        FName varchar(25),
+        GFName varchar(25),
+        job varchar(25)
+    )
 
     Create table Resident (
         ResidentID INTEGER PRIMARY KEY AUTOINCREMENT,

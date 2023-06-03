@@ -10,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.riis.controller.Controller;
-import com.riis.utils.Sidebar;
+import com.riis.model.viewmodel.SidebarModel;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -149,7 +150,7 @@ public class InfoNewResidentController implements Controller {
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoNewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
 
     }
 
