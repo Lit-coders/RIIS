@@ -1,63 +1,26 @@
 package com.riis.controller.InfoController;
 
-import com.riis.controller.Controller;
-import com.riis.utils.Sidebar;
+import com.riis.controller.BaseController.BaseOverviewController;
+import com.riis.model.viewmodel.SidebarModel;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 
-public class InfoOverviewController implements Controller {
-    @FXML
-    private Label greeting;
+public class InfoOverviewController extends BaseOverviewController {
 
-    @FXML 
-    private Label loggedInUser;
+    public void initialize() throws Exception {
+        overviewModel.setLoggedInUserTextComp();
+        // other initialization will be done in the future
+    }
 
-    @FXML
-    private Label loggedInUserFullName;
-
-    @FXML
-    private Label date;
-
-    @FXML
-    private Label time;
-
-    @FXML
-    private Label tot_residents;
-
-    @FXML
-    private Label tot_residents_male;
-
-    @FXML
-    private Label tot_residents_female;
-
-    @FXML
-    private Label lastLoginNum;
-
-    @FXML
-    private Label lastLoginLetter;
-
-    @FXML
-    private CategoryAxis xAxis;
-
-    @FXML
-    private NumberAxis yAxis;
-
-    @FXML
-    private ListView<HBox> listView;
-
+    @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoOverview.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Base_fxml/BaseOverview.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
+        initialize();
     }
 
 }
