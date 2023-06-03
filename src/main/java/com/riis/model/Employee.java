@@ -6,18 +6,24 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String middleName;
+    private String job;
 
     public Employee(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Employee(String username, String password, String firstName, String lastName, String middleName) {
+    public Employee(String username, String password, String firstName, String lastName, String middleName, String job) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
+        this.job = job;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getUserName() {
@@ -36,6 +42,10 @@ public class Employee {
         return middleName;
     }
 
+    public String getJob(){
+        return job;
+    }
+
     public void setUserName(String username) {
         this.username = username;
     }
@@ -50,5 +60,9 @@ public class Employee {
 
     public void setLastName(String lastName){
         this.lastName = lastName;
+    }
+
+    public void setJob(String job){
+        this.job = job;
     }
 }
