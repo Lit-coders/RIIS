@@ -1,0 +1,90 @@
+.simple-info {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+}
+
+.simple-info-greeting {
+    -fx-font-size: 25px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #7D4BD2;
+}
+
+.simple-info-time {
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #7D4BD2;
+}
+
+.residents {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+}
+
+.tot-residents {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #7D4BD2;
+}
+.pane {
+    -fx-background-color: white;
+    -fx-background-radius:20px;
+    -fx-text-fill: #7D4BD2;
+    -fx-border-radius: 20px;
+}
+
+.gender-stat {
+    -fx-font-size: 65px;
+    -fx-text-fill: #7D4BD2;
+ }
+
+ .gender-stat-labels {
+    -fx-font-size: 20px;
+    -fx-text-fill: #7D4BD2;
+    -fx-font-weight: 700;
+ }
+
+ .list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #7D4BD2;
+    -fx-border-color: white;
+ }
+ 
+ .last-login-title {
+    -fx-font-size: 20px;
+    -fx-text-fill: #7D4BD2;
+    -fx-font-weight: 700;    
+ }
+
+ .menu-button .label {
+    -fx-text-fill: #7D4BD2;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+ }
+
+ .menu-button .context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #7D4BD2;
+ }
+
+ .menu-button {
+    -fx-background-color: white;
+    -fx-border-color: white;
+ }
+
+ .menu-button .arrow {
+    -fx-background-color: #7D4BD2;
+ }
+
+.menu-item:hover {
+    -fx-background-color: #F5F0F0;
+    -fx-text-fill: #7D4BD2;
+}
+
+.menu-item:focused {
+    -fx-background-color: #F5F0F0;
+    -fx-text-fill: #7D4BD2;
+}
