@@ -63,7 +63,7 @@
    <left>
       <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="549.0" prefWidth="300.0" styleClass="vbox" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="108.0" prefWidth="222.0" text="Midre Genet Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="222.0" text="Midre Genet Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
                <font>
                   <Font name="Inter Medium" size="31.0" />
                </font>
