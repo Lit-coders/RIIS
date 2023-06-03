@@ -38,6 +38,7 @@ public class BaseSidebarController implements Controller {
     protected double xOffset;
     protected double yOffset;
 
+    @FXML
     public void initialize() throws Exception {
         setupDragHandlers();
         logout_btn.setStyle("-fx-fill: #976eef;");
