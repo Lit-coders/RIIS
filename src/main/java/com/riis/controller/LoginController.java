@@ -1,11 +1,7 @@
 package com.riis.controller;
 
-import java.sql.Connection;
-import java.sql.Statement;
-
 import com.riis.auth.AuthenticationManager;
 import com.riis.controller.InfoController.InfoSidebarController;
-import com.riis.database.DatabaseConnection;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
