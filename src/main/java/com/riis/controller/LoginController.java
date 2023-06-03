@@ -1,11 +1,11 @@
 package com.riis.controller;
 
-import java.sql.Connection;
-import java.sql.Statement;
 
 import com.riis.auth.AuthenticationManager;
+import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
-import com.riis.database.DatabaseConnection;
+import com.riis.controller.KebeleController.KebeleSidebarController;
+import com.riis.model.viewmodel.OverviewModel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,13 +36,14 @@ public class LoginController implements Controller {
     @FXML
     private Button loginButton;
 
-
     @FXML
     private Parent root;
 
     public Stage stage;
     private double xOffset;
     private double yOffset;
+
+    private OverviewModel overviewModel = OverviewModel.getInstance();
     
 
     public LoginController(Stage stage) {
@@ -51,7 +52,7 @@ public class LoginController implements Controller {
 
     public LoginController() {
     }
-
+    
     public void initialize() throws Exception {
         setupDragHandlers();
         handleHoverCloseButton();
@@ -72,7 +73,6 @@ public class LoginController implements Controller {
 
     public void getView() throws Exception {
         stage.close();
-
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -81,10 +81,6 @@ public class LoginController implements Controller {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-        Connection connection=DatabaseConnection.getInstance();
-        Statement statement=connection.createStatement();
-        statement.execute("create table if not exists Employee (username varchar(25), password varchar(25), firstName varchar(25), lastName varchar(25), middleName varchar(25), job varchar(25))");
-        statement.execute("INSERT INTO Employee values ('helen003','asdfgh', 'Helen', 'Shiferaw', 'Gemeda', 'Information Officer') ");
     } 
 
     @FXML
@@ -100,26 +96,27 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
+            overviewModel.setLoggedInUserText(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
                 case "Information Officer":
-                    stage.close();
                     InfoSidebarController sidebarController = new InfoSidebarController(stage);
                     sidebarController.getView();
+                    break;
+                case "Finance Officer":
+                    FinSidebarController financeSidebarController = new FinSidebarController(stage);
+                    financeSidebarController.getView();
+                    break;
+                case "Kebele Manager":
+                    KebeleSidebarController kebeleSidebarController = new KebeleSidebarController(stage);
+                    kebeleSidebarController.getView();
                     break;
                 // case "Admin":
                 //     AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
                 //     adminSidebarController.getView();
                 //     break;
-                // case "Finance Officer":
-                //     FinanceSidebarController financeSidebarController = new FinanceSidebarController(stage);
-                //     financeSidebarController.getView();
-                //     break;
-                // case "Kebelle Officer":
-                //     KebelleSidebarController kebelleSidebarController = new KebelleSidebarController(stage);
-                //     kebelleSidebarController.getView();
-                //     break;
+
             }
         } else {
             showAlert(AlertType.ERROR, "login failed", "incorrect username or password");
