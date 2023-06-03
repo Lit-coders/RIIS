@@ -1,0 +1,41 @@
+#emp_list,
+.search-box {
+  -fx-background-radius: 15;
+  -fx-background-color: white;
+}
+
+#search_btn,
+#clear_btn,
+#search_field {
+  -fx-background-color: transparent;
+  -fx-border-radius: 0;
+}
+
+#search_btn:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.402);
+}
+
+.list-label {
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-size: 16;
+  -fx-font-weight: 700;
+}
+
+.list-hbox {
+  -fx-background-color: #976eef;
+  -fx-background-radius: 15;
+  -fx-pref-width: 350;
+  -fx-pref-height: 40;
+  -fx-padding: 3;
+}
+
+.list-pane,
+.list-pane .viewport,
+.list-pane .scroll-bar {
+  -fx-background-color: transparent;
+  -fx-background-radius: 15;
+}
+.list-pane .thumb {
+  -fx-background-color: rgba(79, 19, 228, 0.537);
+}

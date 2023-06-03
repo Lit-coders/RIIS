@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="bocy_anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="423.0" styleClass="root" stylesheets="@../../css/Admin_css/employeeDetail.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.AdminController.EmployeeDetailController">
+   <children>
+      <HBox alignment="CENTER_LEFT" layoutX="6.0" layoutY="8.0" prefHeight="38.0" prefWidth="400.0" spacing="10.0" styleClass="head-box">
+         <children>
+            <Button fx:id="back_btn" mnemonicParsing="false" onAction="#backToEmpList" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <SVGPath content="M9.146,12l4.293,4.293c0.391,0.391,0.391,1.023,0,1.414c-0.391,0.391-1.023,0.391-1.414,0L6.437,12l5.588-5.707  c0.391-0.391,1.023-0.391,1.414,0c0.391,0.391,0.391,1.023,0,1.414L9.146,12z" fill="#7b39ff" strokeWidth="5.0" />
+               </graphic>
+            </Button>
+            <Label fx:id="name_label" alignment="CENTER" prefHeight="30.0" prefWidth="232.0" styleClass="emp-name" textFill="#a277f7">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="13.0" />
+         </padding>
+      </HBox>
+      <VBox fx:id="detail_box" alignment="TOP_CENTER" layoutX="11.0" layoutY="85.0" prefHeight="394.0" prefWidth="400.0" spacing="25.0">
+         <children>
+            <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="50.0" spacing="5.0" styleClass="detail-hbox">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="150.0" styleClass="detailLabel" text="Name :" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Fname_label" prefHeight="25.0" prefWidth="170.0" styleClass="detailLabel" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="detail_hbox" alignment="CENTER" prefHeight="50.0" spacing="5.0" styleClass="detail-hbox">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="150.0" styleClass="detailLabel" text="Father's Name:" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Lname_label" prefHeight="25.0" prefWidth="170.0" styleClass="detailLabel" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="detail_hbox1" alignment="CENTER" prefHeight="50.0" spacing="5.0" styleClass="detail-hbox">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="150.0" styleClass="detailLabel" text="Grand Father's Name:" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Mname_label" prefHeight="26.0" prefWidth="170.0" styleClass="detailLabel" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="detail_hbox2" alignment="CENTER" prefHeight="50.0" spacing="5.0" styleClass="detail-hbox">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="150.0" styleClass="detailLabel" text="Username:" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="Uname_label" prefHeight="25.0" prefWidth="170.0" styleClass="detailLabel" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="detail_hbox3" alignment="CENTER" prefHeight="50.0" spacing="5.0" styleClass="detail-hbox">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="150.0" styleClass="detailLabel" text="Password:" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pass_label" prefHeight="25.0" prefWidth="170.0" styleClass="detailLabel" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="detail_hbox31" alignment="CENTER" prefHeight="50.0" spacing="5.0" styleClass="detail-hbox">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="150.0" styleClass="detailLabel" text="Job:" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="job_label" prefHeight="25.0" prefWidth="170.0" styleClass="detailLabel" textFill="#702ffc">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+         </padding>
+      </VBox>
+      <Button fx:id="remove_btn" layoutX="125.0" layoutY="500.0" mnemonicParsing="false" onAction="#removeEmployee" prefHeight="34.0" prefWidth="162.0" text="Remove" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

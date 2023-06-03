@@ -1,10 +1,10 @@
 .left-pane {
   -fx-background-color: white;
-  -fx-background-radius:20px;
+  -fx-background-radius: 20px;
 }
 .right-pane {
   -fx-background-color: white;
-  -fx-background-radius:20px;
+  -fx-background-radius: 20px;
 }
 .approve-btn {
   -fx-background-color: #976eef;
@@ -15,6 +15,7 @@
 }
 .clear-btn {
   -fx-background-color: white;
+  -fx-background-radius: 15px;
   -fx-text-fill: #976eef;
   -fx-border-radius: 15px;
   -fx-border-color: #976eef;
@@ -22,24 +23,22 @@
   -fx-font-weight: 300;
 }
 
-.txt-field{
+.txt-field {
   -fx-background-radius: 20px;
 }
 
-.upload{
+.upload {
   -fx-background-color: #ede9f7;
   -fx-background-radius: 20px;
 }
 
-.browse{
+.browse {
   -fx-background-color: #976eef;
   -fx-background-radius: 20px;
   -fx-text-fill: white;
 }
-.header{
+.header {
   -text-fill: #976eef;
   -fx-font-size: 25px;
   -fx-font-weight: 700;
 }
-
-
