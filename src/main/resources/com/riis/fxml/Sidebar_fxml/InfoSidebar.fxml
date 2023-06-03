@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../../css/Info_css/InfoSidebar.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.riis.controller.InfoController.InfoSidebarController">
+   <top>
+      <HBox fx:id="header" alignment="CENTER" prefHeight="30.0" prefWidth="1400.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <HBox>
+               <children>
+                  <Button fx:id="user_btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="35.0">
+                     <graphic>
+                        <SVGPath content="M338.083123,1964.99998,C338.083123,1962.79398,336.251842,1960.99998,334,1960.99998,C331.748158,1960.99998,329.916877,1962.79398,329.916877,1964.99998,C329.916877,1967.20599,331.748158,1968.99999,334,1968.99999,C336.251842,1968.99999,338.083123,1967.20599,338.083123,1964.99998,M341.945758,1979,L340.124685,1979,C339.561214,1979,339.103904,1978.552,339.103904,1978,C339.103904,1977.448,339.561214,1977,340.124685,1977,L340.5626,1977,C341.26898,1977,341.790599,1976.303,341.523154,1975.662,C340.286989,1972.69799,337.383888,1970.99999,334,1970.99999,C330.616112,1970.99999,327.713011,1972.69799,326.476846,1975.662,C326.209401,1976.303,326.73102,1977,327.4374,1977,L327.875315,1977,C328.438786,1977,328.896096,1977.448,328.896096,1978,C328.896096,1978.552,328.438786,1979,327.875315,1979,L326.054242,1979,C324.778266,1979,323.773818,1977.857,324.044325,1976.636,C324.787453,1973.27699,327.107688,1970.79799,330.163906,1969.67299,C328.769519,1968.57399,327.875315,1966.88999,327.875315,1964.99998,C327.875315,1961.44898,331.023403,1958.61898,334.733941,1959.04198,C337.422678,1959.34798,339.650022,1961.44698,340.05323,1964.06998,C340.400296,1966.33099,339.456073,1968.39599,337.836094,1969.67299,C340.892312,1970.79799,343.212547,1973.27699,343.955675,1976.636,C344.226182,1977.857,343.221734,1979,341.945758,1979,M337.062342,1978,C337.062342,1978.552,336.605033,1979,336.041562,1979,L331.958438,1979,C331.394967,1979,330.937658,1978.552,330.937658,1978,C330.937658,1977.448,331.394967,1977,331.958438,1977,L336.041562,1977,C336.605033,1977,337.062342,1977.448,337.062342,1978" fill="#976eef" scaleX="0.8" scaleY="0.8" stroke="#976eef" strokeWidth="0.6" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="logout_btn" mnemonicParsing="false" onAction="#logout" prefHeight="32.0" prefWidth="31.0">
+                     <graphic>
+                        <SVGPath content="M12.9999,2C10.2385,2,7.99991,4.23858,7.99991,7C7.99991,7.55228,8.44762,8,8.99991,8C9.55219,8,9.99991,7.55228,9.99991,7C9.99991,5.34315,11.3431,4,12.9999,4H16.9999C18.6568,4,19.9999,5.34315,19.9999,7V17C19.9999,18.6569,18.6568,20,16.9999,20H12.9999C11.3431,20,9.99991,18.6569,9.99991,17C9.99991,16.4477,9.55219,16,8.99991,16C8.44762,16,7.99991,16.4477,7.99991,17C7.99991,19.7614,10.2385,22,12.9999,22H16.9999C19.7613,22,21.9999,19.7614,21.9999,17V7C21.9999,4.23858,19.7613,2,16.9999,2H12.9999Z M13.9999,11C14.5522,11,14.9999,11.4477,14.9999,12C14.9999,12.5523,14.5522,13,13.9999,13V11Z M5.71783,11C5.80685,10.8902,5.89214,10.7837,5.97282,10.682C6.21831,10.3723,6.42615,10.1004,6.57291,9.90549C6.64636,9.80795,6.70468,9.72946,6.74495,9.67492L6.79152,9.61162L6.804,9.59454L6.80842,9.58848C6.80846,9.58842,6.80892,9.58778,5.99991,9L6.80842,9.58848C7.13304,9.14167,7.0345,8.51561,6.58769,8.19098C6.14091,7.86637,5.51558,7.9654,5.19094,8.41215L5.18812,8.41602L5.17788,8.43002L5.13612,8.48679C5.09918,8.53682,5.04456,8.61033,4.97516,8.7025C4.83623,8.88702,4.63874,9.14542,4.40567,9.43937C3.93443,10.0337,3.33759,10.7481,2.7928,11.2929L2.08569,12L2.7928,12.7071C3.33759,13.2519,3.93443,13.9663,4.40567,14.5606C4.63874,14.8546,4.83623,15.113,4.97516,15.2975C5.04456,15.3897,5.09918,15.4632,5.13612,15.5132L5.17788,15.57L5.18812,15.584L5.19045,15.5872C5.51509,16.0339,6.14091,16.1336,6.58769,15.809C7.0345,15.4844,7.13355,14.859,6.80892,14.4122L5.99991,15C6.80892,14.4122,6.80897,14.4123,6.80892,14.4122L6.804,14.4055L6.79152,14.3884L6.74495,14.3251C6.70468,14.2705,6.64636,14.1921,6.57291,14.0945C6.42615,13.8996,6.21831,13.6277,5.97282,13.318C5.89214,13.2163,5.80685,13.1098,5.71783,13H13.9999V11H5.71783Z" fill="#976eef" scaleX="0.8" scaleY="0.8" stroke="#976eef" strokeWidth="0.6" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <Label fx:id="titlebar" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="1113.0" text="Overview" textAlignment="CENTER" textFill="#825fe5" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Inter Bold" size="20.0" />
+               </font></Label>
+            <HBox>
+               <children>
+                  <Button fx:id="mini_btn" mnemonicParsing="false" onAction="#minimizeStage" prefHeight="32.0" prefWidth="37.0">
+                     <graphic>
+                        <SVGPath content="M18,12H6" fill="WHITE" stroke="#976eef" strokeLineCap="ROUND" strokeWidth="3.5" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="max_btn" alignment="CENTER" mnemonicParsing="false" onAction="#maximizeStage" prefHeight="32.0" prefWidth="37.0">
+                     <graphic>
+                        <SVGPath content="M4.5,3C3.67157,3,3,3.67157,3,4.5V11.5C3,12.3284,3.67157,13,4.5,13H11.5C12.3284,13,13,12.3284,13,11.5V4.5C13,3.67157,12.3284,3,11.5,3H4.5ZM4.5,4H11.5C11.7761,4,12,4.22386,12,4.5V11.5C12,11.7761,11.7761,12,11.5,12H4.5C4.22386,12,4,11.7761,4,11.5V4.5C4,4.22386,4.22386,4,4.5,4Z" fill="WHITE" scaleX="1.5" scaleY="1.5" stroke="#976eef" strokeWidth="1.2" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="close_btn" mnemonicParsing="false" onAction="#closeStage" prefHeight="32.0" prefWidth="37.0">
+                     <graphic>
+                        <SVGPath content="M5.29289,5.29289C5.68342,4.90237,6.31658,4.90237,6.70711,5.29289L12,10.5858L17.2929,5.29289C17.6834,4.90237,18.3166,4.90237,18.7071,5.29289C19.0976,5.68342,19.0976,6.31658,18.7071,6.70711L13.4142,12L18.7071,17.2929C19.0976,17.6834,19.0976,18.3166,18.7071,18.7071C18.3166,19.0976,17.6834,19.0976,17.2929,18.7071L12,13.4142L6.70711,18.7071C6.31658,19.0976,5.68342,19.0976,5.29289,18.7071C4.90237,18.3166,4.90237,17.6834,5.29289,17.2929L10.5858,12L5.29289,6.70711C4.90237,6.31658,4.90237,5.68342,5.29289,5.29289Z" fill="WHITE" stroke="#976eef" strokeWidth="2.0" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <left>
+      <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="750.0" prefWidth="300.0" styleClass="vbox" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="227.0" text="Midre Genet Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
+               <font>
+                  <Font name="Inter Medium" size="31.0" />
+               </font>
+            </Label>
+            <Separator prefHeight="0.0" prefWidth="239.0" />
+            <HBox fx:id="overview" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M10.5,6a7.5,7.5 0 1,0 7.5,7.5h-7.5V6z M13.5,10.5H21A7.5,7.5 0 0 0 13.5,3v7.5z" fill="#ffffff00" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="Overview" textFill="#825fe5">
+                     <font>
+                        <Font name="Inter Regular" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="requests" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M14.857,17.082a23.848,23.848,0,005.454-1.31A8.967,8.967,0,0118,9.75v-.7V9A6,6,0,006,9v.75a8.967,8.967,0,01-2.312,6.022c1.733.64,3.56,1.085,5.455,1.31m5.714,0a24.255,24.255,0,01-5.714,0m5.714,0a3,3,0,11-5.714,0" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="Requests" textFill="#825fe5">
+                     <font>
+                        <Font name="Inter Regular" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="new_resident" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M12,9v6m3-3H9m12,0a9,9,0,11-18,0,9,9,0,0118,0z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="New Resident" textFill="#825fe5">
+                     <font>
+                        <Font name="Inter Regular" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="id_renewal" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M12,6v6h4.5m4.5,0a9,9,0,11-18,0,9,9,0,0118,0z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="ID Renewal" textFill="#825fe5">
+                     <font>
+                        <Font name="Inter Regular" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="replace_id" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <SVGPath content="M9.879,7.519c1.171-1.025,3.071-1.025,4.242,0,1.172,1.025,1.172,2.687,0,3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45,1.827v.75M21,12a9,9,0,11-18,0,9,9,0,0118,0zm-9,5.25h.008v.008H12v-.008z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" />
+                  <Label text="Replace Lost ID" textFill="#825fe5">
+                     <font>
+                        <Font name="Inter Regular" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets bottom="29.0" top="29.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+   </left>
+</BorderPane>
