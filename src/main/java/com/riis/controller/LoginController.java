@@ -81,10 +81,6 @@ public class LoginController implements Controller {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-        Connection connection=DatabaseConnection.getInstance();
-        Statement statement=connection.createStatement();
-        statement.execute("create table if not exists Employee (username varchar(25), password varchar(25), firstName varchar(25), lastName varchar(25), middleName varchar(25), job varchar(25))");
-        statement.execute("INSERT INTO Employee values ('helen003','asdfgh', 'Helen', 'Shiferaw', 'Gemeda', 'Information Officer') ");
     } 
 
     @FXML
