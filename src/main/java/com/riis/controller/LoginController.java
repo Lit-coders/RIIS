@@ -114,7 +114,7 @@ public class LoginController implements Controller {
                     KebeleSidebarController kebeleSidebarController = new KebeleSidebarController(stage);
                     kebeleSidebarController.getView();
                     break;
-                case "System Administer":
+                case "System Administrator":
                     AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
                     adminSidebarController.getView();
                     break;
