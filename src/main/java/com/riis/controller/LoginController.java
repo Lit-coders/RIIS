@@ -74,6 +74,7 @@ public class LoginController implements Controller {
     public void getView() throws Exception {
         stage.close();
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
+        // Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoRequests.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
 
