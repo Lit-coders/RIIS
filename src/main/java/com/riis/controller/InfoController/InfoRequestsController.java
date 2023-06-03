@@ -1,22 +1,19 @@
 package com.riis.controller.InfoController;
 
-import com.riis.controller.Controller;
-import com.riis.utils.Sidebar;
+import com.riis.controller.BaseController.BaseRequestsController;
+import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
-public class InfoRequestsController implements Controller {
-    
-    public InfoRequestsController() {
-    }
-
+public class InfoRequestsController extends BaseRequestsController {
+    @Override
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoRequests.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Base_fxml/BaseRequests.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
     }
 
 }
