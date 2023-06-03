@@ -63,7 +63,7 @@
    <left>
       <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="549.0" prefWidth="300.0" styleClass="vbox" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="227.0" text="Midre Genet Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="222.0" text="Midre Genet Kebele" textAlignment="CENTER" textFill="#3330e1" wrapText="true">
                <font>
                   <Font name="Inter Medium" size="31.0" />
                </font>
@@ -71,7 +71,7 @@
             <Separator prefHeight="0.0" prefWidth="239.0" />
             <HBox fx:id="addEmployee" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <SVGPath content="M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M13,12h3v1h-3v3h-1v-3h-3v-1h3V9h1v3z" fill="#ffffff00" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" stroke="#825fe5" strokeType="OUTSIDE" />
+                  <SVGPath content="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" fill="#825fe500" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" stroke="#825fe5" strokeType="INSIDE" />
                   <Label text="Add Employee" textFill="#825fe5">
                      <font>
                         <Font name="Inter Regular" size="22.0" />
@@ -84,7 +84,7 @@
             </HBox>
             <HBox fx:id="removeEmployee" alignment="CENTER_LEFT" onMouseClicked="#handleHBoxClick" prefHeight="67.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <SVGPath content="M12,2C6.486,2,2,6.486,2,12s4.486,10,10,10s10-4.486,10-10S17.514,2,12,2z M14,12h-8v-2h8z" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" strokeLineCap="BUTT" strokeType="OUTSIDE" />
+                  <SVGPath content="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7,13H17V11H7" fill="#ffffff00" scaleX="2.0" scaleY="2.0" stroke="#825fe5" strokeLineCap="BUTT" strokeType="INSIDE" />
                   <Label text="Remove Employee" textFill="#825fe5">
                      <font>
                         <Font name="Inter Regular" size="22.0" />
