@@ -1,0 +1,28 @@
+.root {
+  -fx-background-color: white;
+  -fx-background-radius: 15;
+}
+
+.emp-name,
+#back_btn {
+  -fx-background-color: #f5f0f0;
+  -fx-background-radius: 15;
+}
+
+.detail-hbox {
+  -fx-background-color: #f5f0f0;
+  -fx-background-radius: 15;
+}
+
+#remove_btn {
+  -fx-background-color: #976eef;
+  -fx-background-radius: 15;
+}
+
+#remove_btn:hover {
+  -fx-translate-y: -2;
+}
+
+#remove_btn:armed {
+  -fx-translate-y: 0;
+}

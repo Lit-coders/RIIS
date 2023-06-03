@@ -3,6 +3,7 @@ package com.riis.controller;
 
 import com.riis.auth.AuthenticationManager;
 import com.riis.controller.FinController.FinSidebarController;
+import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
 import com.riis.controller.KebeleController.KebeleSidebarController;
 import com.riis.model.viewmodel.OverviewModel;
@@ -113,10 +114,10 @@ public class LoginController implements Controller {
                     KebeleSidebarController kebeleSidebarController = new KebeleSidebarController(stage);
                     kebeleSidebarController.getView();
                     break;
-                // case "Admin":
-                //     AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
-                //     adminSidebarController.getView();
-                //     break;
+                case "System Administer":
+                    AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
+                    adminSidebarController.getView();
+                    break;
 
             }
         } else {
