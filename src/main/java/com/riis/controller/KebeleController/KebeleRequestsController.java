@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class KebeleRequestsController extends BaseRequestsController {
     public void getView() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Fin_fxml/FinRequests.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Base_fxml/BaseRequests.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);

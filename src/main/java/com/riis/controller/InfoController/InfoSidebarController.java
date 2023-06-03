@@ -30,7 +30,7 @@ public class InfoSidebarController extends BaseSidebarController {
     @Override
     public void getView() throws Exception {
         stage.close();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoSidebar.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar_fxml/InfoSidebar.fxml"));
         BorderPane borderPane = (BorderPane) root;
         SidebarModel.borderPane = borderPane;
         showView();

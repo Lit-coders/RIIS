@@ -31,7 +31,7 @@ public class KebeleSidebarController extends BaseSidebarController {
     @Override
     public void getView() throws Exception {
         stage.close();
-        root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Fin_fxml/FinSidebar.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar_fxml/KebeleSidebar.fxml"));
         BorderPane borderPane = (BorderPane) root;
         SidebarModel.borderPane = borderPane;
         showView();
