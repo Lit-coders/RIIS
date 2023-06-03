@@ -1,6 +1,7 @@
 package com.riis.controller;
 
 import com.riis.auth.AuthenticationManager;
+import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
 
 import javafx.fxml.FXML;
@@ -100,10 +101,10 @@ public class LoginController implements Controller {
                     InfoSidebarController sidebarController = new InfoSidebarController(stage);
                     sidebarController.getView();
                     break;
-                // case "Admin":
-                //     AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
-                //     adminSidebarController.getView();
-                //     break;
+                case "System Administer":
+                    AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
+                    adminSidebarController.getView();
+                    break;
                 // case "Finance Officer":
                 //     FinanceSidebarController financeSidebarController = new FinanceSidebarController(stage);
                 //     financeSidebarController.getView();
