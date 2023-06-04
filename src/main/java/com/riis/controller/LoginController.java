@@ -6,6 +6,7 @@ import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
 import com.riis.controller.KebeleController.KebeleSidebarController;
+import com.riis.database.DatabaseConnection;
 import com.riis.model.viewmodel.OverviewModel;
 
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -43,6 +45,7 @@ public class LoginController implements Controller {
     public Stage stage;
     private double xOffset;
     private double yOffset;
+    public Label errorMessage;
 
     private OverviewModel overviewModel = OverviewModel.getInstance();
     
@@ -52,6 +55,7 @@ public class LoginController implements Controller {
     }
 
     public LoginController() {
+        this.errorMessage = new Label("Server is not connected");
     }
     
     public void initialize() throws Exception {
@@ -75,15 +79,26 @@ public class LoginController implements Controller {
     public void getView() throws Exception {
         stage.close();
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
-        // Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoRequests.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        this.stage = stage;
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        isDatabaseConnected();
     } 
+
+    public void isDatabaseConnected() throws Exception {
+        if(DatabaseConnection.checkDatabase("src\\db\\riis.db")) {
+            System.out.println("Database is connected");
+        } else {
+            showAlert(AlertType.ERROR, "Server Failure", "Please contact your system administrator, Server is down !!");
+            stage.close();
+        }
+    }
 
     @FXML
     private void login() throws Exception {
