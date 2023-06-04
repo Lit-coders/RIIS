@@ -241,6 +241,15 @@ public class InfoNewResidentController implements Controller {
                         ResidentForm.get(i + 1).requestFocus();
                     }
                 }
+                else if (event.getCode() == KeyCode.BACK_SPACE) {
+                    if (ResidentForm.get(i).getText().isEmpty()) {
+                        if (i == 0) {
+                            ResidentForm.get(i).requestFocus();
+                        } else {
+                            ResidentForm.get(i - 1).requestFocus();
+                        }
+                    }
+                }
             }
         }
         for (int i = 0; i < MapHolderForm.size(); i++) {
@@ -250,6 +259,15 @@ public class InfoNewResidentController implements Controller {
                         addResidentAndMapHolder();
                     } else {
                         MapHolderForm.get(i + 1).requestFocus();
+                    }
+                    
+                  }  else if (event.getCode() == KeyCode.BACK_SPACE){
+                        if (MapHolderForm.get(i).getText().isEmpty()) {
+                            if (i == 0) {
+                             ResidentForm.get(ResidentForm.size()-1).requestFocus();
+                            } else {
+                                MapHolderForm.get(i - 1).requestFocus();
+                            }
                     }
                 }
             }
@@ -272,7 +290,13 @@ public class InfoNewResidentController implements Controller {
                     if (!isValid) {
                         return isValid;
                     }
-                } else {
+                }  else if (field == house_number){
+                    boolean isValid = houseNumberChecker(field.getText());
+                    if (!isValid) {
+                        return isValid;
+                    }
+
+                }  else {
                     boolean isValid = stringPatternChecker(field.getText());
                     if (!isValid) {
                         return isValid;
@@ -280,6 +304,7 @@ public class InfoNewResidentController implements Controller {
                 }
 
             }
+
         }
 
         for (TextField field : MapHolderForm) {
@@ -300,6 +325,11 @@ public class InfoNewResidentController implements Controller {
                 }
             }
         }
+        boolean hasImage= selectedImageChecker();
+        if (!hasImage) {
+            return hasImage;
+        }
+        
         return true;
 
     }
@@ -336,6 +366,23 @@ public class InfoNewResidentController implements Controller {
             alertMessage("Please Fill All Fields");
             return false;
 
+        }
+        return true;
+    }
+
+    public boolean houseNumberChecker(String houseNumber) {
+        String houseNumberPattern = "^[a-zA-Z0-9]{1,5}$";
+        if (!houseNumber.matches(houseNumberPattern)) {
+            alertMessage("Please Enter Valid House Number");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean selectedImageChecker() {
+        if (residentImage == null || mapImage == null) {
+            alertMessage("Please Select Image");
+            return false;
         }
         return true;
     }
