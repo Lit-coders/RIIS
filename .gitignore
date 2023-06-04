@@ -4,4 +4,7 @@
 
 # Ignore compiled binary files
 bin/
+
+# Ignore the database
+src/db/*.db
         
