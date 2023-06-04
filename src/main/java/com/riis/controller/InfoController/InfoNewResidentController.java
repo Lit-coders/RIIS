@@ -272,7 +272,13 @@ public class InfoNewResidentController implements Controller {
                     if (!isValid) {
                         return isValid;
                     }
-                } else {
+                }  else if (field == house_number){
+                    boolean isValid = houseNumberChecker(field.getText());
+                    if (!isValid) {
+                        return isValid;
+                    }
+
+                }  else {
                     boolean isValid = stringPatternChecker(field.getText());
                     if (!isValid) {
                         return isValid;
@@ -342,6 +348,15 @@ public class InfoNewResidentController implements Controller {
             alertMessage("Please Fill All Fields");
             return false;
 
+        }
+        return true;
+    }
+
+    public boolean houseNumberChecker(String houseNumber) {
+        String houseNumberPattern = "^[a-zA-Z0-9]{1,5}$";
+        if (!houseNumber.matches(houseNumberPattern)) {
+            alertMessage("Please Enter Valid House Number");
+            return false;
         }
         return true;
     }
