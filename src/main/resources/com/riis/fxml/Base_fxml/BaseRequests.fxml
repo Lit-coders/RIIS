@@ -21,12 +21,11 @@
       </HBox>
       <ScrollPane layoutX="13.0" layoutY="69.0" prefHeight="551.0" prefViewportWidth="940.0" prefWidth="936.0" styleClass="scrollpane" stylesheets="@../../css/Base_css/Requests.css" AnchorPane.leftAnchor="13.0">
          <content>
-            <VBox fx:id="req_list" alignment="TOP_CENTER" maxWidth="936.0" minHeight="545.0" prefWidth="930.0" spacing="15.0">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
-               </padding>
-            </VBox>
+            <VBox fx:id="req_list" alignment="TOP_CENTER" minHeight="525.0" prefWidth="900.0" spacing="15.0" />
          </content>
+         <padding>
+            <Insets bottom="13.0" left="16.0" top="13.0" />
+         </padding>
       </ScrollPane>
    </children>
 </AnchorPane>
