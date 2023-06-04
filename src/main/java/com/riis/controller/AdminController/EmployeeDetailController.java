@@ -1,8 +1,8 @@
 package com.riis.controller.AdminController;
 
 import com.riis.controller.Controller;
-import com.riis.model.Employee;
-import com.riis.utils.Sidebar;
+import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -120,7 +120,7 @@ public class EmployeeDetailController implements Controller{
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/EmployeeDetail.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
 
         HBox hbox = (HBox) anchorPane.getChildren().get(0);
         VBox vbox = (VBox) anchorPane.getChildren().get(1);
