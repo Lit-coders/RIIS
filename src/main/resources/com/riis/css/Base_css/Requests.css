@@ -1,31 +1,19 @@
-.maincontainer{
-    -fx-background-color: #F5F0F0;
-
-}
-
-.vbox{
-    -fx-background-color: #FFF;
-    -fx-background-radius: 20px;
-    -fx-overflow: scroll;
-}
-.pending{
-    -fx-font-weight: 600;
-    -fx-font-family: 'Inter';
-}
-
-.insidebox{
-    -fx-background-color:#F5F0F0;
-    -fx-background-radius: 20px;
-}
-
-.name{
-    -fx-font-weight:400;
-}
-
-.time{
-    -fx-font-weight: 400;
-}
-
 .scrollpane{
-    -fx-background-color:#FFF;
+    -fx-background-color: white;
+    -fx-background: white;
+    -fx-border-color: white;
+    -fx-border-width: 0;
+    -fx-border-style: none;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
 }
+
+.scrollpane,
+.scrollpane .viewport,
+.scrollpane .scroll-bar {
+  -fx-background-radius: 15;
+}
+
+.scrollpane .thumb {
+    -fx-background-color: rgba(79, 19, 228, 0.537);
+  }
