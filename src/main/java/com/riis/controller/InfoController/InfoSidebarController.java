@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class InfoSidebarController extends BaseSidebarController {
 
@@ -35,13 +36,12 @@ public class InfoSidebarController extends BaseSidebarController {
         SidebarModel.borderPane = borderPane;
         showView();
 
-        Scene scene = new Scene(root, 1300, 700);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
-        stage.setTitle("Information officer");
-        // stage.setMaximized(true);
-// stage.setMaximized(true);
         stage.show();
-
     }
 
     @Override
