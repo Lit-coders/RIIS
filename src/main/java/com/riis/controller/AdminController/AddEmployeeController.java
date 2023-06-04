@@ -3,8 +3,8 @@ package com.riis.controller.AdminController;
 import java.util.ArrayList;
 
 import com.riis.controller.Controller;
-import com.riis.model.Employee;
-import com.riis.utils.Sidebar;
+import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -120,7 +120,7 @@ public class AddEmployeeController implements Controller {
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/AddEmployee.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
     }
     
 }

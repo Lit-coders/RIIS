@@ -1,4 +1,4 @@
-package com.riis.model;
+package com.riis.model.databasemodel;
 
 public class Employee {
     private String username;

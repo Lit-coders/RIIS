@@ -1,23 +1,23 @@
-package com.riis.controller.InfoController;
+package com.riis.controller.FinController;
 
 import com.riis.controller.BaseController.BaseSidebarController;
 import com.riis.controller.PageControllerFactory.AbstractPageControllerFactory;
 import com.riis.controller.PageControllerFactory.PageControllerFactoryProducer;
 import com.riis.model.viewmodel.SidebarModel;
-
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class InfoSidebarController extends BaseSidebarController {
 
-    public InfoSidebarController(Stage stage) {
+public class FinSidebarController extends BaseSidebarController {
+
+    public FinSidebarController(Stage stage) {
         super(stage);
     }
 
-    public InfoSidebarController() {
+    public FinSidebarController() {
     }
 
     @Override
@@ -30,24 +30,24 @@ public class InfoSidebarController extends BaseSidebarController {
     @Override
     public void getView() throws Exception {
         stage.close();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar_fxml/InfoSidebar.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Sidebar_fxml/FinSidebar.fxml"));
         BorderPane borderPane = (BorderPane) root;
         SidebarModel.borderPane = borderPane;
         showView();
 
-        Scene scene = new Scene(root, 1300, 700);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
-        stage.setTitle("Information officer");
-        // stage.setMaximized(true);
-// stage.setMaximized(true);
         stage.show();
-
     }
 
     @Override
     public void showView() throws Exception {
-        AbstractPageControllerFactory InfoFactory = PageControllerFactoryProducer.getFactory("InformationOfficer");
-        InfoFactory.getController(SidebarModel.clickedHbox.getId()).getView();
+        AbstractPageControllerFactory FinFactory = PageControllerFactoryProducer.getFactory("FinanceOfficer");
+        FinFactory.getController(SidebarModel.clickedHbox.getId()).getView();
         setTitlebar(SidebarModel.clickedHbox.getId());
     }
+
 }

@@ -4,8 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.riis.controller.Controller;
-import com.riis.model.Employee;
-import com.riis.utils.Sidebar;
+import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.SidebarModel;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -115,7 +116,7 @@ public class RemoveEmployeeController implements Controller {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/RemoveEmployee.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
         ScrollPane pane = (ScrollPane) anchorPane.getChildren().get(1);
         emp_list = (VBox) pane.getContent();
         displayEmpList();

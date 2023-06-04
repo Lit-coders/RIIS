@@ -1,14 +1,16 @@
-package com.riis.utils;
+package com.riis.model.viewmodel;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 
-public class Sidebar {
+public class SidebarModel {
     public static BorderPane borderPane;
     public static Label titlebar;
+    public static HBox clickedHbox;
 
     public static void handleHover(Button btn) {
         SVGPath icon = (SVGPath) btn.getGraphic();
