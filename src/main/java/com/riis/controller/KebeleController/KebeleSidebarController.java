@@ -46,7 +46,7 @@ public class KebeleSidebarController extends BaseSidebarController {
 
     @Override
     public void showView() throws Exception {
-        AbstractPageControllerFactory FinFactory = PageControllerFactoryProducer.getFactory("FinanceOfficer");
+        AbstractPageControllerFactory FinFactory = PageControllerFactoryProducer.getFactory("KebeleManager");
         FinFactory.getController(SidebarModel.clickedHbox.getId()).getView();
         setTitlebar(SidebarModel.clickedHbox.getId());
     }
