@@ -241,6 +241,15 @@ public class InfoNewResidentController implements Controller {
                         ResidentForm.get(i + 1).requestFocus();
                     }
                 }
+                else if (event.getCode() == KeyCode.BACK_SPACE) {
+                    if (ResidentForm.get(i).getText().isEmpty()) {
+                        if (i == 0) {
+                            ResidentForm.get(i).requestFocus();
+                        } else {
+                            ResidentForm.get(i - 1).requestFocus();
+                        }
+                    }
+                }
             }
         }
         for (int i = 0; i < MapHolderForm.size(); i++) {
@@ -250,6 +259,15 @@ public class InfoNewResidentController implements Controller {
                         addResidentAndMapHolder();
                     } else {
                         MapHolderForm.get(i + 1).requestFocus();
+                    }
+                    
+                  }  else if (event.getCode() == KeyCode.BACK_SPACE){
+                        if (MapHolderForm.get(i).getText().isEmpty()) {
+                            if (i == 0) {
+                             ResidentForm.get(ResidentForm.size()-1).requestFocus();
+                            } else {
+                                MapHolderForm.get(i - 1).requestFocus();
+                            }
                     }
                 }
             }
