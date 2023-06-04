@@ -1,6 +1,29 @@
 -- SQLite
+
 INSERT into Employee VALUES ("abe","sdf","jd","von","lix","Kebele Manager");
 INSERT into Employee VALUES ("jdd","sdf","jd","von","lix","System Administrator");
+INSERT into Employee VALUES ("nat","sdf","jd","von","lix","Information Officer");
+INSERT into Employee VALUES ("abc", "xyz", "John", "Doe", "Buddy", "System Administrator");
+INSERT into Employee VALUES ("bak", "xyz", "John", "Doe", "Buddy", "Finance Officer");
+
+INSERT into Employee VALUES ("efg", "hij", "Jane", "Smith", "Luna", "Data Analyst");
+
+INSERT into Employee VALUES ("klm", "nop", "Sarah", "Johnson", "Max", "Project Manager");
+
+INSERT into Employee VALUES ("qrs", "tuv", "Michael", "Williams", "Charlie", "Sales Representative");
+
+INSERT into Employee VALUES ("wxy", "zab", "Emily", "Brown", "Milo", "Graphic Designer");
+
+INSERT into Employee VALUES ("cde", "fgh", "David", "Miller", "Lucy", "Marketing Specialist");
+
+INSERT into Employee VALUES ("ijk", "lmn", "Jennifer", "Anderson", "Rocky", "HR Coordinator");
+
+INSERT into Employee VALUES ("opq", "rst", "Matthew", "Taylor", "Bella", "Financial Analyst");
+
+INSERT into Employee VALUES ("uvw", "xyz", "Jessica", "Garcia", "Max", "Customer Support Representative");
+
+INSERT into Employee VALUES ("def", "ghi", "Daniel", "Wilson", "Cooper", "Operations Manager");
+
 -- clear the All the tables
 DELETE FROM Resident;
 DELETE FROM MapHolder;
@@ -50,4 +73,8 @@ DELETE FROM Employee;
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID),
         FOREIGN KEY (MID) REFERENCES MapHolder (MapHolderID)
     )
+
+    -- added tables
+
+    
 
