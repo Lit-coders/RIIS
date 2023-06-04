@@ -280,6 +280,7 @@ public class InfoNewResidentController implements Controller {
                 }
 
             }
+
         }
 
         for (TextField field : MapHolderForm) {
@@ -300,6 +301,11 @@ public class InfoNewResidentController implements Controller {
                 }
             }
         }
+        boolean hasImage= selectedImageChecker();
+        if (!hasImage) {
+            return hasImage;
+        }
+        
         return true;
 
     }
@@ -336,6 +342,14 @@ public class InfoNewResidentController implements Controller {
             alertMessage("Please Fill All Fields");
             return false;
 
+        }
+        return true;
+    }
+
+    public boolean selectedImageChecker() {
+        if (residentImage == null || mapImage == null) {
+            alertMessage("Please Select Image");
+            return false;
         }
         return true;
     }
