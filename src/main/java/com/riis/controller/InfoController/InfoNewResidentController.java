@@ -415,9 +415,6 @@ public class InfoNewResidentController implements Controller {
         }
         return true;
     }
-<<<<<<< HEAD
-
-=======
     
     public boolean isRepeated() {
         try {
@@ -440,7 +437,6 @@ public class InfoNewResidentController implements Controller {
         
     }
     
->>>>>>> 4a4ce757f287d36685016edeba767c518d8af042
     public void alertMessage(String message) {
         JAlert alert = new JAlert("Error", message);
         alert.showAlert();
