@@ -8,13 +8,12 @@ import com.riis.controller.InfoController.InfoSidebarController;
 import com.riis.controller.KebeleController.KebeleSidebarController;
 import com.riis.database.DatabaseConnection;
 import com.riis.model.viewmodel.OverviewModel;
+import com.riis.utils.JAlert;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -95,7 +94,8 @@ public class LoginController implements Controller {
         if(DatabaseConnection.checkDatabase("src\\db\\riis.db")) {
             System.out.println("Database is connected");
         } else {
-            showAlert(AlertType.ERROR, "Server Failure", "Please contact your system administrator, Server is down !!");
+            JAlert alert = new JAlert("Error", "Please contact your system administrator, Server is Down!!");
+            alert.showAndWait();
             stage.close();
         }
     }
@@ -136,8 +136,9 @@ public class LoginController implements Controller {
 
             }
         } else {
-            showAlert(AlertType.ERROR, "login failed", "incorrect username or password");
             System.out.println("Login Failed");
+            JAlert alert = new JAlert("Error","Invalid Username or Password");
+            alert.showAlert();
         }
     }
 
@@ -168,13 +169,5 @@ public class LoginController implements Controller {
         close_btn.setOnMouseExited(e -> {
             closeIcon.setStyle("-fx-stroke: #976eef;");
         });
-    }
-
-    private void showAlert(AlertType alertType, String title, String message){
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }
