@@ -226,6 +226,7 @@ public class InfoNewResidentController implements Controller {
             }
         }
         ps.executeUpdate();
+        ResidentData.getNewResidentId(ResidentForm);
     }
 
     public void addMapHolder() throws ClassNotFoundException, SQLException, IOException {
