@@ -46,17 +46,33 @@ DELETE FROM Employee;
         DOB DATE,
         POB varchar(25),
         PhoneNumber varchar(25),
-        Sex varchar(10),
-        MaritalStatus varchar(10),
-        Citizenship varchar(25),
-        BloodType varchar(5),
         MotherName varchar(25),
+        Sex varchar(10),
+        Citizenship varchar(25),
+        MaritalStatus varchar(10),
+        Job varchar(25),
+        BloodType varchar(5),
+        HouseNumber varchar(25),
         ECF varchar(25),
         ECP varchar(25),
-        Job varchar(25),
-        HouseNumber varchar(25),
         ResidentPhoto BLOB
     )
+
+            ResidentForm.add(Name);
+        ResidentForm.add(FName);
+        ResidentForm.add(GFName);
+        ResidentForm.add(DOB);
+        ResidentForm.add(POB);
+        ResidentForm.add(phoneNumber);
+        ResidentForm.add(MName);
+        ResidentForm.add(sex);
+        ResidentForm.add(citizenship);
+        ResidentForm.add(marital_status);
+        ResidentForm.add(job);
+        ResidentForm.add(btype);
+        ResidentForm.add(house_number);
+        ResidentForm.add(ECF);
+        ResidentForm.add(ECP);
 
     Create table MapHolder (
         MapHolderID INTEGER PRIMARY KEY AUTOINCREMENT,
