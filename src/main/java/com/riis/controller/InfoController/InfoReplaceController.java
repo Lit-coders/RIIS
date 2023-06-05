@@ -1,7 +1,7 @@
 package com.riis.controller.InfoController;
 
 import com.riis.controller.Controller;
-import com.riis.utils.Sidebar;
+import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +53,6 @@ public class InfoReplaceController implements Controller{
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoReplace.fxml"));
 
         AnchorPane anchorPane = (AnchorPane) root;
-        Sidebar.borderPane.setCenter(anchorPane);
+        SidebarModel.borderPane.setCenter(anchorPane);
     }
 }

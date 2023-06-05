@@ -1,0 +1,27 @@
+.vbox {
+    -fx-background-color: white;
+    -fx-background-radius: 0 15px 15px 0;
+  }
+  
+  #header {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 12, 0, 0, 3);
+  }
+  
+  #user_btn,
+  #logout_btn,
+  #mini_btn,
+  #max_btn,
+  #close_btn {
+    -fx-background-color: transparent;
+  }
+  
+  #user_btn:hover,
+  #logout_btn:hover,
+  #mini_btn:hover,
+  #max_btn:hover,
+  #close_btn:hover {
+    -fx-background-color: #976eef;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+  }

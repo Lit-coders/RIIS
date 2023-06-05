@@ -1,8 +1,13 @@
 package com.riis.controller;
 
+
 import com.riis.auth.AuthenticationManager;
+import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
+import com.riis.controller.KebeleController.KebeleSidebarController;
+import com.riis.database.DatabaseConnection;
+import com.riis.model.viewmodel.OverviewModel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -33,13 +39,15 @@ public class LoginController implements Controller {
     @FXML
     private Button loginButton;
 
-
     @FXML
     private Parent root;
 
     public Stage stage;
     private double xOffset;
     private double yOffset;
+    public Label errorMessage;
+
+    private OverviewModel overviewModel = OverviewModel.getInstance();
     
 
     public LoginController(Stage stage) {
@@ -47,8 +55,9 @@ public class LoginController implements Controller {
     }
 
     public LoginController() {
+        this.errorMessage = new Label("Server is not connected");
     }
-
+    
     public void initialize() throws Exception {
         setupDragHandlers();
         handleHoverCloseButton();
@@ -69,16 +78,27 @@ public class LoginController implements Controller {
 
     public void getView() throws Exception {
         stage.close();
-
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Login.fxml"));
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        this.stage = stage;
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        isDatabaseConnected();
     } 
+
+    public void isDatabaseConnected() throws Exception {
+        if(DatabaseConnection.checkDatabase("src\\db\\riis.db")) {
+            System.out.println("Database is connected");
+        } else {
+            showAlert(AlertType.ERROR, "Server Failure", "Please contact your system administrator, Server is down !!");
+            stage.close();
+        }
+    }
 
     @FXML
     private void login() throws Exception {
@@ -93,26 +113,27 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
+            overviewModel.setLoggedInUserText(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
                 case "Information Officer":
-                    stage.close();
                     InfoSidebarController sidebarController = new InfoSidebarController(stage);
                     sidebarController.getView();
                     break;
-                case "System Administer":
+                case "Finance Officer":
+                    FinSidebarController financeSidebarController = new FinSidebarController(stage);
+                    financeSidebarController.getView();
+                    break;
+                case "Kebele Manager":
+                    KebeleSidebarController kebeleSidebarController = new KebeleSidebarController(stage);
+                    kebeleSidebarController.getView();
+                    break;
+                case "System Administrator":
                     AdminSidebarController adminSidebarController = new AdminSidebarController(stage);
                     adminSidebarController.getView();
                     break;
-                // case "Finance Officer":
-                //     FinanceSidebarController financeSidebarController = new FinanceSidebarController(stage);
-                //     financeSidebarController.getView();
-                //     break;
-                // case "Kebelle Officer":
-                //     KebelleSidebarController kebelleSidebarController = new KebelleSidebarController(stage);
-                //     kebelleSidebarController.getView();
-                //     break;
+
             }
         } else {
             showAlert(AlertType.ERROR, "login failed", "incorrect username or password");

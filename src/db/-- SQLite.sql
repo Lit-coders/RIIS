@@ -38,3 +38,10 @@ INSERT into Employee VALUES ("helen","sdf","jd","von","lix","Information Officer
         FOREIGN KEY (MID) REFERENCES MapHolder (MapHolderID)
     )
 
+    CREATE TABLE KebeleResidentID(
+        ResidentID INTEGER,
+        GivenDate DATE,
+        ExpDate DATE,
+        ExpirationStatus varchar(4)
+    )
+

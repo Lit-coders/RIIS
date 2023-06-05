@@ -1,51 +1,44 @@
-package com.riis.controller.AdminController;
-
+package com.riis.controller.BaseController;
 
 import com.riis.controller.Controller;
 import com.riis.controller.LoginController;
 import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
-public class AdminSidebarController implements Controller {
-    @FXML private HBox header;
-    @FXML private Label titlebar;
-    @FXML private Button user_btn;
-    @FXML private Button logout_btn;
-    @FXML private Button mini_btn;
-    @FXML private Button max_btn;
-    @FXML private Button close_btn;
-    @FXML private VBox sidebar;
-    @FXML private HBox addEmployee;
-    @FXML private HBox removeEmployee;
-    @FXML private Parent root;
-    public Stage stage;
-    public HBox previousClickedHbox = null;
-    public HBox clickedHbox = addEmployee;
-    public Boolean isMaximized = false;
-    private double xOffset;
-    private double yOffset;
+public class BaseSidebarController implements Controller {
+    @FXML protected HBox header;
+    @FXML protected Label titlebar;
+    @FXML protected Button user_btn;
+    @FXML protected Button logout_btn;
+    @FXML protected Button mini_btn;
+    @FXML protected Button max_btn;
+    @FXML protected Button close_btn;
+    @FXML protected VBox sidebar;
+    @FXML protected HBox overview;
+    @FXML protected HBox requests;
+    @FXML protected HBox new_resident;
+    @FXML protected HBox id_renewal;
+    @FXML protected HBox replace_id;
+    @FXML protected Parent root;
+    protected Stage stage;
+    protected HBox previousClickedHbox = null;
+    protected HBox clickedHbox = null;
+    protected Boolean isMaximized = false;
+    protected double xOffset;
+    protected double yOffset;
 
-    public AdminSidebarController(Stage stage) {
-        this.stage = stage;
-    }
-
-    public AdminSidebarController() {
-    }
-
+    @FXML
     public void initialize() throws Exception {
         setupDragHandlers();
         logout_btn.setStyle("-fx-fill: #976eef;");
@@ -55,10 +48,10 @@ public class AdminSidebarController implements Controller {
         SidebarModel.handleHover(logout_btn);
         SidebarModel.handleHover(user_btn);
         SidebarModel.titlebar = titlebar;
-        checkHBox(addEmployee);
+        checkHBox(overview);
     }
 
-    private void setupDragHandlers() {
+    protected void setupDragHandlers() {
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
@@ -71,35 +64,42 @@ public class AdminSidebarController implements Controller {
         });
     }
 
-    public Parent getRoot() throws Exception {
-        return  FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/AdminSidebar.fxml"));
+    public BaseSidebarController(Stage stage) {
+        this.stage = stage;
+    }
+
+    public BaseSidebarController() {
     }
 
     public void getView() throws Exception {
-        stage.close();
-        Parent root = getRoot();
-        BorderPane borderPane = (BorderPane) root;
-        SidebarModel.borderPane = borderPane;
-        showView(addEmployee);
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
-    private void handleHBoxClick(MouseEvent event) throws Exception {
+    protected void handleHBoxClick(MouseEvent event) throws Exception {
+        // Uncheck the previous clicked HBox
         uncheckPreviousHBox();
+
+        // Get the clicked HBox
         HBox clickedHBox = (HBox) event.getSource();
-        showView(clickedHBox);
+
+        // Set the clicked HBox
+        SidebarModel.clickedHbox = clickedHBox;
+
+        showView();
+
+        // Set the previous clicked HBox
         previousClickedHbox = clickedHBox;
+
+        // Set the style of the clicked HBox
         checkHBox(clickedHBox);
 
+        // Set the style of the other HBoxes
         for (Node node : sidebar.getChildren()) {
             if (node instanceof HBox && node != clickedHBox) {
                 uncheckHBox((HBox) node);
             }
         }
+
     }
 
     public void checkHBox(HBox hbox) {
@@ -121,37 +121,29 @@ public class AdminSidebarController implements Controller {
             label.setStyle("-fx-text-fill: #825FE5;");
             svgPath.setStyle("-fx-stroke: #825FE5;");
         } else {
-            Label label = (Label) addEmployee.getChildren().get(1);
-            SVGPath svgPath = (SVGPath) addEmployee.getChildren().get(0);
+            Label label = (Label) overview.getChildren().get(1);
+            SVGPath svgPath = (SVGPath) overview.getChildren().get(0);
             label.setStyle("-fx-text-fill: #825FE5;");
             svgPath.setStyle("-fx-stroke: #825FE5;");
         }
     }
 
-    public void showView(HBox clickedHBox) throws Exception {
-        if(clickedHBox == addEmployee) {
-            setTitlebar("Admin Panel | Add Employee");
-            AddEmployeeController addEmployeeController = new AddEmployeeController();
-            addEmployeeController.getView();
-        } else if(clickedHBox == removeEmployee) {
-            setTitlebar("Admin Panel | Remove Employee");
-            RemoveEmployeeController removeEmployeeController = new RemoveEmployeeController();
-            removeEmployeeController.getView();
-        } 
+    public void showView() throws Exception {
+
     }
 
-    private void setTitlebar(String title) {
+    protected void setTitlebar(String title) {
         SidebarModel.titlebar.setText(title);
     }
 
     @FXML
-    private void closeStage(ActionEvent event) {
+    protected void closeStage(ActionEvent event) {
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    private void maximizeStage(ActionEvent event) {
+    protected void maximizeStage(ActionEvent event) {
         Stage stage = (Stage) max_btn.getScene().getWindow();
         if (isMaximized) {
             stage.setMaximized(false);
@@ -159,17 +151,17 @@ public class AdminSidebarController implements Controller {
             return;
         }
         stage.setMaximized(true);
-        isMaximized = true;
+        isMaximized = true; 
     }
 
     @FXML
-    private void minimizeStage(ActionEvent event) {
+    protected void minimizeStage(ActionEvent event) {
         Stage stage = (Stage) close_btn.getScene().getWindow();
         stage.setIconified(true);
     }
 
     @FXML
-    private void logout() throws Exception {
+    protected void logout() throws Exception {
         Stage stage = (Stage) logout_btn.getScene().getWindow();
          
         LoginController loginController = new LoginController(stage);
