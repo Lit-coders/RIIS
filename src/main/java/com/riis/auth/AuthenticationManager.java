@@ -11,15 +11,16 @@ public class AuthenticationManager {
     public static Connection connection;
     
     public static String authenticate(String username, String password) throws ClassNotFoundException, SQLException {
-        connection = DatabaseConnection.getInstance();
-        String query = "SELECT * FROM Employee WHERE username=? AND password=?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, username);
-        preparedStatement.setString(2, password);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            String job = resultSet.getString("job");
-            return job;
+        try (Connection connection = DatabaseConnection.getInstance();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE username=? AND password=?")) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    String job = resultSet.getString("job");
+                    return job;
+                }
+            }
         }
         return "";
     }
