@@ -58,22 +58,6 @@ DELETE FROM Employee;
         ResidentPhoto BLOB
     )
 
-            ResidentForm.add(Name);
-        ResidentForm.add(FName);
-        ResidentForm.add(GFName);
-        ResidentForm.add(DOB);
-        ResidentForm.add(POB);
-        ResidentForm.add(phoneNumber);
-        ResidentForm.add(MName);
-        ResidentForm.add(sex);
-        ResidentForm.add(citizenship);
-        ResidentForm.add(marital_status);
-        ResidentForm.add(job);
-        ResidentForm.add(btype);
-        ResidentForm.add(house_number);
-        ResidentForm.add(ECF);
-        ResidentForm.add(ECP);
-
     Create table MapHolder (
         MapHolderID INTEGER PRIMARY KEY AUTOINCREMENT,
         MapHolderName varchar(25),
@@ -125,17 +109,18 @@ DELETE FROM Employee;
         FOREIGN KEY (username) REFERENCES Employee (username)
         )
 
-    CREATE TABLE Requests (
-        RequestID PRIMARY KEY AUTOINCREMENT,
+    CREATE TABLE Request (
+        RequestID INTEGER PRIMARY KEY AUTOINCREMENT,
         RID INTEGER,
-        SealedRequest INTEGER CHECK (SealedRequest IN (0,1)),
-        UnpaidRequest INTEGER CHECK (UnpaidRequest IN (0,1)),
-        ApprovalRequest INTEGER CHECK (ApprovalRequest IN (0,1)),
-        RequestType INTEGER CHECK (RequesType IN (0,1,2)),
-        RequestDate DATE,
+        SealedRequest INTEGER CHECK (SealedRequest IN (0, 1)),
+        UnpaidRequest INTEGER CHECK (UnpaidRequest IN (0, 1)),
+        ApprovalRequest INTEGER CHECK (ApprovalRequest IN (0, 1)),
+        RequestType INTEGER CHECK (RequestType IN (0, 1, 2)),
+        RequestDate DATETIME,
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID)
-        )
+    );
 
+drop table Requests
      -- added tables
 
     
