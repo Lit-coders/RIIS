@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class RequestDAOImpl implements RequestDAO {
             while (resultSet.next()) {
                 Request request = new Request(
                         resultSet.getInt("RequestID"),
-                        resultSet.getInt("ResidentID"),
+                        resultSet.getInt("RID"),
                         resultSet.getInt("SealedRequest"),
                         resultSet.getInt("UnpaidRequest"),
                         resultSet.getInt("ApprovalRequest"),
@@ -35,5 +37,26 @@ public class RequestDAOImpl implements RequestDAO {
             return requests;
         }
 
+    }
+
+    @Override
+    public void addRequest(Request request) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+
+        String query = "INSERT INTO Request (RID, SealedRequest, UnpaidRequest, ApprovalRequest, RequestType, RequestDate) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+            pis.setInt(1, request.getResidentID());
+            pis.setInt(2, request.getSealedRequest());
+            pis.setInt(3, request.getUnpaidRequest());
+            pis.setInt(4, request.getApprovalRequest());
+            pis.setInt(5, request.getRequestType());
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+            pis.setString(6, formattedDateTime);
+            pis.executeUpdate();
+        }
     }
 }
