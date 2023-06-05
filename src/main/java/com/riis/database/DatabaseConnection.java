@@ -6,28 +6,26 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
+import org.sqlite.SQLiteDataSource;
 
 public class DatabaseConnection {
-    private static Connection connection;
-    private static Object syncObject = new Object();
+    private static DataSource dataSource;
 
     private DatabaseConnection() {
 
     }
 
-    public static Connection createConnection() throws ClassNotFoundException, SQLException {
-        String URL = "jdbc:sqlite:src\\db\\riis.db";
-        return DriverManager.getConnection(URL);
-
+    static {
+        // Initialize the connection pool
+        SQLiteDataSource sqLiteDataSource = new SQLiteDataSource();
+        sqLiteDataSource.setUrl("jdbc:sqlite:src\\db\\riis.db");
+        dataSource = sqLiteDataSource;
     }
 
-    public static Connection getInstance() throws ClassNotFoundException, SQLException {
-        synchronized (syncObject) {
-            if (connection == null) {
-                connection = createConnection();
-            }
-            return connection;
-        }
+    public static Connection getInstance() throws SQLException {
+        return dataSource.getConnection();
     }
 
     public static boolean checkDatabase(String databaseUrl) throws ClassNotFoundException, SQLException {
@@ -37,15 +35,20 @@ public class DatabaseConnection {
             System.err.println("Database file not found");
             return false;
         } else {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databaseUrl);
-            DatabaseMetaData metaData = connection.getMetaData();
-            try {
-                metaData.getTables(null, null, "%", null);
-                return true;
+            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databaseUrl)) {
+                DatabaseMetaData metaData = connection.getMetaData();
+                try {
+                    metaData.getTables(null, null, "%", null);
+                    return true;
+                } catch (SQLException e) {
+                    System.err.println("Database is not connected");
+                    return false;
+                }
             } catch (SQLException e) {
                 System.err.println("Database is not connected");
-                return false;
             }
-        }  
+        }
+        return false;
     }
+
 }
