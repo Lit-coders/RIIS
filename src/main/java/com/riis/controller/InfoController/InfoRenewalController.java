@@ -2,6 +2,7 @@ package com.riis.controller.InfoController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.print.PrintColor;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
@@ -23,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class InfoRenewalController implements Controller{
+    int clikedIdex = 0;
     @FXML
     private Label Phone_label;
 
@@ -69,7 +71,7 @@ public class InfoRenewalController implements Controller{
 
     @FXML
     void approveRenewal(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -77,37 +79,63 @@ public class InfoRenewalController implements Controller{
 
     }
     
-    private void displayExpStatus(int residentId) {
-        ExpId expId = ResidentData.getExpResidentIdData(residentId);
-        givend_label.setText(expId.getIdgivenDate());
-        expd_label.setText(expId.getIdExpDate());
-    }
+    // private void displayExpStatus(int residentId) {
+    //     ExpId expId = ResidentData.getExpResidentIdData(residentId);
+    //     givend_label.setText(expId.getIdgivenDate());
+    //     expd_label.setText(expId.getIdExpDate());
+    // }
     
-    private void displayResidentDetail(Resident resident){
+    private void checkSelectedLabel(Label label) {
+        label.setStyle("-fx-background-color: #956cedbc;");
+        Label l = (Label) id_list.getChildren().get(clikedIdex);
+        l.setStyle("-fx-background-color: #956ced;");
+        clikedIdex = id_list.getChildren().indexOf(label);
+        
+
+        // for(int i=0; i<id_list.getChildren().size();i++){
+        //     Label l = (Label) id_list.getChildren().get(i);
+        //     l.setStyle("-fx-background-color: #956ced;");
+        //     System.out.println(l);
+        // }
+        // label.setStyle("-fx-background-color: #956cedbc;"); 
+    }
+
+    private void displayResidentDetail(Resident resident, String givenDate, String expDate, Label label){
+        checkSelectedLabel(label);
+        approve_btn.setDisable(false);
         String fullName = resident.getName() + " " + resident.getFatherName() + " " + resident.getGFatherName();
         name_label.setText(fullName);
         sex_label.setText(resident.getSex());
         Phone_label.setText(resident.getPhoneNumber());
-        displayExpStatus(resident.getResidentId());
+        givend_label.setText(givenDate);
+        expd_label.setText(expDate);
     }
     
+
     private void edit(Label name_label) {
         name_label.getStyleClass().add("name-label");
+        name_label.setStyle("-fx-background-color: #956ced;");
         name_label.setAlignment(Pos.CENTER);
     }
 
     private void displayExpIdList() {
-        String sql = "SELECT * FROM Resident";
-        ArrayList<Resident> Residents = ResidentData.getResidentData(sql);
-        for(Resident resident: Residents){
-            String fullName = resident.getName() + " " + resident.getFatherName() + " " + resident.getGFatherName();
-            Label name_label = new Label(fullName);
-            // Label ago_label = new Label();
-            name_label.setOnMouseClicked(event ->{
-                displayResidentDetail(resident);
-            });
-            edit(name_label);
-            id_list.getChildren().add(name_label);
+        String sql1  = "SELECT * FROM KebeleResidentID";
+        ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql1);
+        for(ExpId expId: expIds){
+            int id = expId.getResidentId();
+            String givenDate = expId.getIdgivenDate();
+            String expDate = expId.getIdExpDate();
+            String sql = "SELECT * FROM Resident WHERE ResidentID = '" + id + "'";
+            ArrayList<Resident> Residents = ResidentData.getResidentData(sql);
+            for(Resident resident: Residents){
+                String fullName = resident.getName() + " " + resident.getFatherName() + " " + resident.getGFatherName();
+                Label label = new Label(fullName);
+                label.setOnMouseClicked(event ->{
+                    displayResidentDetail(resident, givenDate, expDate, label);
+                });
+                edit(label);
+                id_list.getChildren().add(label);
+            }
         }
     }
 
@@ -135,6 +163,8 @@ public class InfoRenewalController implements Controller{
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
 
+        approve_btn = (Button) anchorPane.getChildren().get(3);
+
         VBox vbox = (VBox) anchorPane.getChildren().get(2);
         initializeNullLabels(vbox);
 
@@ -142,5 +172,4 @@ public class InfoRenewalController implements Controller{
         id_list = (VBox) pane.getContent();
         displayExpIdList();
     }
-
 }
