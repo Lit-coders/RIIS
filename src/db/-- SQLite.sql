@@ -73,8 +73,53 @@ DELETE FROM Employee;
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID),
         FOREIGN KEY (MID) REFERENCES MapHolder (MapHolderID)
     )
+    
+    CREATE TABLE KebeleResidentID (
+        ResidentID INTEGER,
+        GivenDate DATE,
+        ExpDate DATE,
+        ExpirationStatus INTEGER CHECK (ExpirationStatus IN (0,1)),
+        FOREIGN KEY (ResidentID) REFERENCES Resident (ResidentID)
+    )  
 
-    -- added tables
+    CREATE TABLE RenewalPayment (
+        RPID INTEGER PRIMARY KEY AUTOINCREMENT,
+        ResidentID INTEGER,
+        username VARCHAR(25),
+        TotalFee INTEGER,
+        FOREIGN KEY (ResidentID) REFERENCES Resident (ResidentID),
+        FOREIGN KEY (username) REFERENCES Employee (username)
+        )
+    
+    CREATE TABLE LostPayment (
+        LPID INTEGER PRIMARY KEY AUTOINCREMENT,
+        ResidentID INTEGER,
+        username VARCHAR(25),
+        TotalFee INTEGER,
+        FOREIGN KEY (ResidentID) REFERENCES Resident (ResidentID),
+        FOREIGN KEY (username) REFERENCES Employee (username)
+        )
+
+    CREATE TABLE CreatePayment (
+        RPID INTEGER PRIMARY KEY AUTOINCREMENT,
+        ResidentID INTEGER,
+        username VARCHAR(25),
+        TotalFee INTEGER,
+        FOREIGN KEY (ResidentID) REFERENCES Resident (ResidentID),
+        FOREIGN KEY (username) REFERENCES Employee (username)
+        )
+
+    CREATE TABLE Requests (
+        RequestID PRIMARY KEY AUTOINCREMENT,
+        RID INTEGER,
+        SealedRequest INTEGER CHECK (SealedRequest IN (0,1)),
+        UnpaidRequest INTEGER CHECK (UnpaidRequest IN (0,1)),
+        ApprovalRequest INTEGER CHECK (ApprovalRequest IN (0,1)),
+        RequestType INTEGER CHECK (RequesType IN (0,1,2)),
+        FOREIGN KEY (RID) REFERENCES Resident (ResidentID)
+        )
+
+     -- added tables
 
     
 
