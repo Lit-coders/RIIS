@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.riis.controller.Controller;
@@ -164,11 +165,15 @@ public class InfoNewResidentController implements Controller {
     }
 
     public InputStream fileChoser() throws FileNotFoundException {
+        try{
         FileChooser fileChoser = new FileChooser();
         fileChoser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         file = fileChoser.showOpenDialog(null);
         FileInputStream fis = new FileInputStream(file);
         return fis;
+        }catch(Exception e){
+            return null;
+        }
     }
 
     public void ResidentImageChoser() throws FileNotFoundException {
@@ -196,13 +201,16 @@ public class InfoNewResidentController implements Controller {
 
     public void addResidentAndMapHolder() throws ClassNotFoundException, SQLException, IOException {
         if (checkMessage()) {
-            addResident();
-            addMapHolder();
-            mapImageHolder.getChildren().remove(mapImage);
-            imageHolder.getChildren().remove(residentImage);
-            clearForm();
+            if (!isRepeated()) {
+                addResident();
+                addMapHolder();
+                mapImageHolder.getChildren().remove(mapImage);
+                imageHolder.getChildren().remove(residentImage);
+                clearForm();
+            }
         }
     }
+
 
     public void addResident() throws ClassNotFoundException, SQLException, IOException {
         Connection connection = DatabaseConnection.getInstance();
@@ -393,5 +401,25 @@ public class InfoNewResidentController implements Controller {
         alert.setHeaderText("Error");
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public boolean isRepeated() {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement ps = connection.prepareStatement("Select * from Resident where Name=? and FName=? and GFName=? and phoneNumber=?");
+            ps.setString(1, Name.getText());
+            ps.setString(2, FName.getText());
+            ps.setString(3, GFName.getText());
+            ps.setString(4, phoneNumber.getText());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                alertMessage("The Resident is Already Registered");
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
 }
