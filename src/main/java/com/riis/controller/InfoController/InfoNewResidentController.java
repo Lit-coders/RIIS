@@ -207,6 +207,7 @@ public class InfoNewResidentController implements Controller {
             if (!isRepeated()) {
                 addResident();
                 addMapHolder();
+                successMessage("Resident Added Successfully");
                 mapImageHolder.getChildren().remove(mapImage);
                 imageHolder.getChildren().remove(residentImage);
                 clearForm();
@@ -402,6 +403,7 @@ public class InfoNewResidentController implements Controller {
 
     public boolean selectedImageChecker() {
         if (residentImage == null || mapImage == null) {
+            alertMessage("Please select an image");
             return false;
         }
         return true;
@@ -438,4 +440,9 @@ public class InfoNewResidentController implements Controller {
             MapHolderForm.get(invalidTextfield - 17).requestFocus();
         }
     }
+
+     public void successMessage(String message) {
+        JAlert alert = new JAlert("Success",message);
+        alert.showAlert();
+     }
 }
