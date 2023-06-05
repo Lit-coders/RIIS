@@ -10,6 +10,9 @@ public class Request {
     private int RequestType;
     private String RequestDate;
 
+    public Request() {
+    }
+
     public Request(int RequestID, int ResidentID, int SealedRequest, int UnpaidRequest, int ApprovalRequest, int RequestType, String RequestDate) {
         this.RequestID = RequestID;
         this.ResidentID = ResidentID;
