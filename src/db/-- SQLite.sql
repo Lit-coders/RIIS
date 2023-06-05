@@ -116,6 +116,7 @@ DELETE FROM Employee;
         UnpaidRequest INTEGER CHECK (UnpaidRequest IN (0,1)),
         ApprovalRequest INTEGER CHECK (ApprovalRequest IN (0,1)),
         RequestType INTEGER CHECK (RequesType IN (0,1,2)),
+        RequestDate DATE,
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID)
         )
 
