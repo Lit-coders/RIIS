@@ -1,4 +1,5 @@
 package com.riis.controller.InfoController;
+
 import com.riis.database.DatabaseConnection;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,12 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import com.riis.controller.Controller;
 import com.riis.model.viewmodel.SidebarModel;
+import com.riis.utils.JAlert;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -124,6 +124,8 @@ public class InfoNewResidentController implements Controller {
 
     private InputStream MapImageBinary;
 
+    private int invalidTextfield;
+
     @FXML
     public void initialize() {
         ResidentForm.add(Name);
@@ -165,13 +167,14 @@ public class InfoNewResidentController implements Controller {
     }
 
     public InputStream fileChoser() throws FileNotFoundException {
-        try{
-        FileChooser fileChoser = new FileChooser();
-        fileChoser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
-        file = fileChoser.showOpenDialog(null);
-        FileInputStream fis = new FileInputStream(file);
-        return fis;
-        }catch(Exception e){
+        try {
+            FileChooser fileChoser = new FileChooser();
+            fileChoser.getExtensionFilters()
+                    .add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+            file = fileChoser.showOpenDialog(null);
+            FileInputStream fis = new FileInputStream(file);
+            return fis;
+        } catch (Exception e) {
             return null;
         }
     }
@@ -211,10 +214,10 @@ public class InfoNewResidentController implements Controller {
         }
     }
 
-
     public void addResident() throws ClassNotFoundException, SQLException, IOException {
         Connection connection = DatabaseConnection.getInstance();
-        PreparedStatement ps = connection.prepareStatement("Insert into Resident Values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        PreparedStatement ps = connection
+                .prepareStatement("Insert into Resident Values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         for (int i = 0; i < ResidentForm.size(); i++) {
             ps.setString(i + 2, ResidentForm.get(i).getText());
             if (i == ResidentForm.size() - 1) {
@@ -248,8 +251,7 @@ public class InfoNewResidentController implements Controller {
                     } else {
                         ResidentForm.get(i + 1).requestFocus();
                     }
-                }
-                else if (event.getCode() == KeyCode.BACK_SPACE) {
+                } else if (event.getCode() == KeyCode.BACK_SPACE) {
                     if (ResidentForm.get(i).getText().isEmpty()) {
                         if (i == 0) {
                             ResidentForm.get(i).requestFocus();
@@ -268,14 +270,14 @@ public class InfoNewResidentController implements Controller {
                     } else {
                         MapHolderForm.get(i + 1).requestFocus();
                     }
-                    
-                  }  else if (event.getCode() == KeyCode.BACK_SPACE){
-                        if (MapHolderForm.get(i).getText().isEmpty()) {
-                            if (i == 0) {
-                             ResidentForm.get(ResidentForm.size()-1).requestFocus();
-                            } else {
-                                MapHolderForm.get(i - 1).requestFocus();
-                            }
+
+                } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                    if (MapHolderForm.get(i).getText().isEmpty()) {
+                        if (i == 0) {
+                            ResidentForm.get(ResidentForm.size() - 1).requestFocus();
+                        } else {
+                            MapHolderForm.get(i - 1).requestFocus();
+                        }
                     }
                 }
             }
@@ -286,27 +288,37 @@ public class InfoNewResidentController implements Controller {
         for (TextField field : ResidentForm) {
             boolean isEmpty = emptyFieldChecker(field);
             if (!isEmpty) {
+                invalidTextfield = ResidentForm.indexOf(field);
+                alertMessage("Please fill all the fields");
                 return isEmpty;
             } else {
                 if (field == phoneNumber || field == ECP) {
                     boolean isValid = phonePatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = ResidentForm.indexOf(field);
+                        alertMessage("Please enter a valid phone number");
                         return isValid;
                     }
                 } else if (field == DOB) {
                     boolean isValid = datePatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = ResidentForm.indexOf(field);
+                        alertMessage("Please enter a valid date");
                         return isValid;
                     }
-                }  else if (field == house_number){
+                } else if (field == house_number) {
                     boolean isValid = houseNumberChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = ResidentForm.indexOf(field);
+                        alertMessage("Please enter a valid house number");
                         return isValid;
                     }
 
-                }  else {
+                } else {
                     boolean isValid = stringPatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = ResidentForm.indexOf(field);
+                        alertMessage("Please enter a valid Data");
                         return isValid;
                     }
                 }
@@ -318,26 +330,32 @@ public class InfoNewResidentController implements Controller {
         for (TextField field : MapHolderForm) {
             boolean isEmpty = emptyFieldChecker(field);
             if (!isEmpty) {
+                invalidTextfield = MapHolderForm.indexOf(field) + 17;
+                alertMessage("Please fill all the fields");
                 return isEmpty;
             } else {
                 if (field == HOP) {
                     boolean isValid = phonePatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = MapHolderForm.indexOf(field) + 17;
+                        alertMessage("Please enter a valid phone number");
                         return isValid;
                     }
                 } else {
                     boolean isValid = stringPatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = MapHolderForm.indexOf(field) + 17;
+                        alertMessage("Please enter a valid Data");
                         return isValid;
                     }
                 }
             }
         }
-        boolean hasImage= selectedImageChecker();
+        boolean hasImage = selectedImageChecker();
         if (!hasImage) {
             return hasImage;
         }
-        
+
         return true;
 
     }
@@ -345,7 +363,6 @@ public class InfoNewResidentController implements Controller {
     public boolean phonePatternChecker(String phoneNumber) {
         String phonePattern = "\\+251[7,9]\\d{8}";
         if (!phoneNumber.matches(phonePattern)) {
-            alertMessage("Please Enter Valid Phone Number");
             return false;
         }
         return true;
@@ -354,7 +371,6 @@ public class InfoNewResidentController implements Controller {
     public boolean datePatternChecker(String date) {
         String datePattern = "\\d{2}-\\d{2}-\\d{4}";
         if (!date.matches(datePattern)) {
-            alertMessage("Please Enter Valid Date");
             return false;
         }
         return true;
@@ -363,7 +379,6 @@ public class InfoNewResidentController implements Controller {
     public boolean stringPatternChecker(String string) {
         String alphaPattern = "^[a-zA-Z\\s]*$";
         if (!string.matches(alphaPattern)) {
-            alertMessage("Please Enter Valid Data");
             return false;
         }
         return true;
@@ -371,7 +386,6 @@ public class InfoNewResidentController implements Controller {
 
     public boolean emptyFieldChecker(TextField field) {
         if (field.getText().isEmpty()) {
-            alertMessage("Please Fill All Fields");
             return false;
 
         }
@@ -381,7 +395,6 @@ public class InfoNewResidentController implements Controller {
     public boolean houseNumberChecker(String houseNumber) {
         String houseNumberPattern = "^[a-zA-Z0-9]{1,5}$";
         if (!houseNumber.matches(houseNumberPattern)) {
-            alertMessage("Please Enter Valid House Number");
             return false;
         }
         return true;
@@ -389,24 +402,16 @@ public class InfoNewResidentController implements Controller {
 
     public boolean selectedImageChecker() {
         if (residentImage == null || mapImage == null) {
-            alertMessage("Please Select Image");
             return false;
         }
         return true;
     }
-
-    public void alertMessage(String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Error");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
+    
     public boolean isRepeated() {
         try {
             Connection connection = DatabaseConnection.getInstance();
-            PreparedStatement ps = connection.prepareStatement("Select * from Resident where Name=? and FName=? and GFName=? and phoneNumber=?");
+            PreparedStatement ps = connection
+                    .prepareStatement("Select * from Resident where Name=? and FName=? and GFName=? and phoneNumber=?");
             ps.setString(1, Name.getText());
             ps.setString(2, FName.getText());
             ps.setString(3, GFName.getText());
@@ -420,6 +425,17 @@ public class InfoNewResidentController implements Controller {
             e.printStackTrace();
         }
         return false;
-
+        
+    }
+    
+    public void alertMessage(String message) {
+        JAlert alert = new JAlert("Error", message);
+        alert.showAlert();
+        System.out.println(invalidTextfield);
+        if(invalidTextfield < 17) {
+            ResidentForm.get(invalidTextfield).requestFocus();
+        } else {
+            MapHolderForm.get(invalidTextfield - 17).requestFocus();
+        }
     }
 }
