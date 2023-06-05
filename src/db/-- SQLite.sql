@@ -119,15 +119,3 @@ DELETE FROM Employee;
         RequestDate DATE,
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID)
         )
-
-     -- added tables
-
-    
-
-    CREATE TABLE KebeleResidentID(
-        ResidentID INTEGER,
-        GivenDate DATE,
-        ExpDate DATE,
-        ExpirationStatus varchar(4)
-    )
-
