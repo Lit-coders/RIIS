@@ -4,6 +4,7 @@ package com.riis.controller.AdminController;
 import com.riis.controller.Controller;
 import com.riis.controller.LoginController;
 import com.riis.model.viewmodel.SidebarModel;
+import com.riis.utils.JAlert;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -171,9 +172,14 @@ public class AdminSidebarController implements Controller {
 
     @FXML
     private void logout() throws Exception {
-        Stage stage = (Stage) logout_btn.getScene().getWindow();
-         
-        LoginController loginController = new LoginController(stage);
-        loginController.getView();
+        JAlert alert = new JAlert("Warning", "Are you sure you want to logout?");
+        alert.showAndWait();
+        if (alert.getResult().getText().equals("Yes")) {
+            Stage stage = (Stage) logout_btn.getScene().getWindow();
+            LoginController loginController = new LoginController(stage);
+            loginController.getView();
+        } else {
+            alert.close();
+        }
     }
 }
