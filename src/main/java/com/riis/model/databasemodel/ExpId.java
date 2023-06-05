@@ -4,16 +4,22 @@ public class ExpId {
     private int residentId;
     private String idGivenDate;
     private String idExpDate;
+    private int expStatus;
 
-    public ExpId(int id, String givenDate, String expDate){
+    public ExpId(int id, String givenDate, String expDate, int expStatus){
         this.residentId = id;
         this.idGivenDate = givenDate;
         this.idExpDate = expDate;
+        this.expStatus = expStatus;
     }
     
-        public int getResidentId(){
-            return residentId;
-        }
+    public int getExpStatus(){
+        return expStatus;
+    }
+
+    public int getResidentId(){
+        return residentId;
+    }
     
     public String getIdgivenDate() {
         return idGivenDate;
@@ -21,6 +27,10 @@ public class ExpId {
     
     public String getIdExpDate(){
         return idExpDate;
+    }
+
+    public void setExpStatus(int status){
+        this.expStatus = status;
     }
 
     public void setResidentId(int id){
