@@ -1,0 +1,18 @@
+.dialog-pane {
+  -fx-border-color: #970eff;
+  -fx-border-width: 3px;
+  -fx-background-radius: 20px;
+  -fx-border-radius: 15px;
+}
+
+
+.dialog-pane .button {
+  -fx-font-size: 1.5em;
+  -fx-font-weight: bold;
+  -fx-background-color: #976eef;
+  -fx-text-fill: white;
+}
+
+.dialog-pane .button:hover {
+  -fx-background-color: #970eff;
+}

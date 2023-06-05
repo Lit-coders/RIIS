@@ -5,7 +5,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import com.riis.controller.Controller;
+import com.riis.model.viewmodel.SidebarModel;
+>>>>>>> 4a4ce757f287d36685016edeba767c518d8af042
 
 import com.riis.controller.Controller;
 import com.riis.model.databasemodel.ExpId;
@@ -134,6 +139,7 @@ public class InfoRenewalController implements Controller{
 
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
+<<<<<<< HEAD
 
         VBox vbox = (VBox) anchorPane.getChildren().get(2);
         initializeNullLabels(vbox);
@@ -141,6 +147,8 @@ public class InfoRenewalController implements Controller{
         ScrollPane pane = (ScrollPane) anchorPane.getChildren().get(1);
         id_list = (VBox) pane.getContent();
         displayExpIdList();
+=======
+>>>>>>> 4a4ce757f287d36685016edeba767c518d8af042
     }
 
 }
