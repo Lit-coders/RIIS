@@ -7,29 +7,40 @@
   -fx-background-radius: 15px;
 }
 
-#re_search_field {
+#search_field {
   -fx-background-color: transparent;
 }
 
-#re_search_btn {
+#search_btn,
+#clear_btn {
   -fx-background-color: transparent;
 }
 
-#re_search_btn:hover {
-  -fx-background-color: rgba(109, 100, 100, 0.434);
-  -fx-background-radius: 15px;
-}
-#replace_list {
+#id_list {
   -fx-background-color: white;
   -fx-background-radius: 15px;
 }
+.scroll-pane {
+  -fx-background-color: transparent;
+  -fx-background-radius: 15px;
+}
 
-#re_approve_btn {
+.scroll-pane,
+.scroll-pane .viewport,
+.scroll-pane .scroll-bar {
+  -fx-background-color: transparent;
+  -fx-background-radius: 15;
+}
+.scroll-pane .thumb {
+  -fx-background-color: rgba(79, 19, 228, 0.537);
+}
+
+#approve_btn {
   -fx-background-color: #976eef;
   -fx-background-radius: 15px;
 }
 
-#re_approve_btn:hover {
+#approve_btn:hover {
   -fx-background-color: #976eefd2;
 }
 
@@ -39,7 +50,8 @@
 }
 
 .detail_hbox {
-  -fx-background-color: #eee6e6;
+  -fx-background-color: #f5f0f0;
+  -fx-background-radius: 15px;
 }
 .detail_hbox:hover {
   -fx-background-color: #eee6e6ab;
@@ -47,6 +59,18 @@
 
 .detailLabel {
   -fx-font-weight: 800;
-  -fx-text-fill: #976eef;
-  -fx-background-radius: 15px;
+  -fx-text-fill: #702ffc;
+}
+
+/* for list of residents  */
+
+.name-label {
+  -fx-text-fill: white;
+  -fx-font-size: 16;
+  -fx-font-weight: 700;
+  -fx-background-color: #976eef76;
+  -fx-background-radius: 20;
+  -fx-pref-width: 450;
+  -fx-pref-height: 40;
+  -fx-padding: 3;
 }

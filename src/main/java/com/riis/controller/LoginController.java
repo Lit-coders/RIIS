@@ -178,18 +178,3 @@ public class LoginController implements Controller {
         alert.showAndWait();
     }
 }
-
-
-// Connection con = DatabaseConnection.getInstance();
-        // Statement st = con.createStatement();
-        // st.executeQuery("CREATE TABLE Employee(\n" +
-        //     "username varchar(25),\n" +
-        //     "password varchar(25),\n" +
-        //     "firstName varchar(25),\n" +
-        //     "lastName varchar(25),\n" +
-        //     "middleName varchar(25),\n" +
-        //     "job varchar(25)\n" +
-        // ");");
-
-        // st.executeUpdate("INSERT INTO Employee VALUES('helen003', 'helen003', 'Helen', 'Shiferaw', 'Gemeda', 'Information Officer')");
-        // st.executeUpdate("INSERT INTO Employee VALUES('admin001', 'admin001', 'Sewlesew', 'Sewmehon', 'Yshalal', 'System Administer')");

@@ -84,7 +84,6 @@ public class AdminSidebarController implements Controller {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Admin Pannel");
         stage.show();
     }
 
