@@ -330,16 +330,22 @@ public class InfoNewResidentController implements Controller {
         for (TextField field : MapHolderForm) {
             boolean isEmpty = emptyFieldChecker(field);
             if (!isEmpty) {
+                invalidTextfield = MapHolderForm.indexOf(field) + 17;
+                alertMessage("Please fill all the fields");
                 return isEmpty;
             } else {
                 if (field == HOP) {
                     boolean isValid = phonePatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = MapHolderForm.indexOf(field) + 17;
+                        alertMessage("Please enter a valid phone number");
                         return isValid;
                     }
                 } else {
                     boolean isValid = stringPatternChecker(field.getText());
                     if (!isValid) {
+                        invalidTextfield = MapHolderForm.indexOf(field) + 17;
+                        alertMessage("Please enter a valid Data");
                         return isValid;
                     }
                 }
@@ -426,6 +432,10 @@ public class InfoNewResidentController implements Controller {
         JAlert alert = new JAlert("Error", message);
         alert.showAlert();
         System.out.println(invalidTextfield);
-        ResidentForm.get(invalidTextfield).requestFocus();
+        if(invalidTextfield < 17) {
+            ResidentForm.get(invalidTextfield).requestFocus();
+        } else {
+            MapHolderForm.get(invalidTextfield - 17).requestFocus();
+        }
     }
 }
