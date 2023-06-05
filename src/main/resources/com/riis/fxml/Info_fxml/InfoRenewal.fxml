@@ -103,7 +103,7 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
       </VBox>
-      <Button fx:id="approve_btn" alignment="CENTER" layoutX="620.0" layoutY="575.0" mnemonicParsing="false" onAction="#approveRenewal" prefHeight="34.0" prefWidth="200.0" text="Approve" textFill="WHITE">
+      <Button fx:id="approve_btn" alignment="CENTER" disable="true" layoutX="620.0" layoutY="575.0" mnemonicParsing="false" onAction="#approveRenewal" prefHeight="34.0" prefWidth="200.0" text="Approve" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
