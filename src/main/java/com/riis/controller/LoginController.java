@@ -1,6 +1,7 @@
 package com.riis.controller;
 
 
+import com.riis.Context.UserContext;
 import com.riis.auth.AuthenticationManager;
 import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
@@ -47,6 +48,8 @@ public class LoginController implements Controller {
     public Label errorMessage;
 
     private OverviewModel overviewModel = OverviewModel.getInstance();
+    
+    private UserContext userContext = UserContext.getInstance();
     
 
     public LoginController(Stage stage) {
@@ -113,7 +116,7 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
-            overviewModel.setLoggedInUserText(user);
+            userContext.setUsername(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
