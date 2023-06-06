@@ -172,5 +172,15 @@ public class RequestDAOImpl implements RequestDAO {
             pis.executeUpdate();
         }
     }
-    
+
+    @Override
+    public void deleteRequest(Request request) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+
+        String query = "DELETE FROM Request WHERE RequestID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+            pis.setInt(1, request.getRequestID());
+            pis.executeUpdate();
+        }
+    }
 }
