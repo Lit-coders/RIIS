@@ -47,10 +47,6 @@ public class OverviewModel {
     public void setGreetingText(String greeting) {
         this.greetingText = greeting;
     }
-
-    public String getGreetingText() {
-        return greetingText;
-    }
     
     public void setGreetingTextComp() {
         this.greeting.setText(greetingText);
@@ -66,10 +62,6 @@ public class OverviewModel {
     
     public void setLoggedInUserText(String loggedInUser) {
         this.loggedInUserText = loggedInUser;
-    }
-
-    public String getLoggedInUserText() {
-        return loggedInUserText;
     }
     
     public void setLoggedInUserTextComp() {
@@ -87,10 +79,6 @@ public class OverviewModel {
     public void setLoggedInUserFullNameText(String fullName) {
         this.loggedInUserFullName.setText(fullName);
     }
-
-    public String getLoggedInUserFullNameText() {
-        return loggedInUserFullNameText;
-    }
     
     public Label getDateComp() {
         return date;
@@ -102,10 +90,6 @@ public class OverviewModel {
     
     public void setDateText(String date) {
         this.date.setText(date);
-    }
-
-    public String getDateText() {
-        return dateText;
     }
     
     public Label getTimeComp() {
@@ -119,10 +103,6 @@ public class OverviewModel {
     public void setTimeText(String time) {
         this.time.setText(time);
     }
-
-    public String getTimeText() {
-        return timeText;
-    }
     
     public Label getTotResidentsComp() {
         return tot_residents;
@@ -134,10 +114,6 @@ public class OverviewModel {
     
     public void setTotResidentsText(String count) {
         this.tot_residents.setText(count);
-    }
-
-    public String getTotResidentsText() {
-        return tot_residentsText;
     }
     
     public Label getTotResidentsMaleComp() {
@@ -151,10 +127,6 @@ public class OverviewModel {
     public void setTotResidentsMaleText(String count) {
         this.tot_residents_male.setText(count);
     }
-
-    public String getTotResidentsMaleText() {
-        return tot_residents_maleText;
-    }
     
     public Label getTotResidentsFemaleComp() {
         return tot_residents_female;
@@ -166,10 +138,6 @@ public class OverviewModel {
     
     public void setTotResidentsFemaleText(String count) {
         this.tot_residents_female.setText(count);
-    }
-
-    public String getTotResidentsFemaleText() {
-        return tot_residents_femaleText;
     }
     
     public Label getLastLoginNumComp() {
@@ -183,10 +151,6 @@ public class OverviewModel {
     public void setLastLoginNumText(String num) {
         this.lastLoginNum.setText(num);
     }
-
-    public String getLastLoginNumText() {
-        return lastLoginNumText;
-    }
     
     public Label getLastLoginLetterComp() {
         return lastLoginLetter;
@@ -198,10 +162,6 @@ public class OverviewModel {
     
     public void setLastLoginLetterText(String letter) {
         this.lastLoginLetter.setText(letter);
-    }
-
-    public String getLastLoginLetterText() {
-        return lastLoginLetterText;
     }
     
     public void setLoggedInUserFullNameTextComp() {
