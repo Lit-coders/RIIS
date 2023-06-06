@@ -177,5 +177,12 @@ public class FinRequestsController extends BaseRequestsController {
     public void removeApprovedRequest(HBox hbox) {
         VBox reqList = requestModel.getReqListComp();
         reqList.getChildren().remove(hbox);
+        showAlert("Request Approved Successfully");
+    }
+
+    public void showAlert(String message) {
+        JAlert alert = new JAlert("Success", message);
+        alert.showAlert();
+
     }
 }
