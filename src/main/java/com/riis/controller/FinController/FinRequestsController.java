@@ -93,7 +93,11 @@ public class FinRequestsController extends BaseRequestsController {
         requestHbox.getChildren().addAll(residentName, requestDate);
 
         requestHbox.setOnMouseClicked(e -> {
-            handleClick(requestHbox,residentFullName,request);
+            try {
+                handleClick(requestHbox,residentFullName,request);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         });
         // handleHover(requestHbox);
         return requestHbox;
@@ -108,7 +112,7 @@ public class FinRequestsController extends BaseRequestsController {
         });
     }
 
-    public void handleClick(HBox hbox, String residentFullName, Request request) {
+    public void handleClick(HBox hbox, String residentFullName, Request request) throws Exception {
         hbox.setStyle("-fx-background-color: #976EEF; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #976EEF; -fx-border-width: 3px");
         handleColorChange(hbox, Color.WHITE);
         int reqType = request.getRequestType();
@@ -123,7 +127,7 @@ public class FinRequestsController extends BaseRequestsController {
         JAlert alert = new JAlert("Confirmation", message);
         alert.showAlert();
         if(alert.getResult().getText().equals("Approve")) {
-            approveRequest(request);
+            updateRequest(request);
             hbox.setStyle("-fx-background-color: #F5F0F0; -fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: #F5F0F0; -fx-border-width: 3px");
             handleColorChange(hbox, Color.valueOf("#702FFC"));
         } else {
@@ -144,7 +148,34 @@ public class FinRequestsController extends BaseRequestsController {
         }
     }
 
-    public void approveRequest(Request request) {
-        System.out.println(request);
+    // to be optimized later
+    public void updateRequest(Request request) throws Exception {
+        RequestDAO requestDAO = new RequestDAOImpl();
+        requestDAO.updateRequest(request);
+        String reqDate = request.getRequestDate();
+        try {
+            for (Node node : requestModel.getReqListComp().getChildren()) {
+                if (node instanceof HBox) {
+                    for (Node node2 : ((HBox) node).getChildren()) {
+                        if (node2 instanceof HBox) {
+                            for (Node node3 : ((HBox) node2).getChildren()) {
+                                if (node3 instanceof Text) {
+                                    if (((Text) node3).getText().equals(reqDate)) {
+                                        removeApprovedRequest((HBox) node);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("something happened");
+        }
+    }
+
+    public void removeApprovedRequest(HBox hbox) {
+        VBox reqList = requestModel.getReqListComp();
+        reqList.getChildren().remove(hbox);
     }
 }
