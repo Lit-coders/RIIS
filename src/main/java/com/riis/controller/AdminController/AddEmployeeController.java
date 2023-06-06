@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.riis.controller.Controller;
 import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
+import com.riis.utils.JAlert;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,6 +50,8 @@ public class AddEmployeeController implements Controller {
             String response = Data.InsertEmployeeData(sql);
             System.out.println(sql);
             System.out.println(response);
+            JAlert alert = new JAlert("Success", "Employee Added Successfully!");
+            alert.showAlert();;
             clearAllFields(box);
         }
     }
@@ -56,7 +59,8 @@ public class AddEmployeeController implements Controller {
     private boolean isStrong(VBox box) {
         TextField field = (TextField) box.getChildren().get(9);
         if(field.getText().length() < 5){
-            System.out.println("Passward Length must be > 5.");
+            alertMessage("Password Length must be greater than 5.");
+            field.requestFocus();
             return false;
         }
         return true;
@@ -68,7 +72,8 @@ public class AddEmployeeController implements Controller {
         ArrayList<Employee> employees = Data.getEmployeeData(sql);
         for(Employee employee: employees){
             if(field.getText().equals(employee.getUserName())){
-                System.out.println("Username already exists!");
+                alertMessage("Username already exists!");
+                field.requestFocus();
                 return true;
             }
         }
@@ -79,7 +84,8 @@ public class AddEmployeeController implements Controller {
         for(int i=1; i<box.getChildren().size(); i += 2){
             TextField field = (TextField) box.getChildren().get(i);
             if(field.getText().isBlank()){
-                System.out.println("You have Empty Fields!");
+                alertMessage("You have Empty Fields!");
+                field.requestFocus();
                 return true;
             }
         }
@@ -91,7 +97,8 @@ public class AddEmployeeController implements Controller {
             TextField field = (TextField) box.getChildren().get(i);
             for(int j=0; j<field.getText().length(); j++){
                 if(field.getText().charAt(j) == '\'' || field.getText().charAt(j) == '"'){
-                    System.out.println("Using Quotation marks is not allowed!");
+                    alertMessage("Using Quotation marks is not allowed!");
+                    field.requestFocus();
                     return false;
                 }
             }
@@ -113,6 +120,11 @@ public class AddEmployeeController implements Controller {
         }
         TextField field = (TextField) box.getChildren().get(1);
         field.requestFocus();
+    }
+
+    public void alertMessage(String message){
+        JAlert alert = new JAlert("Error",message);
+        alert.showAlert();
     }
 
 
