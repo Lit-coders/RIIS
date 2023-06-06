@@ -1,12 +1,17 @@
 package com.riis.controller;
 
 
+import java.sql.SQLException;
+
 import com.riis.auth.AuthenticationManager;
 import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
 import com.riis.controller.KebeleController.KebeleSidebarController;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.database.DatabaseConnection;
+import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.OverviewModel;
 import com.riis.utils.JAlert;
 
@@ -113,7 +118,8 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
-            overviewModel.setLoggedInUserText(user);
+            String userName = getFirstName(user);
+            overviewModel.setLoggedInUserText(userName);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
@@ -169,5 +175,12 @@ public class LoginController implements Controller {
         close_btn.setOnMouseExited(e -> {
             closeIcon.setStyle("-fx-stroke: #976eef;");
         });
+    }
+
+    public String getFirstName(String user) throws SQLException {
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        Employee employee = employeeDAO.getEmployeeByUsername(user);
+        String userName = employee.getFirstName();
+        return userName;
     }
 }
