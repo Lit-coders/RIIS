@@ -8,7 +8,6 @@ import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
 import com.riis.controller.KebeleController.KebeleSidebarController;
 import com.riis.database.DatabaseConnection;
-import com.riis.model.viewmodel.OverviewModel;
 import com.riis.utils.JAlert;
 
 import javafx.fxml.FXML;
@@ -47,8 +46,6 @@ public class LoginController implements Controller {
     private double yOffset;
     public Label errorMessage;
 
-    private OverviewModel overviewModel = OverviewModel.getInstance();
-    
     private UserContext userContext = UserContext.getInstance();
     
 
