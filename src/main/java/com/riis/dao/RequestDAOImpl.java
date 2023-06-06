@@ -59,4 +59,16 @@ public class RequestDAOImpl implements RequestDAO {
             pis.executeUpdate();
         }
     }
+
+    @Override
+    public void updateRequest(Request request) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+
+        String query = "UPDATE Request SET ApprovalRequest = ? WHERE RequestID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+            pis.setInt(1, 1);
+            pis.setInt(2, request.getRequestID());
+            pis.executeUpdate();
+        }
+    }
 }
