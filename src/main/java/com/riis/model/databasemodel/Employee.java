@@ -8,6 +8,9 @@ public class Employee {
     private String middleName;
     private String job;
 
+    public Employee() {
+    }
+
     public Employee(String username, String password) {
         this.username = username;
         this.password = password;
