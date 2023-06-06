@@ -46,15 +46,15 @@ DELETE FROM Employee;
         DOB DATE,
         POB varchar(25),
         PhoneNumber varchar(25),
-        Sex varchar(10),
-        MaritalStatus varchar(10),
-        Citizenship varchar(25),
-        BloodType varchar(5),
         MotherName varchar(25),
+        Sex varchar(10),
+        Citizenship varchar(25),
+        MaritalStatus varchar(10),
+        Job varchar(25),
+        BloodType varchar(5),
+        HouseNumber varchar(25),
         ECF varchar(25),
         ECP varchar(25),
-        Job varchar(25),
-        HouseNumber varchar(25),
         ResidentPhoto BLOB
     )
 
@@ -109,13 +109,19 @@ DELETE FROM Employee;
         FOREIGN KEY (username) REFERENCES Employee (username)
         )
 
-    CREATE TABLE Requests (
-        RequestID PRIMARY KEY AUTOINCREMENT,
+    CREATE TABLE Request (
+        RequestID INTEGER PRIMARY KEY AUTOINCREMENT,
         RID INTEGER,
-        SealedRequest INTEGER CHECK (SealedRequest IN (0,1)),
-        UnpaidRequest INTEGER CHECK (UnpaidRequest IN (0,1)),
-        ApprovalRequest INTEGER CHECK (ApprovalRequest IN (0,1)),
-        RequestType INTEGER CHECK (RequesType IN (0,1,2)),
-        RequestDate DATE,
+        SealedRequest INTEGER CHECK (SealedRequest IN (0, 1)),
+        UnpaidRequest INTEGER CHECK (UnpaidRequest IN (0, 1)),
+        ApprovalRequest INTEGER CHECK (ApprovalRequest IN (0, 1)),
+        RequestType INTEGER CHECK (RequestType IN (0, 1, 2)),
+        RequestDate DATETIME,
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID)
-        )
+    );
+
+drop table Requests
+     -- added tables
+
+    
+

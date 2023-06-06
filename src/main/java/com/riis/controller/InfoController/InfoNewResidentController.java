@@ -1,6 +1,7 @@
 package com.riis.controller.InfoController;
 
 import com.riis.database.DatabaseConnection;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.riis.controller.Controller;
+import com.riis.dao.RequestDAO;
+import com.riis.dao.RequestDAOImpl;
+import com.riis.model.databasemodel.Request;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
@@ -202,11 +206,13 @@ public class InfoNewResidentController implements Controller {
 
     }
 
-    public void addResidentAndMapHolder() throws ClassNotFoundException, SQLException, IOException {
+    public void addResidentAndMapHolder() throws Exception {
         if (checkMessage()) {
             if (!isRepeated()) {
-                addResident();
+                int RID = addResident();
                 addMapHolder();
+                addRequest(RID);
+                successMessage("Resident Added Successfully");
                 mapImageHolder.getChildren().remove(mapImage);
                 imageHolder.getChildren().remove(residentImage);
                 clearForm();
@@ -214,10 +220,22 @@ public class InfoNewResidentController implements Controller {
         }
     }
 
-    public void addResident() throws ClassNotFoundException, SQLException, IOException {
+    public void addRequest(int id) throws Exception {
+        RequestDAO requestDAO = new RequestDAOImpl();
+        Request request = new Request();
+        request.setResidentID(id);
+        request.setSealedRequest(0);
+        request.setApprovalRequest(0);
+        request.setUnpaidRequest(1);
+        request.setRequestType(0);
+
+        requestDAO.addRequest(request);
+    }
+
+    public int addResident() throws ClassNotFoundException, SQLException, IOException {
         Connection connection = DatabaseConnection.getInstance();
         PreparedStatement ps = connection
-                .prepareStatement("Insert into Resident Values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                .prepareStatement("Insert into Resident Values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",java.sql.Statement.RETURN_GENERATED_KEYS);
         for (int i = 0; i < ResidentForm.size(); i++) {
             ps.setString(i + 2, ResidentForm.get(i).getText());
             if (i == ResidentForm.size() - 1) {
@@ -227,6 +245,9 @@ public class InfoNewResidentController implements Controller {
         }
         ps.executeUpdate();
         ResidentData.getNewResidentId(ResidentForm);
+        ResultSet rs = ps.getGeneratedKeys();
+        rs.next();
+        return rs.getInt(1);
     }
 
     public void addMapHolder() throws ClassNotFoundException, SQLException, IOException {
@@ -412,6 +433,7 @@ public class InfoNewResidentController implements Controller {
 
     public boolean selectedImageChecker() {
         if (residentImage == null || mapImage == null) {
+            alertMessage("Please select an image");
             return false;
         }
         return true;
@@ -448,4 +470,9 @@ public class InfoNewResidentController implements Controller {
             MapHolderForm.get(invalidTextfield - 17).requestFocus();
         }
     }
+
+     public void successMessage(String message) {
+        JAlert alert = new JAlert("Success",message);
+        alert.showAlert();
+     }
 }
