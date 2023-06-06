@@ -169,6 +169,8 @@ public class FinRequestsController extends BaseRequestsController {
                                 if (node3 instanceof Text) {
                                     if (((Text) node3).getText().equals(reqDate)) {
                                         removeApprovedRequest((HBox) node);
+                                        requestDAO.addToCreationPayment(request);
+                               
                                     }
                                 }
                             }
