@@ -18,6 +18,6 @@ public interface RequestDAO {
     void addToCreationPayment(Request request) throws Exception;
     void approveRequest(Request request) throws Exception;
     void addToKebeleResidentID(Request request) throws Exception;
-    
+    void deleteRequest(Request request) throws Exception;
     
 }
