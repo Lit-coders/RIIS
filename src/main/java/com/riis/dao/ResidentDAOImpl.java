@@ -13,12 +13,13 @@ public class ResidentDAOImpl implements ResidentDAO {
         Resident resident = new Resident();
 
         Connection connection = DatabaseConnection.getInstance();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Resident WHERE ResidentID = ?");
+        PreparedStatement ps = connection.prepareStatement("SELECT Name,FName FROM Resident WHERE ResidentID = ?");
         ps.setInt(1, id);
         ResultSet resultSet = ps.executeQuery();
 
         while(resultSet.next()) {
-            resident.setName(resultSet.getString("ResidentName"));
+            resident.setName(resultSet.getString("Name"));
+            resident.setFName(resultSet.getString("FName"));
         }
         return resident;
     }
