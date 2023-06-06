@@ -11,6 +11,9 @@ import java.util.List;
 
 import com.riis.database.DatabaseConnection;
 import com.riis.model.databasemodel.Request;
+import com.riis.model.viewmodel.OverviewModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class RequestDAOImpl implements RequestDAO {
 
@@ -65,6 +68,57 @@ public class RequestDAOImpl implements RequestDAO {
         Connection connection = DatabaseConnection.getInstance();
 
         String query = "UPDATE Request SET ApprovalRequest = ? WHERE RequestID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+            pis.setInt(1, 1);
+            pis.setInt(2, request.getRequestID());
+            pis.executeUpdate();
+        }
+    }
+
+    @Override
+    public ObservableList<Request> getPendingUnapprovedRequests() throws SQLException {
+        ObservableList<Request> requests = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getInstance();
+        String Query = "SELECT * FROM Request WHERE UnpaidRequest = 1 AND ApprovalRequest = 1 and SealedRequest = 0";
+
+        try (PreparedStatement pis = connection.prepareStatement(Query);
+                ResultSet resultSet = pis.executeQuery();) {
+
+            while (resultSet.next()) {
+                Request request = new Request(
+                        resultSet.getInt("RequestID"),
+                        resultSet.getInt("RID"),
+                        resultSet.getInt("SealedRequest"),
+                        resultSet.getInt("UnpaidRequest"),
+                        resultSet.getInt("ApprovalRequest"),
+                        resultSet.getInt("RequestType"),
+                        resultSet.getString("RequestDate"));
+                requests.add(request);
+            }
+            return requests;
+        }
+        
+
+    }
+
+    @Override
+    public void addToCreationPayment(Request request) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+        OverviewModel overviewModel = OverviewModel.getInstance();
+        String query = "INSERT INTO CreatePayment (ResidentID,username,TotalFee) VALUES (?, ?, ?)";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+            pis.setInt(1, request.getResidentID());
+            pis.setString(2,  overviewModel.getCompLoggedInUserComp().getText() );
+            pis.setInt(3, 25);
+            pis.executeUpdate();
+        }
+    }
+
+    @Override
+    public void approveRequest(Request request) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+
+        String query = "UPDATE Request SET SealedRequest = ? WHERE RequestID = ?";
         try (PreparedStatement pis = connection.prepareStatement(query);) {
             pis.setInt(1, 1);
             pis.setInt(2, request.getRequestID());
