@@ -1,5 +1,6 @@
 package com.riis.controller.FinController;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.riis.controller.BaseController.BaseRequestsController;
@@ -46,6 +47,7 @@ public class FinRequestsController extends BaseRequestsController {
         RequestDAO requestDAO = new RequestDAOImpl();
 
         List<Request> requests  = requestDAO.getPendingUnpaidRequests();
+        requests = sortReqDate(requests);
 
         VBox reqList = requestModel.getReqListComp();
 
@@ -53,6 +55,11 @@ public class FinRequestsController extends BaseRequestsController {
             HBox hbox = buildHBox(request);
             reqList.getChildren().add(hbox);
         }
+    }
+
+    public List<Request> sortReqDate(List<Request> requests) {
+        Collections.reverse(requests);
+        return requests;
     }
 
     public HBox buildHBox(Request request) throws Exception {
