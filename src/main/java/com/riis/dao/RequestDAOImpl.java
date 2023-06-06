@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.riis.Context.UserContext;
 import com.riis.database.DatabaseConnection;
 import com.riis.model.databasemodel.Request;
-import com.riis.model.viewmodel.OverviewModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -100,15 +100,40 @@ public class RequestDAOImpl implements RequestDAO {
         
 
     }
+    @Override
+    public ObservableList<Request> getPendingSealedRequests() throws SQLException {
+        ObservableList<Request> requests = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getInstance();
+        String Query = "SELECT * FROM Request WHERE UnpaidRequest = 1 AND ApprovalRequest = 1 and SealedRequest = 1";
+
+        try (PreparedStatement pis = connection.prepareStatement(Query);
+                ResultSet resultSet = pis.executeQuery();) {
+
+            while (resultSet.next()) {
+                Request request = new Request(
+                        resultSet.getInt("RequestID"),
+                        resultSet.getInt("RID"),
+                        resultSet.getInt("SealedRequest"),
+                        resultSet.getInt("UnpaidRequest"),
+                        resultSet.getInt("ApprovalRequest"),
+                        resultSet.getInt("RequestType"),
+                        resultSet.getString("RequestDate"));
+                requests.add(request);
+            }
+            return requests;
+        }
+        
+
+    }
 
     @Override
     public void addToCreationPayment(Request request) throws ClassNotFoundException, SQLException {
         Connection connection = DatabaseConnection.getInstance();
-        OverviewModel overviewModel = OverviewModel.getInstance();
+        UserContext userContext = UserContext.getInstance();
         String query = "INSERT INTO CreatePayment (ResidentID,username,TotalFee) VALUES (?, ?, ?)";
         try (PreparedStatement pis = connection.prepareStatement(query);) {
             pis.setInt(1, request.getResidentID());
-            pis.setString(2,  overviewModel.getCompLoggedInUserComp().getText() );
+            pis.setString(2,  userContext.getUsername() );
             pis.setInt(3, 25);
             pis.executeUpdate();
         }
@@ -125,4 +150,27 @@ public class RequestDAOImpl implements RequestDAO {
             pis.executeUpdate();
         }
     }
+
+    @Override
+    public void addToKebeleResidentID(Request request) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+        String query = "INSERT INTO KebeleResidentID (ResidentID,GivenDate,ExpDate,ExpirationStatus) VALUES (?,?,?,?)";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+            LocalDateTime expDateTime = currentDateTime.plusYears(3);
+            String formattedExpDateTime = expDateTime.format(formatter);
+
+            pis.setInt(1, request.getResidentID());
+            pis.setString(2, formattedDateTime);
+            pis.setString(3, formattedExpDateTime);
+            pis.setInt(4, 0);
+
+            pis.executeUpdate();
+        }
+    }
+    
 }
