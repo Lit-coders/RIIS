@@ -21,10 +21,8 @@ public class OverviewModel {
     private String tot_residents_maleText;
     private Label tot_residents_female;
     private String tot_residents_femaleText;
-    private Label lastLoginNum;
-    private String lastLoginNumText;
-    private Label lastLoginLetter; 
-    private String lastLoginLetterText;
+    private Label lastLogin; 
+    private String lastLoginText;
 
     private OverviewModel() {
     }
@@ -76,9 +74,9 @@ public class OverviewModel {
         this.loggedInUserFullName = loggedInUserFullName;
     }
     
-    public void setLoggedInUserFullNameText(String fullName) {
-        this.loggedInUserFullName.setText(fullName);
-    }
+    public void setLoggedInUserFullNameText(String loggedInUserFullName) {
+        this.loggedInUserFullNameText = loggedInUserFullName;
+    }    
     
     public Label getDateComp() {
         return date;
@@ -89,7 +87,7 @@ public class OverviewModel {
     }
     
     public void setDateText(String date) {
-        this.date.setText(date);
+        this.dateText = date;
     }
     
     public Label getTimeComp() {
@@ -101,7 +99,7 @@ public class OverviewModel {
     }
     
     public void setTimeText(String time) {
-        this.time.setText(time);
+        this.timeText = time;
     }
     
     public Label getTotResidentsComp() {
@@ -112,8 +110,8 @@ public class OverviewModel {
         this.tot_residents = totResidents;
     }
     
-    public void setTotResidentsText(String count) {
-        this.tot_residents.setText(count);
+    public void setTotResidentsText(String totResidents) {
+        this.tot_residentsText = totResidents;
     }
     
     public Label getTotResidentsMaleComp() {
@@ -124,8 +122,8 @@ public class OverviewModel {
         this.tot_residents_male = totResidentsMale;
     }
     
-    public void setTotResidentsMaleText(String count) {
-        this.tot_residents_male.setText(count);
+    public void setTotResidentsMaleText(String totResidentsMale) {
+        this.tot_residents_maleText = totResidentsMale;
     }
     
     public Label getTotResidentsFemaleComp() {
@@ -136,32 +134,24 @@ public class OverviewModel {
         this.tot_residents_female = totResidentsFemale;
     }
     
-    public void setTotResidentsFemaleText(String count) {
-        this.tot_residents_female.setText(count);
+    public void setTotResidentsFemaleText(String totResidentsFemale) {
+        this.tot_residents_femaleText = totResidentsFemale;
     }
     
-    public Label getLastLoginNumComp() {
-        return lastLoginNum;
+    public Label getLastLoginComp() {
+        return lastLogin;
     }
     
-    public void bindLastLoginNum(Label lastLoginNum) {
-        this.lastLoginNum = lastLoginNum;
+    public void bindLastLogin(Label lastLogin) {
+        this.lastLogin = lastLogin;
     }
     
-    public void setLastLoginNumText(String num) {
-        this.lastLoginNum.setText(num);
+    public void setLastLoginText(String lastLogin) {
+        this.lastLoginText = lastLogin;
     }
-    
-    public Label getLastLoginLetterComp() {
-        return lastLoginLetter;
-    }
-    
-    public void bindLastLoginLetter(Label lastLoginLetter) {
-        this.lastLoginLetter = lastLoginLetter;
-    }
-    
-    public void setLastLoginLetterText(String letter) {
-        this.lastLoginLetter.setText(letter);
+
+    public void setLastLoginComp() {
+        this.lastLogin.setText(lastLoginText);
     }
     
     public void setLoggedInUserFullNameTextComp() {
@@ -187,14 +177,4 @@ public class OverviewModel {
     public void setTotResidentsFemaleTextComp() {
         this.tot_residents_female.setText(tot_residents_femaleText);
     }
-    
-    public void setLastLoginNumTextComp() {
-        this.lastLoginNum.setText(lastLoginNumText);
-    }
-    
-    public void setLastLoginLetterTextComp() {
-        this.lastLoginLetter.setText(lastLoginLetterText);
-    }
-    
-
 }

@@ -1,9 +1,11 @@
 package com.riis.controller.AdminController;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import com.riis.controller.Controller;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
 
@@ -48,13 +50,13 @@ public class RemoveEmployeeController implements Controller {
         emp_list.getChildren().clear();
         displayEmpList();
     }
-
+    
     @FXML
-    void findEmployee(ActionEvent event) {
-        String sql = "SELECT * FROM Employee";
+    void findEmployee(ActionEvent event) throws SQLException {
         String token = search_field.getText().toLowerCase();
 
-        ArrayList<Employee> employees = Data.getEmployeeData(sql);
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        List<Employee> employees = employeeDAO.getAllEmployees();
         emp_list.getChildren().clear();
         for(Employee employee: employees){
             if(employee.getUserName().toLowerCase().contains(token) || employee.getFirstName().toLowerCase().contains(token) || employee.getLastName().toLowerCase().contains(token) || employee.getMiddleName().toLowerCase().contains(token) || employee.getJob().toLowerCase().contains(token)){
@@ -69,7 +71,7 @@ public class RemoveEmployeeController implements Controller {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                        employeeDetail.setEmployeeData(employee);
+                    employeeDetail.setEmployeeData(employee);
                 });
                 edit(name_label, user_label, box);
                 emp_list.getChildren().add(box);
@@ -91,8 +93,8 @@ public class RemoveEmployeeController implements Controller {
     }
 
     private void displayEmpList() throws SQLException{
-        String sql = "SELECT * FROM Employee";
-        ArrayList<Employee> employees = Data.getEmployeeData(sql);
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        List<Employee> employees = employeeDAO.getAllEmployees();
         for(Employee employee: employees){
             String fullName = employee.getFirstName() + " " + employee.getLastName() + " " + employee.getMiddleName();
             Label name_label = new Label(fullName);

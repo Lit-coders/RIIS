@@ -1,8 +1,11 @@
 package com.riis.controller.AdminController;
 
 import com.riis.controller.Controller;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
+import com.riis.utils.JAlert;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,9 +76,15 @@ public class EmployeeDetailController implements Controller{
 
     @FXML
     void removeEmployee(ActionEvent event) throws Exception {
-        String sql = "DELETE FROM Employee WHERE username = '" + Uname_label.getText() + "'";
-        String response = Data.removeEmployeeData(sql);
-        System.out.println(response);
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        boolean isRemoved = employeeDAO.deleteEmployee(Uname_label.getText());
+        if(isRemoved){
+            JAlert alert = new JAlert("Success", "Employee has been removed");
+            alert.show();
+        } else {
+            JAlert alert = new JAlert("Error", "Employee has not been removed");
+            alert.show();
+        }
         RemoveEmployeeController removeEmployeeController = new RemoveEmployeeController();
         removeEmployeeController.getView();
     }

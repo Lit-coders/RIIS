@@ -1,10 +1,13 @@
 package com.riis.controller.AdminController;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 
 import com.riis.controller.Controller;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
+import com.riis.utils.JAlert;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,36 +44,53 @@ public class AddEmployeeController implements Controller {
     private TextField pass_field;
 
     @FXML
-    void addEmployee(ActionEvent event) {
+    void addEmployee(ActionEvent event) throws SQLException {
         AnchorPane pane = (AnchorPane) (clear_btn).getParent();
         VBox box = (VBox) pane.getChildren().get(1);
+        
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        Employee employee = new Employee();
+        
+        employee.setFirstName(Fname_field.getText());
+        employee.setLastName(Lname_field.getText());
+        employee.setMiddleName(Mname_field.getText());
+        employee.setUserName(Uname_field.getText());    
+        employee.setPassword(pass_field.getText());
+        employee.setJob(job_field.getText());
+
         if(!isEmpty(box) && isValid(box) && !isRepeated(box) && isStrong(box)){
-            String sql = "INSERT INTO Employee values('" + Uname_field.getText() + "','" + pass_field.getText() + "','" + Fname_field.getText() + "','" + Lname_field.getText() + "','" + Mname_field.getText() + "','" + job_field.getText() + "')";
-            String response = Data.InsertEmployeeData(sql);
-            System.out.println(sql);
-            System.out.println(response);
-            clearAllFields(box);
+            boolean isAdded = employeeDAO.addEmployee(employee);
+            if(isAdded){
+                JAlert alert = new JAlert("Success", "Employee Added Successfully!");
+                alert.showAlert();
+                clearAllFields(box);
+            } else {
+                JAlert alert = new JAlert("Error", "Employee Not Added!");
+                alert.showAlert();
+            }
         }
     }
 
     private boolean isStrong(VBox box) {
         TextField field = (TextField) box.getChildren().get(9);
         if(field.getText().length() < 5){
-            System.out.println("Passward Length must be > 5.");
+            alertMessage("Password Length must be greater than 5.");
+            field.requestFocus();
             return false;
         }
         return true;
     }
 
-    private boolean isRepeated(VBox box) {
+    private boolean isRepeated(VBox box) throws SQLException {
         TextField field = (TextField) box.getChildren().get(7);
-        String sql = "SELECT * FROM Employee";
-        ArrayList<Employee> employees = Data.getEmployeeData(sql);
-        for(Employee employee: employees){
-            if(field.getText().equals(employee.getUserName())){
-                System.out.println("Username already exists!");
-                return true;
-            }
+
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
+        Employee employee = employeeDAO.getEmployeeByUsername(field.getText());
+        if(employee.getUserName() != null) {
+            alertMessage("Username already exists!");
+            field.requestFocus();
+            return true;
         }
         return false;
     }
@@ -79,7 +99,8 @@ public class AddEmployeeController implements Controller {
         for(int i=1; i<box.getChildren().size(); i += 2){
             TextField field = (TextField) box.getChildren().get(i);
             if(field.getText().isBlank()){
-                System.out.println("You have Empty Fields!");
+                alertMessage("You have Empty Fields!");
+                field.requestFocus();
                 return true;
             }
         }
@@ -91,7 +112,8 @@ public class AddEmployeeController implements Controller {
             TextField field = (TextField) box.getChildren().get(i);
             for(int j=0; j<field.getText().length(); j++){
                 if(field.getText().charAt(j) == '\'' || field.getText().charAt(j) == '"'){
-                    System.out.println("Using Quotation marks is not allowed!");
+                    alertMessage("Using Quotation marks is not allowed!");
+                    field.requestFocus();
                     return false;
                 }
             }
@@ -113,6 +135,11 @@ public class AddEmployeeController implements Controller {
         }
         TextField field = (TextField) box.getChildren().get(1);
         field.requestFocus();
+    }
+
+    public void alertMessage(String message){
+        JAlert alert = new JAlert("Error",message);
+        alert.showAlert();
     }
 
 
