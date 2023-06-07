@@ -1,8 +1,10 @@
 package com.riis.controller.AdminController;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
 
 import com.riis.controller.Controller;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
@@ -42,17 +44,30 @@ public class AddEmployeeController implements Controller {
     private TextField pass_field;
 
     @FXML
-    void addEmployee(ActionEvent event) {
+    void addEmployee(ActionEvent event) throws SQLException {
         AnchorPane pane = (AnchorPane) (clear_btn).getParent();
         VBox box = (VBox) pane.getChildren().get(1);
+        
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        Employee employee = new Employee();
+        
+        employee.setFirstName(Fname_field.getText());
+        employee.setLastName(Lname_field.getText());
+        employee.setMiddleName(Mname_field.getText());
+        employee.setUserName(Uname_field.getText());    
+        employee.setPassword(pass_field.getText());
+        employee.setJob(job_field.getText());
+
         if(!isEmpty(box) && isValid(box) && !isRepeated(box) && isStrong(box)){
-            String sql = "INSERT INTO Employee values('" + Uname_field.getText() + "','" + pass_field.getText() + "','" + Fname_field.getText() + "','" + Lname_field.getText() + "','" + Mname_field.getText() + "','" + job_field.getText() + "')";
-            String response = Data.InsertEmployeeData(sql);
-            System.out.println(sql);
-            System.out.println(response);
-            JAlert alert = new JAlert("Success", "Employee Added Successfully!");
-            alert.showAlert();;
-            clearAllFields(box);
+            boolean isAdded = employeeDAO.addEmployee(employee);
+            if(isAdded){
+                JAlert alert = new JAlert("Success", "Employee Added Successfully!");
+                alert.showAlert();
+                clearAllFields(box);
+            } else {
+                JAlert alert = new JAlert("Error", "Employee Not Added!");
+                alert.showAlert();
+            }
         }
     }
 
@@ -66,16 +81,16 @@ public class AddEmployeeController implements Controller {
         return true;
     }
 
-    private boolean isRepeated(VBox box) {
+    private boolean isRepeated(VBox box) throws SQLException {
         TextField field = (TextField) box.getChildren().get(7);
-        String sql = "SELECT * FROM Employee";
-        ArrayList<Employee> employees = Data.getEmployeeData(sql);
-        for(Employee employee: employees){
-            if(field.getText().equals(employee.getUserName())){
-                alertMessage("Username already exists!");
-                field.requestFocus();
-                return true;
-            }
+
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+
+        Employee employee = employeeDAO.getEmployeeByUsername(field.getText());
+        if(employee.getUserName() != null) {
+            alertMessage("Username already exists!");
+            field.requestFocus();
+            return true;
         }
         return false;
     }
