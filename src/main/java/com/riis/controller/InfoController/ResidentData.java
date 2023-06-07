@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import com.riis.database.DatabaseConnection;
@@ -106,27 +105,27 @@ public class ResidentData {
         }
 	}
 
-    private static void checkIdExpiration(){
-        String sql = "SELECT * FROM KebeleResidentID";
-        try (Connection con = DatabaseConnection.getInstance()) {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                String idGivenDate = rs.getString(2);
-                String idExpDate = rs.getString(3);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd, yyyy");
-                LocalDate givenDate = LocalDate.parse(idGivenDate, formatter);
-                LocalDate expDate = LocalDate.parse(idExpDate, formatter);
-                double numYear = ChronoUnit.YEARS.between(givenDate, expDate);
-                if(numYear >= 3){
-                    String updateSql = "UPDATE KebeleResidentID SET ExpirationStatus = 1 ";
-                    st.executeUpdate(updateSql);
-                }
-            }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
-    }
+    // private static void checkIdExpiration(){
+    //     String sql = "SELECT * FROM KebeleResidentID";
+    //     try (Connection con = DatabaseConnection.getInstance()) {
+    //         Statement st = con.createStatement();
+    //         ResultSet rs = st.executeQuery(sql);
+    //         while(rs.next()){
+    //             String idGivenDate = rs.getString(2);
+    //             String idExpDate = rs.getString(3);
+    //             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd, yyyy");
+    //             LocalDate givenDate = LocalDate.parse(idGivenDate, formatter);
+    //             LocalDate expDate = LocalDate.parse(idExpDate, formatter);
+    //             double numYear = ChronoUnit.YEARS.between(givenDate, expDate);
+    //             if(numYear >= 3){
+    //                 String updateSql = "UPDATE KebeleResidentID SET ExpirationStatus = 1 ";
+    //                 st.executeUpdate(updateSql);
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         e.getStackTrace();
+    //     }
+    // }
 
     // update request table
 
