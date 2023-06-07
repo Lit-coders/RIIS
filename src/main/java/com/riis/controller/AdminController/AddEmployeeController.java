@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.riis.controller.Controller;
 import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.JAlert;
 import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
@@ -46,17 +47,23 @@ public class AddEmployeeController implements Controller {
         VBox box = (VBox) pane.getChildren().get(1);
         if(!isEmpty(box) && isValid(box) && !isRepeated(box) && isStrong(box)){
             String sql = "INSERT INTO Employee values('" + Uname_field.getText() + "','" + pass_field.getText() + "','" + Fname_field.getText() + "','" + Lname_field.getText() + "','" + Mname_field.getText() + "','" + job_field.getText() + "')";
-            String response = Data.InsertEmployeeData(sql);
-            System.out.println(sql);
-            System.out.println(response);
-            clearAllFields(box);
+            JAlert alert = new JAlert("Warning", "Are you sure you want to add this employee's account?");
+            alert.showAndWait();
+            if(alert.getResult().getText().equals("Yes")){
+                String response = Data.InsertEmployeeData(sql);
+                clearAllFields(box);
+                Data.alertMessage("Success", response);
+            } else {
+                alert.close();
+            }
         }
     }
 
     private boolean isStrong(VBox box) {
         TextField field = (TextField) box.getChildren().get(9);
         if(field.getText().length() < 5){
-            System.out.println("Passward Length must be > 5.");
+            Data.alertMessage("Error", "Passward Length must be > 8.");
+            pass_field.requestFocus();
             return false;
         }
         return true;
@@ -68,7 +75,8 @@ public class AddEmployeeController implements Controller {
         ArrayList<Employee> employees = Data.getEmployeeData(sql);
         for(Employee employee: employees){
             if(field.getText().equals(employee.getUserName())){
-                System.out.println("Username already exists!");
+                Data.alertMessage("Error", "Username already exists!");
+                Uname_field.requestFocus();
                 return true;
             }
         }
@@ -79,7 +87,8 @@ public class AddEmployeeController implements Controller {
         for(int i=1; i<box.getChildren().size(); i += 2){
             TextField field = (TextField) box.getChildren().get(i);
             if(field.getText().isBlank()){
-                System.out.println("You have Empty Fields!");
+                Data.alertMessage("Error", "You have Empty Fields!");
+                field.requestFocus();
                 return true;
             }
         }
@@ -91,10 +100,19 @@ public class AddEmployeeController implements Controller {
             TextField field = (TextField) box.getChildren().get(i);
             for(int j=0; j<field.getText().length(); j++){
                 if(field.getText().charAt(j) == '\'' || field.getText().charAt(j) == '"'){
-                    System.out.println("Using Quotation marks is not allowed!");
+                    Data.alertMessage("Error", "Using Quotation marks is not allowed!");
+                    field.requestFocus();
                     return false;
                 }
             }
+            // if(i == 1 || i == 3 || i == 5 || i == 11){
+            //     String alphaPattern = "^[a-zA-Z\\s]*$";
+            //     if(field.getText().matches(alphaPattern)){
+            //         Data.alertMessage("Error", "You have inserted invalid data!");
+            //         field.requestFocus();
+            //         return false;
+            //     }
+            // }
         }
         return true;
     }
@@ -115,12 +133,10 @@ public class AddEmployeeController implements Controller {
         field.requestFocus();
     }
 
-
     @Override
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/AddEmployee.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
     }
-    
 }
