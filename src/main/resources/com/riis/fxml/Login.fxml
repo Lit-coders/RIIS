@@ -33,20 +33,29 @@
             <TextField fx:id="username" layoutX="49.0" layoutY="163.0" onKeyPressed="#handleKeyPress" prefHeight="25.0" prefWidth="202.0" promptText="Username" styleClass="text-field" />
             <HBox layoutX="49.0" layoutY="202.0" prefHeight="31.0" prefWidth="249.0">
                <children>
-                  <StackPane>
+                  <StackPane prefHeight="109.0" prefWidth="196.0">
                      <children>
                         <PasswordField fx:id="password" onKeyPressed="#handleKeyPress" prefHeight="25.0" prefWidth="202.0" promptText="Password" styleClass="password-field" />
                         <TextField fx:id="TextPassword" onKeyPressed="#handleKeyPress" prefHeight="25.0" prefWidth="202.0" promptText="Password" styleClass="text-field" />
                      </children>
                   </StackPane>
-                  <ImageView fitHeight="22.0" fitWidth="27.0" onMouseClicked="#handleEyeClickedButton" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/eye-icon.png" />
-                     </image>
-                  </ImageView>
+                  <StackPane>
+                     <children>
+                        <ImageView fx:id="visibleEyeImage" fitHeight="22.0" fitWidth="27.0" onMouseClicked="#handleEyeClickedButton" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/eye-visible.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="InvisibleEyeImage" fitHeight="22.0" fitWidth="27.0" onMouseClicked="#handleEyeClickedButton" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/eye-invisible.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
             </HBox>
-            <Button fx:id="loginButton" layoutX="112.0" layoutY="255.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="76.0" styleClass="btn-login" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="112.0" layoutY="265.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="76.0" styleClass="btn-login" text="Login" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor></Button>
