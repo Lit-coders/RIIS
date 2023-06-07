@@ -53,6 +53,10 @@ public class Employee {
         this.username = username;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
