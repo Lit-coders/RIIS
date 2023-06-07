@@ -2,7 +2,6 @@ package com.riis.controller.FinController;
 
 import com.riis.controller.BaseController.BaseOverviewController;
 import com.riis.model.viewmodel.SidebarModel;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -10,7 +9,13 @@ import javafx.scene.layout.AnchorPane;
 public class FinOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
+        String firstName = getFirstName(userContext.getUsername());
+        overviewModel.setLoggedInUserText(firstName);
         overviewModel.setLoggedInUserTextComp();
+
+        String lastLogin = calculateLastLogin(userContext.getUsername());
+        overviewModel.setLastLoginText(lastLogin);
+        overviewModel.setLastLoginComp(); 
         // other initialization will be done in the future this is for testing purpose
     }
 
