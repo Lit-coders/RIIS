@@ -6,6 +6,7 @@ import com.riis.controller.Controller;
 import com.riis.dao.EmployeeDAO;
 import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.JAlert;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
@@ -117,6 +118,14 @@ public class AddEmployeeController implements Controller {
                     return false;
                 }
             }
+            // if(i == 1 || i == 3 || i == 5 || i == 11){
+            //     String alphaPattern = "^[a-zA-Z\\s]*$";
+            //     if(field.getText().matches(alphaPattern)){
+            //         Data.alertMessage("Error", "You have inserted invalid data!");
+            //         field.requestFocus();
+            //         return false;
+            //     }
+            // }
         }
         return true;
     }
@@ -149,5 +158,4 @@ public class AddEmployeeController implements Controller {
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
     }
-    
 }

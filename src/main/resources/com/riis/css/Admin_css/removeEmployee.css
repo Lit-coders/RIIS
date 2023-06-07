@@ -15,6 +15,13 @@
   -fx-background-color: rgba(255, 255, 255, 0.402);
 }
 
+.token-label {
+  -fx-text-fill: #976eef;
+  -fx-font-size: 15;
+  -fx-font-weight: 600;
+  -fx-padding: 20;
+}
+
 .list-label {
   -fx-background-color: transparent;
   -fx-text-fill: white;
@@ -37,5 +44,5 @@
   -fx-background-radius: 15;
 }
 .list-pane .thumb {
-  -fx-background-color: rgba(79, 19, 228, 0.537);
+  -fx-background-color: rgba(78, 19, 228, 0.388);
 }

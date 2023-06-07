@@ -1,6 +1,7 @@
 package com.riis.model.databasemodel;
 
 public class Resident {
+    private int residentId;
     private String name;
     private String fName;
     private String gFName;
@@ -16,13 +17,15 @@ public class Resident {
     private String houseNumber;
     private String ecf;
     private String ecp;
+    private String photoPath;
 
     public Resident() {
     }
     
-    public Resident(String name, String fName, String gFName, String dob, String pob, String phoneNumber,
-                    String sex, String citizenship, String maritalStatus, String job, String mName,
-                    String bType, String houseNumber, String ecf, String ecp) {
+    public Resident(int id, String name, String fName, String gFName, String dob, String pob, String phoneNumber, String mName,
+    String sex, String citizenship, String maritalStatus, String job,
+    String bType, String houseNumber, String ecf, String ecp, String photoPath) {
+        this.residentId = id;
         this.name = name;
         this.fName = fName;
         this.gFName = gFName;
@@ -38,9 +41,27 @@ public class Resident {
         this.houseNumber = houseNumber;
         this.ecf = ecf;
         this.ecp = ecp;
+        this.photoPath = photoPath;
     }
 
+    public Resident(int residentId, String name, String fatherName, String gFatherName, String sex, String phone) {
+        this.residentId = residentId;
+        this.name = name;
+        this.fName = fatherName;
+        this.gFName = gFatherName;
+        this.sex = sex;
+        this.phoneNumber = phone;
+    }
+    
     // Getters and Setters
+    
+    public int getResidentId(){
+        return residentId;
+    }
+
+    public void setResidentId(int id){
+         this.residentId = id;
+    }
 
     public String getName() {
         return name;
@@ -160,6 +181,14 @@ public class Resident {
 
     public void setECP(String ecp) {
         this.ecp = ecp;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String path) {
+        this.photoPath = path;
     }
 }
 
