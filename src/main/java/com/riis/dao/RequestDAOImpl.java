@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.riis.Context.UserContext;
+import com.riis.context.UserContext;
 import com.riis.database.DatabaseConnection;
 import com.riis.model.databasemodel.Request;
 import javafx.collections.FXCollections;
