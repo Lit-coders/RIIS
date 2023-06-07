@@ -94,7 +94,7 @@ public class BaseOverviewController implements Controller {
     
     public String calculateLastLogin(String user) throws SQLException {
         String simplifiedLastLogin = "";
-        String lastLogin = userContext.getLastlogin();
+        String lastLogin = userContext.getLastLogin();
 
         if (lastLogin == null) {
             HBox lastLoginBox = (HBox) overviewModel.getLastLoginComp().getParent();
