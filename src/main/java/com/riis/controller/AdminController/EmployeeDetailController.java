@@ -2,6 +2,7 @@ package com.riis.controller.AdminController;
 
 import com.riis.controller.Controller;
 import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.JAlert;
 import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
@@ -74,10 +75,16 @@ public class EmployeeDetailController implements Controller{
     @FXML
     void removeEmployee(ActionEvent event) throws Exception {
         String sql = "DELETE FROM Employee WHERE username = '" + Uname_label.getText() + "'";
-        String response = Data.removeEmployeeData(sql);
-        System.out.println(response);
-        RemoveEmployeeController removeEmployeeController = new RemoveEmployeeController();
-        removeEmployeeController.getView();
+        JAlert alert = new JAlert("Warning", "Are you sure you want to delete this employee's account?");
+        alert.showAndWait();
+        if(alert.getResult().getText().equals("Yes")){
+            String response = Data.removeEmployeeData(sql);
+            RemoveEmployeeController removeEmployeeController = new RemoveEmployeeController();
+            removeEmployeeController.getView();
+            Data.alertMessage("Success", response);
+        } else {
+            alert.close();
+        }
     }
 
     public void setEmployeeData(Employee employee){
