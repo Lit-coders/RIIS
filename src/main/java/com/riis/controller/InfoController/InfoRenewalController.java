@@ -11,10 +11,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 import com.riis.controller.Controller;
 import com.riis.model.databasemodel.ExpId;
 import com.riis.model.databasemodel.Request;
 import com.riis.model.databasemodel.Resident;
+import com.riis.model.viewmodel.JAlert;
 import com.riis.model.viewmodel.SidebarModel;
 
 import javafx.event.ActionEvent;
@@ -100,12 +103,14 @@ public class InfoRenewalController implements Controller{
             String token = search_field.getText().toLowerCase();
             ArrayList<Resident> residents = ResidentData.getResidentData(sql1);
             id_list.getChildren().clear();
+            boolean isFound = false;
             for(Resident resident: residents){
                 if(resident.getName().toLowerCase().contains(token) || resident.getFName().toLowerCase().contains(token) || resident.getGFName().toLowerCase().contains(token)){
                     String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
                     Label label = new Label(fullName);
                     edit(label);
                     id_list.getChildren().add(label);
+                    isFound = true;
                     String sql  = "SELECT * FROM KebeleResidentID WHERE ResidentId = '" + resident.getResidentId() + "'";
                     ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql);
                     ExpId expId = expIds.get(0);
@@ -117,12 +122,21 @@ public class InfoRenewalController implements Controller{
                     });
                 }
             }
+
+            if(!isFound){
+                String emptySearch = "Searching with '" + token + "' has not found any related resuts!\n try to search with resident's names and his/her house number.";
+                Label token_label = new Label(emptySearch);
+                token_label.setWrapText(true);
+                token_label.getStyleClass().add("token-label");
+                id_list.getChildren().add(token_label);
+                search_field.requestFocus();
+            }
         }
     }
 
     @FXML
     void clearSearchField(ActionEvent event) {
-        if(search_field.isFocused()){
+        if(!search_field.getText().isEmpty()){
             search_field.clear();
             search_field.requestFocus();
             id_list.getChildren().clear();
@@ -213,8 +227,7 @@ public class InfoRenewalController implements Controller{
             LocalDateTime dateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
             String requestTime = dateTime.format(formatter);
-            String str = isRepeated(id);
-            if(str.equals("no") && str != null){
+            if(!isRequested(id) && isIdExpired(id)) {
                 String sql = "INSERT INTO Request (RID, UnpaidRequest, RequestType, RequestDate) VALUES(" + id +", " + 0 + ", " + 0 + ", '" +  requestTime + "')";
                 if(ResidentData.addRequest(sql)){
                     for(int i=1; i < detail_box.getChildren().size(); i++){
@@ -222,52 +235,70 @@ public class InfoRenewalController implements Controller{
                         Label label = (Label) box.getChildren().get(1);
                         label.setText("---");
                     }
-                    System.out.println("successfully requested!");
+                    alertMessage("Success", "successfully requested!");
                 }
-            } else if(str != null){
-                displayRepeatedError(str);
-            } else {
-                System.out.println("return value from isRepeated method is null! But this Request is not Repeated!");
             }
         });
     }
     
-    private String isRepeated(int rid) {
-        String sql = "SELECT * FROM Request WHERE RID = " + rid + " AND RequestType = 0";
-        Request request = ResidentData.getRequestData(sql, rid);
-        String response = null;
-        if(request.getResidentID() == 11){
-            response = "no";
-        } else {
-            response = request.getRequestDate();
+    public boolean isIdExpired(int rid) {
+        String sql = "SELECT * FROM KebeleResidentId WHERE ResidentID = " + rid + " AND ExpirationStatus = 1";
+        ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql);
+        if(expIds != null){
+            for(ExpId expId: expIds){
+                if(expId.getResidentId() == rid && expId.getExpStatus() != 1){
+                    return false;
+                } else if(expId.getResidentId() == rid && expId.getExpStatus() == 1){
+                    return true;
+                }
+            }
         }
-        return response;
+        return false;
     }
 
-    private void displayRepeatedError(String str) {
+    public boolean isRequested(int rid) {
+        String sql = "SELECT * FROM Request WHERE RID = " + rid + " AND RequestType = 0";
+        Request request = ResidentData.getRequestData(sql, rid);
+        if(request.getResidentID() == 11){
+            System.out.println("Renewal is Not Requested for this Id");
+            return false;
+        } else {
+            displayRequestDate(request);
+            return true;
+        }
+    }
+
+    private void displayRequestDate(Request request) {
+        String reqsDate = request.getRequestDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);
         String reqDate = requestedDate(dateTime);
-        System.out.println(reqDate);
+        alertMessage("Error", reqDate);
     }
     
     private String requestedDate(LocalDateTime dateTime) {
         LocalDateTime today = LocalDateTime.now();
-        double dateGap = ChronoUnit.DAYS.between(dateTime, today);
+        int dateGap = (int) ChronoUnit.DAYS.between(dateTime, today);
         if(dateGap <= 1){
-            return "It has been Renewed today";
+            double timegap = ChronoUnit.HOURS.between(dateTime, today);
+            if(timegap < 1){
+                int mingap = (int) ChronoUnit.MINUTES.between(dateTime, today);
+                return "Already requested today, " + mingap + " minutes(s) ago.";
+            } else {
+                return "Already requested today, " + timegap + " hour(s) ago.";
+            }
         } else if(dateGap < 7){
-            return "This Id was Renewed " + dateGap + " days ago.";
+            return "Requested, " + dateGap + " days ago.";
         } else if(dateGap < 31){
-            double weekgap = ChronoUnit.WEEKS.between(dateTime, today);        
-            return "This id was Renewed " + weekgap + " week(s) ago.";
+            int weekgap = (int) ChronoUnit.WEEKS.between(dateTime, today);        
+            return "Requested, " + weekgap + " week(s) ago.";
         } else if(dateGap < 365){
-            double monthgap = ChronoUnit.MONTHS.between(dateTime, today);        
-            return "This id was Renewed " + monthgap + " month(s) ago.";
+            int monthgap = (int) ChronoUnit.MONTHS.between(dateTime, today);        
+            return "Requested, " + monthgap + " month(s) ago.";
+        } else {
+            int yeargap = (int) ChronoUnit.YEARS.between(dateTime, today);
+            return "Requested, " + yeargap + " year(s) ago.";
         }
-
-        double yeargap = ChronoUnit.YEARS.between(dateTime, today);
-        return "This id was Renewed " + yeargap + " year(s) ago.";
     }
 
     @Override
@@ -290,6 +321,10 @@ public class InfoRenewalController implements Controller{
         displayExpIdList();
     }
 
+    public void alertMessage(String type, String message) {
+        JAlert alert = new JAlert(type, message);
+        alert.showAlert();
+     }
 
     public void showPopupWindow(Image popupImage, Stage parentStage, String owner) {
         Stage popupStage = new Stage();
