@@ -72,6 +72,7 @@ public class LoginController implements Controller {
         setupDragHandlers();
         handleHoverCloseButton();
         handleEyeClickedButton();
+        handleInvisibleEyeImageClickedButton();
         TextPassword.textProperty().bindBidirectional(password.textProperty());
         TextPassword.setVisible(false);
         InvisibleEyeImage.setVisible(false);
@@ -194,21 +195,27 @@ public class LoginController implements Controller {
         });
     }
 
-     public void handleEyeClickedButton(){
-        if(visibleEyeImage.isVisible()){
+    public void handleEyeClickedButton() {
+        if (visibleEyeImage.isVisible()) {
             visibleEyeImage.setOnMouseClicked(e -> {
                 password.setVisible(false);
                 TextPassword.setVisible(true);
                 InvisibleEyeImage.setVisible(true);
                 visibleEyeImage.setVisible(false);
             });
-        } else if(InvisibleEyeImage.isVisible()){
-                    InvisibleEyeImage.setOnMouseClicked(e -> {
-                    password.setVisible(true);
-                    TextPassword.setVisible(false);
-                    InvisibleEyeImage.setVisible(false);
-                    visibleEyeImage.setVisible(true);
-                });
-            }
         }
+    }
+
+    public void handleInvisibleEyeImageClickedButton() {
+        if (InvisibleEyeImage.isVisible()) {
+            InvisibleEyeImage.setOnMouseClicked(e -> {
+                password.setVisible(true);
+                TextPassword.setVisible(false);
+                InvisibleEyeImage.setVisible(false);
+                visibleEyeImage.setVisible(true);
+            });
+        }
+    }
+ 
 }
+
