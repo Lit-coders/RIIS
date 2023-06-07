@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -45,6 +46,12 @@ public class LoginController implements Controller {
     @FXML
     private TextField TextPassword;
 
+    @FXML
+    private ImageView visibleEyeImage;
+
+    @FXML
+    private ImageView InvisibleEyeImage;
+
     public Stage stage;
     private double xOffset;
     private double yOffset;
@@ -64,8 +71,10 @@ public class LoginController implements Controller {
     public void initialize() throws Exception {
         setupDragHandlers();
         handleHoverCloseButton();
+        handleEyeClickedButton();
         TextPassword.textProperty().bindBidirectional(password.textProperty());
         TextPassword.setVisible(false);
+        InvisibleEyeImage.setVisible(false);
     }
 
     private void setupDragHandlers() {
@@ -160,6 +169,8 @@ public class LoginController implements Controller {
             if (event.getCode()== KeyCode.ENTER){
                 TextPassword.setVisible(false);
                 password.setVisible(true);
+                visibleEyeImage.setVisible(true);
+                InvisibleEyeImage.setVisible(false);
                 password.requestFocus();
             }
         } else if(event.getSource() == password){
@@ -183,13 +194,21 @@ public class LoginController implements Controller {
         });
     }
 
-    public void handleEyeClickedButton(){
-        if (password.isVisible()) {
-            password.setVisible(false);
-            TextPassword.setVisible(true);
-        } else {
-            password.setVisible(true);
-            TextPassword.setVisible(false);
+     public void handleEyeClickedButton(){
+        if(visibleEyeImage.isVisible()){
+            visibleEyeImage.setOnMouseClicked(e -> {
+                password.setVisible(false);
+                TextPassword.setVisible(true);
+                InvisibleEyeImage.setVisible(true);
+                visibleEyeImage.setVisible(false);
+            });
+        } else if(InvisibleEyeImage.isVisible()){
+                    InvisibleEyeImage.setOnMouseClicked(e -> {
+                    password.setVisible(true);
+                    TextPassword.setVisible(false);
+                    InvisibleEyeImage.setVisible(false);
+                    visibleEyeImage.setVisible(true);
+                });
+            }
         }
-    }
 }
