@@ -107,7 +107,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public String getLastLogin(String userName) throws SQLException {
         Connection connection = DatabaseConnection.getInstance();
-        String query = "SELECT LastLogin FROM EmployeeLastLogin WHERE u_name = ? ORDER BY LastLogin ASC LIMIT 1";
+        String query = "SELECT LastLogin FROM EmployeeLastLogin WHERE u_name = ? ORDER BY LastLogin DESC LIMIT 1";
         try (PreparedStatement pis = connection.prepareStatement(query);) {
             pis.setString(1, userName);
             ResultSet resultSet = pis.executeQuery();
