@@ -75,11 +75,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public boolean deleteEmployee(Employee employee) throws SQLException {
+    public boolean deleteEmployee(String userName) throws SQLException {
         Connection connection = DatabaseConnection.getInstance();
         String query = "DELETE FROM employee WHERE username = ?";
         try (PreparedStatement pis = connection.prepareStatement(query);) {
-            pis.setString(1, employee.getUserName());
+            pis.setString(1, userName);
             pis.executeUpdate();
             return true;
         } catch (Exception e) {

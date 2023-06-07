@@ -10,7 +10,7 @@ public interface EmployeeDAO {
     public List<Employee> getAllEmployees() throws SQLException;
     public Employee getEmployeeByUsername(String userName) throws SQLException;
     public boolean addEmployee(Employee employee) throws SQLException;
-    public boolean deleteEmployee(Employee employee) throws SQLException;
+    public boolean deleteEmployee(String userName) throws SQLException;
     public void captureLoginTime(String userName) throws SQLException;
     public String getLastLogin(String userName) throws SQLException;
 }
