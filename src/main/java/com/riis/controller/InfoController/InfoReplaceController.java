@@ -2,12 +2,10 @@ package com.riis.controller.InfoController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import com.riis.controller.Controller;
 import com.riis.model.databasemodel.ExpId;
-import com.riis.model.databasemodel.Request;
 import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.SidebarModel;
 

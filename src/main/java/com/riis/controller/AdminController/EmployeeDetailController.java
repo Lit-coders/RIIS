@@ -4,7 +4,6 @@ import com.riis.controller.Controller;
 import com.riis.dao.EmployeeDAO;
 import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
-import com.riis.model.viewmodel.JAlert;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
