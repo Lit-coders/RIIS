@@ -149,8 +149,15 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="65.0" prefWidth="231.0" spacing="2.0">
                      <children>
-                        <Label fx:id="loggedInUserFullName" styleClass="last-login-title" text="Helen Shiferaw" />
-                        <Label styleClass="last-login-title" text="Last login" />
+                        <Label fx:id="loggedInUserFullName" styleClass="last-login-title" text="Helen Shiferaw">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin></Label>
+                        <HBox alignment="CENTER" styleClass="last-login-bar">
+                           <children>
+                              <Label styleClass="last-login-title" text="Last login" />
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
@@ -158,14 +165,9 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER">
                      <children>
-                        <HBox alignment="TOP_CENTER">
+                        <HBox alignment="TOP_CENTER" prefHeight="113.0" prefWidth="221.0">
                            <children>
-                              <Label fx:id="lastLoginNum" text="1" textFill="#7d4bd2">
-                                 <font>
-                                    <Font size="96.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lastLoginLetter" text="d" textFill="#7d4bd2">
+                              <Label fx:id="lastLogin" text="1d" textFill="#7d4bd2">
                                  <font>
                                     <Font size="96.0" />
                                  </font>
