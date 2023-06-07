@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -33,13 +34,16 @@ public class LoginController implements Controller {
     private TextField username;
 
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     private Button loginButton;
 
     @FXML
     private Parent root;
+
+    @FXML
+    private TextField TextPassword;
 
     public Stage stage;
     private double xOffset;
@@ -60,6 +64,8 @@ public class LoginController implements Controller {
     public void initialize() throws Exception {
         setupDragHandlers();
         handleHoverCloseButton();
+        TextPassword.textProperty().bindBidirectional(password.textProperty());
+        TextPassword.setVisible(false);
     }
 
     private void setupDragHandlers() {
@@ -152,9 +158,15 @@ public class LoginController implements Controller {
     void handleKeyPress(KeyEvent event) throws Exception {
         if(event.getSource() == username){
             if (event.getCode()== KeyCode.ENTER){
+                TextPassword.setVisible(false);
+                password.setVisible(true);
                 password.requestFocus();
             }
         } else if(event.getSource() == password){
+            if (event.getCode()== KeyCode.ENTER){
+                login();
+            }
+        } else if(event.getSource() == TextPassword){
             if (event.getCode()== KeyCode.ENTER){
                 login();
             }
@@ -169,5 +181,15 @@ public class LoginController implements Controller {
         close_btn.setOnMouseExited(e -> {
             closeIcon.setStyle("-fx-stroke: #976eef;");
         });
+    }
+
+    public void handleEyeClickedButton(){
+        if (password.isVisible()) {
+            password.setVisible(false);
+            TextPassword.setVisible(true);
+        } else {
+            password.setVisible(true);
+            TextPassword.setVisible(false);
+        }
     }
 }
