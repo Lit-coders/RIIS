@@ -74,6 +74,13 @@
   -fx-padding: 3;
 }
 
+.token-label {
+  -fx-text-fill: #976eef;
+  -fx-font-size: 15;
+  -fx-font-weight: 600;
+  -fx-padding: 20;
+}
+
 #idExp_label {
   -fx-border-color: #702ffc;
   -fx-font-weight: 800;
@@ -97,10 +104,10 @@
 
 #root_box {
   -fx-background-color: white;
-  -fx-background-radius: 15;
-  -fx-border-color: #702ffc;
-  -fx-border-widht: 2;
-  -fx-border-radius: 15;
+  -fx-border-color: #970eff;
+  -fx-border-width: 3px;
+  -fx-background-radius: 20px;
+  -fx-border-radius: 15px;
   -fx-padding: 10 10 10 10;
 }
 
