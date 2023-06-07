@@ -184,7 +184,7 @@ public class LoginController implements Controller {
         // Capture the last login time
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
         String lastlogin = employeeDAO.getLastLogin(user);
-        userContext.setLastlogin(lastlogin);
+        userContext.setLastLogin(lastlogin);
 
         // Capture the current login time
         employeeDAO.captureLoginTime(user);
