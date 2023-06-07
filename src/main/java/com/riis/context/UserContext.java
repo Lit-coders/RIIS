@@ -1,4 +1,4 @@
-package com.riis.Context;
+package com.riis.context;
 
 public class UserContext {
 
