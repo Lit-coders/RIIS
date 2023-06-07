@@ -10,13 +10,7 @@ import javafx.scene.layout.AnchorPane;
 public class KebeleOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
-        String firstName = getFirstName(userContext.getUsername());
-        overviewModel.setLoggedInUserText(firstName);
-        overviewModel.setLoggedInUserTextComp();
-
-        String lastLogin = calculateLastLogin(userContext.getUsername());
-        overviewModel.setLastLoginText(lastLogin);
-        overviewModel.setLastLoginComp(); 
+        renderStatic();
     }
 
     @Override

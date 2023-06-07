@@ -9,13 +9,7 @@ import javafx.scene.layout.AnchorPane;
 public class FinOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
-        String firstName = getFirstName(userContext.getUsername());
-        overviewModel.setLoggedInUserText(firstName);
-        overviewModel.setLoggedInUserTextComp();
-
-        String lastLogin = calculateLastLogin(userContext.getUsername());
-        overviewModel.setLastLoginText(lastLogin);
-        overviewModel.setLastLoginComp(); 
+        renderStatic();
         // other initialization will be done in the future this is for testing purpose
     }
 
