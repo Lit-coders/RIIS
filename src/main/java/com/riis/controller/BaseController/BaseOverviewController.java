@@ -85,11 +85,11 @@ public class BaseOverviewController implements Controller {
         // recent activity and bar chart are remaining
     }
 
-    public String getFirstName(String user) throws SQLException {
+    public String getFullName(String user) throws SQLException {
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
         Employee employee = employeeDAO.getEmployeeByUsername(user);
-        String userName = employee.getFirstName();
-        return userName;
+        String fullName = employee.getFirstName() + " " + employee.getLastName();
+        return fullName;
     }
     
     public String calculateLastLogin(String user) throws SQLException {
@@ -113,6 +113,9 @@ public class BaseOverviewController implements Controller {
             // get the current time
             LocalDateTime now = DateProvider.getDateTime();
 
+            System.out.println(lastLoginTime);
+            System.out.println(now);
+
             Duration duration = Duration.between(lastLoginTime, now);
 
             long days = duration.toDays();
@@ -132,6 +135,41 @@ public class BaseOverviewController implements Controller {
         }
 
         return simplifiedLastLogin;
+    }
+
+    public void renderStatic() throws SQLException {
+        String greeting = greetingGenerator();
+        overviewModel.setGreetingText(greeting + ",");
+        overviewModel.setGreetingTextComp();
+
+        String fullName = getFullName(userContext.getUsername());
+        overviewModel.setLoggedInUserText(fullName.split(" ")[0]);
+        overviewModel.setLoggedInUserTextComp();
+
+        overviewModel.setLoggedInUserFullNameText(fullName);
+        overviewModel.setLoggedInUserFullNameTextComp();
+
+        String lastLogin = calculateLastLogin(userContext.getUsername());
+        overviewModel.setLastLoginText(lastLogin);
+        overviewModel.setLastLoginComp(); 
+
+    }
+
+    public String greetingGenerator() {
+        String greeting = "";
+        String time = DateProvider.getTime();
+        int hour = Integer.parseInt(time.split(":")[0]);
+        String ap = time.split(" ")[1];
+        if(hour > 6 && ap.equals("AM")) {
+            greeting = "Good Morning";
+        } else if(hour < 6 && ap.equals("PM")) {
+            greeting = "Good Afternoon";
+        } else if(hour > 6 && ap.equals("PM")) {
+            greeting = "Good Evening";
+        } else {
+            greeting = "Good Night";
+        }   
+        return greeting;
     }
 
     public void getView() throws Exception {
