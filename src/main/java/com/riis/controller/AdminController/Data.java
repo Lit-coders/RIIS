@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 import com.riis.database.DatabaseConnection;
 import com.riis.model.databasemodel.Employee;
+import com.riis.model.viewmodel.JAlert;
 
 public class Data {
+    static JAlert alert;
 
     public static ArrayList<Employee> getEmployeeData(String sql) {
         ArrayList<Employee> employees = new ArrayList<>();
@@ -20,7 +22,6 @@ public class Data {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return employees;
     }
 
@@ -47,4 +48,9 @@ public class Data {
         }
         return response;
     }
+
+    public static void alertMessage(String type, String message) {
+        alert = new JAlert(type, message);
+        alert.showAlert();
+     }
 }
