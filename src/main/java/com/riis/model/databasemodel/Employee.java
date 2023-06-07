@@ -8,6 +8,9 @@ public class Employee {
     private String middleName;
     private String job;
 
+    public Employee() {
+    }
+
     public Employee(String username, String password) {
         this.username = username;
         this.password = password;
@@ -48,6 +51,10 @@ public class Employee {
 
     public void setUserName(String username) {
         this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setFirstName(String firstName) {

@@ -1,11 +1,14 @@
 package com.riis.controller.AdminController;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 import com.riis.controller.Controller;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
+import com.riis.utils.JAlert;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,19 +46,22 @@ public class RemoveEmployeeController implements Controller {
 
     @FXML
     void clearSearchField(ActionEvent event) throws SQLException {
-        search_field.clear();
-        search_field.requestFocus();
-        emp_list.getChildren().clear();
-        displayEmpList();
+        if(!search_field.getText().isEmpty()){
+            search_field.clear();
+            search_field.requestFocus();
+            emp_list.getChildren().clear();
+            displayEmpList();
+        }
     }
-
+    
     @FXML
-    void findEmployee(ActionEvent event) {
-        String sql = "SELECT * FROM Employee";
+    void findEmployee(ActionEvent event) throws SQLException {
         String token = search_field.getText().toLowerCase();
 
-        ArrayList<Employee> employees = Data.getEmployeeData(sql);
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        List<Employee> employees = employeeDAO.getAllEmployees();
         emp_list.getChildren().clear();
+        boolean isFound = false;
         for(Employee employee: employees){
             if(employee.getUserName().toLowerCase().contains(token) || employee.getFirstName().toLowerCase().contains(token) || employee.getLastName().toLowerCase().contains(token) || employee.getMiddleName().toLowerCase().contains(token) || employee.getJob().toLowerCase().contains(token)){
                 String fullName = employee.getFirstName() + " " + employee.getLastName() + " " + employee.getMiddleName();
@@ -69,11 +75,21 @@ public class RemoveEmployeeController implements Controller {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                        employeeDetail.setEmployeeData(employee);
+                    employeeDetail.setEmployeeData(employee);
                 });
                 edit(name_label, user_label, box);
                 emp_list.getChildren().add(box);
+                isFound = true;
             }
+        }
+        
+        if(!isFound){
+            String emptySearch = "Searching with '" + token + "' has not found any related resuts!\n try to search with employee's names and his/her job.";
+            Label token_label = new Label(emptySearch);
+            token_label.setWrapText(true);
+            token_label.getStyleClass().add("token-label");
+            emp_list.getChildren().add(token_label);
+            search_field.requestFocus();
         }
     }
     
@@ -91,8 +107,8 @@ public class RemoveEmployeeController implements Controller {
     }
 
     private void displayEmpList() throws SQLException{
-        String sql = "SELECT * FROM Employee";
-        ArrayList<Employee> employees = Data.getEmployeeData(sql);
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        List<Employee> employees = employeeDAO.getAllEmployees();
         for(Employee employee: employees){
             String fullName = employee.getFirstName() + " " + employee.getLastName() + " " + employee.getMiddleName();
             Label name_label = new Label(fullName);
@@ -121,4 +137,9 @@ public class RemoveEmployeeController implements Controller {
         emp_list = (VBox) pane.getContent();
         displayEmpList();
     }
+
+    public void alertMessage(String type, String message) {
+        JAlert alert = new JAlert(type, message);
+        alert.showAlert();
+     }
 }

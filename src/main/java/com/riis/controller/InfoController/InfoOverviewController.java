@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 public class InfoOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
-        overviewModel.setLoggedInUserTextComp();
+        renderStatic();
         // other initialization will be done in the future
     }
 

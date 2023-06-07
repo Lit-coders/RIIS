@@ -1,12 +1,17 @@
 package com.riis.controller;
 
 
-import com.riis.Context.UserContext;
+
+import java.sql.SQLException;
+
 import com.riis.auth.AuthenticationManager;
+import com.riis.context.UserContext;
 import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
 import com.riis.controller.KebeleController.KebeleSidebarController;
+import com.riis.dao.EmployeeDAO;
+import com.riis.dao.EmployeeDAOImpl;
 import com.riis.database.DatabaseConnection;
 import com.riis.utils.JAlert;
 
@@ -113,7 +118,8 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
-            userContext.setUsername(user);
+            // handler user data
+            userHandler(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
@@ -169,5 +175,18 @@ public class LoginController implements Controller {
         close_btn.setOnMouseExited(e -> {
             closeIcon.setStyle("-fx-stroke: #976eef;");
         });
+    }
+
+    private void userHandler(String user) throws SQLException {            
+        // set the logged in user
+        userContext.setUsername(user);
+
+        // Capture the last login time
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        String lastlogin = employeeDAO.getLastLogin(user);
+        userContext.setLastLogin(lastlogin);
+
+        // Capture the current login time
+        employeeDAO.captureLoginTime(user);
     }
 }

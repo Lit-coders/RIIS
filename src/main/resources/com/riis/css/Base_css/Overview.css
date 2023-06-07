@@ -88,3 +88,13 @@
     -fx-background-color: #F5F0F0;
     -fx-text-fill: #7D4BD2;
 }
+
+.last-login-bar {
+    -fx-background-color: #7D4BD2;
+    -fx-background-radius: 8px;
+}
+
+.last-login-bar .label {
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}

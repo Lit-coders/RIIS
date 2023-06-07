@@ -38,6 +38,13 @@ DELETE FROM Employee;
         job varchar(25)
     )
 
+    CREATE table EmployeeLastLogin (
+        LoginID INTEGER PRIMARY KEY AUTOINCREMENT,
+        u_name varchar(25),
+        LastLogin DATETIME,
+        FOREIGN KEY (u_name) REFERENCES Employee (username)
+    )    
+
     Create table Resident (
         ResidentID INTEGER PRIMARY KEY AUTOINCREMENT,
         Name varchar(25),
