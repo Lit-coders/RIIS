@@ -1,9 +1,11 @@
 package com.riis.controller;
 
 
+
 import java.sql.SQLException;
 
 import com.riis.auth.AuthenticationManager;
+import com.riis.context.UserContext;
 import com.riis.controller.FinController.FinSidebarController;
 import com.riis.controller.AdminController.AdminSidebarController;
 import com.riis.controller.InfoController.InfoSidebarController;
@@ -11,8 +13,6 @@ import com.riis.controller.KebeleController.KebeleSidebarController;
 import com.riis.dao.EmployeeDAO;
 import com.riis.dao.EmployeeDAOImpl;
 import com.riis.database.DatabaseConnection;
-import com.riis.model.databasemodel.Employee;
-import com.riis.model.viewmodel.OverviewModel;
 import com.riis.utils.JAlert;
 
 import javafx.fxml.FXML;
@@ -51,7 +51,7 @@ public class LoginController implements Controller {
     private double yOffset;
     public Label errorMessage;
 
-    private OverviewModel overviewModel = OverviewModel.getInstance();
+    private UserContext userContext = UserContext.getInstance();
     
 
     public LoginController(Stage stage) {
@@ -118,8 +118,8 @@ public class LoginController implements Controller {
 
         if (!job.isEmpty()) {
             System.out.println("Login Successful");
-            String userName = getFirstName(user);
-            overviewModel.setLoggedInUserText(userName);
+            // handler user data
+            userHandler(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
             
             switch(job) {
@@ -177,10 +177,16 @@ public class LoginController implements Controller {
         });
     }
 
-    public String getFirstName(String user) throws SQLException {
+    private void userHandler(String user) throws SQLException {            
+        // set the logged in user
+        userContext.setUsername(user);
+
+        // Capture the last login time
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-        Employee employee = employeeDAO.getEmployeeByUsername(user);
-        String userName = employee.getFirstName();
-        return userName;
+        String lastlogin = employeeDAO.getLastLogin(user);
+        userContext.setLastlogin(lastlogin);
+
+        // Capture the current login time
+        employeeDAO.captureLoginTime(user);
     }
 }
