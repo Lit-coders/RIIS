@@ -7,29 +7,40 @@
   -fx-background-radius: 15px;
 }
 
-#re_search_field {
+#search_field {
   -fx-background-color: transparent;
 }
 
-#re_search_btn {
+#search_btn,
+#clear_btn {
   -fx-background-color: transparent;
 }
 
-#re_search_btn:hover {
-  -fx-background-color: rgba(109, 100, 100, 0.434);
-  -fx-background-radius: 15px;
-}
-#replace_list {
+#id_list {
   -fx-background-color: white;
   -fx-background-radius: 15px;
 }
+.scroll-pane {
+  -fx-background-color: transparent;
+  -fx-background-radius: 15px;
+}
 
-#re_approve_btn {
+.scroll-pane,
+.scroll-pane .viewport,
+.scroll-pane .scroll-bar {
+  -fx-background-color: transparent;
+  -fx-background-radius: 15;
+}
+.scroll-pane .thumb {
+  -fx-background-color: rgba(79, 19, 228, 0.537);
+}
+
+#approve_btn {
   -fx-background-color: #976eef;
   -fx-background-radius: 15px;
 }
 
-#re_approve_btn:hover {
+#approve_btn:hover {
   -fx-background-color: #976eefd2;
 }
 
@@ -39,7 +50,8 @@
 }
 
 .detail_hbox {
-  -fx-background-color: #eee6e6;
+  -fx-background-color: #f5f0f0;
+  -fx-background-radius: 15px;
 }
 .detail_hbox:hover {
   -fx-background-color: #eee6e6ab;
@@ -47,6 +59,83 @@
 
 .detailLabel {
   -fx-font-weight: 800;
+  -fx-text-fill: #702ffc;
+}
+
+/* for list of residents  */
+
+.name-label {
+  -fx-text-fill: white;
+  -fx-font-size: 16;
+  -fx-font-weight: 700;
+  -fx-background-radius: 20;
+  -fx-pref-width: 450;
+  -fx-pref-height: 40;
+  -fx-padding: 3;
+}
+
+.token-label {
   -fx-text-fill: #976eef;
-  -fx-background-radius: 15px;
+  -fx-font-size: 15;
+  -fx-font-weight: 600;
+  -fx-padding: 20;
+}
+
+#idExp_label {
+  -fx-border-color: #702ffc;
+  -fx-font-weight: 800;
+  -fx-border-width: 1;
+  -fx-border-radius: 10;
+  -fx-text-fill: #702ffc;
+}
+
+#expand_btn {
+  -fx-background-color: transparent;
+  -fx-border-color: #702ffc;
+  -fx-border-width: 1;
+  -fx-border-radius: 10;
+  -fx-padding: 3;
+}
+
+#expand_btn:hover {
+  -fx-effect: dropshadow(gaussian, #702ffc7d, 10, 0, 2, 2);
+  -fx-background-radius: 0;
+}
+
+#root_box {
+  -fx-background-color: white;
+  -fx-border-color: #970eff;
+  -fx-border-width: 3px;
+  -fx-background-radius: 20px;
+  -fx-border-radius: 15px;
+  -fx-padding: 10 10 10 10;
+}
+
+#titlebar {
+  -fx-background-color: transparent;
+  -fx-background-radius: 15;
+  -fx-padding: 10 0 0 0;
+}
+
+#expand_header {
+  -fx-font-weight: 800;
+  -fx-font-size: 15;
+  -fx-text-fill: #702ffc;
+  -fx-pref-height: 25;
+  -fx-pref-width: 435;
+}
+
+#x_btn {
+  -fx-background-color: transparent;
+  -fx-font-weight: 800;
+  -fx-font-size: 20;
+  -fx-text-fill: #702ffc;
+  -fx-pref-width: 25;
+  -fx-pref-height: 25;
+  -fx-padding: 2;
+}
+
+#x_btn:hover {
+  -fx-text-fill: white;
+  -fx-background-color: #702ffc6b;
 }
