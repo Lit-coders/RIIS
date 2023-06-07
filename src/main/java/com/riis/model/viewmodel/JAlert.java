@@ -1,4 +1,4 @@
-package com.riis.utils;
+package com.riis.model.viewmodel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
