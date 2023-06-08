@@ -1,16 +1,22 @@
 package com.riis.controller.InfoController;
 
-import com.riis.controller.BaseController.BaseOverviewController;
-import com.riis.model.viewmodel.SidebarModel;
+import java.util.List;
 
+import com.riis.controller.BaseController.BaseOverviewController;
+import com.riis.dao.RequestDAO;
+import com.riis.dao.RequestDAOImpl;
+import com.riis.model.databasemodel.Request;
+import com.riis.model.viewmodel.SidebarModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class InfoOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
         renderStatic();
+        fetchRecentActivity();
         // other initialization will be done in the future
     }
 
@@ -21,6 +27,15 @@ public class InfoOverviewController extends BaseOverviewController {
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
         initialize();
+    }
+
+    public void fetchRecentActivity() throws Exception {
+        RequestDAO requestDAO = new RequestDAOImpl();
+        List<Request> unpaidRequests = requestDAO.getPendingUnpaidRequests();  
+        for(Request request : unpaidRequests) {
+            HBox hBox = buildHBox(request);
+            overviewModel.getRecentActivityComp().getChildren().add(hBox);
+        }
     }
 
 }

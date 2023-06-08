@@ -9,19 +9,25 @@ import com.riis.context.UserContext;
 import com.riis.controller.Controller;
 import com.riis.dao.EmployeeDAO;
 import com.riis.dao.EmployeeDAOImpl;
+import com.riis.dao.ResidentDAO;
+import com.riis.dao.ResidentDAOImpl;
 import com.riis.model.databasemodel.Employee;
+import com.riis.model.databasemodel.Request;
+import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.OverviewModel;
 import com.riis.utils.DateProvider;
 import com.riis.utils.TextGenerator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 
 public class BaseOverviewController implements Controller {
@@ -60,7 +66,7 @@ public class BaseOverviewController implements Controller {
     protected NumberAxis yAxis;
 
     @FXML
-    protected ListView<HBox> listView;
+    protected VBox recentActivity;
 
     protected OverviewModel overviewModel;
 
@@ -82,6 +88,7 @@ public class BaseOverviewController implements Controller {
         overviewModel.bindTotResidentsMale(tot_residents_male);
         overviewModel.bindTotResidentsFemale(tot_residents_female);
         overviewModel.bindLastLogin(lastLogin);
+        overviewModel.bindRecentActivity(recentActivity);
         // recent activity and bar chart are remaining
     }
 
@@ -170,6 +177,55 @@ public class BaseOverviewController implements Controller {
             greeting = "Good Night";
         }   
         return greeting;
+    }
+
+    public HBox buildHBox(Request request) throws Exception {
+        HBox hBox = new HBox();
+        HBox.setMargin(hBox, new Insets(0, 0, 0, 0));
+        hBox.setMinHeight(40);
+        hBox.setPrefWidth(overviewModel.getRecentActivityComp().getPrefWidth() - 20);   
+        hBox.setStyle("-fx-background-color: #F5F0F0; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #F5F0F0; -fx-border-width: 3px");
+        hBox.setPadding(new Insets(0, 10, 0, 10));
+
+        HBox nameHolder = new HBox();
+        nameHolder.setAlignment(Pos.CENTER_LEFT);
+
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        Resident resident = residentDAO.getResidentNameByID(request.getResidentID());
+        String fullName = resident.getName() + " " + resident.getFName();
+        Text nameText = TextGenerator.generateText(fullName,"Poppins-Regular", 18, "#702FFC");
+        nameHolder.getChildren().add(nameText);
+
+        HBox iconHolder = new HBox();
+        iconHolder.setAlignment(Pos.CENTER_RIGHT);
+
+        SVGPath svgPath = new SVGPath();
+        String svgContent = "";
+
+        if(request.getRequestType() == 0) { 
+            svgContent = "M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z";
+            svgPath.setContent(svgContent);
+        } else if(request.getRequestType() == 1) {
+            svgContent = "M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z";
+            svgPath.setContent(svgContent);
+        } else {
+            svgContent = "M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z";
+            svgPath.setContent(svgContent);
+        }
+        
+        svgPath.setStroke(Color.valueOf("#702FFC"));
+        svgPath.setFill(Color.valueOf("#F5F0F0"));
+        svgPath.setScaleX(1.2);
+        svgPath.setScaleY(1.2);
+        iconHolder.getChildren().add(svgPath);
+
+        nameHolder.prefWidthProperty().bind(hBox.widthProperty().divide(2));
+        iconHolder.prefWidthProperty().bind(hBox.widthProperty().divide(2));
+
+
+        hBox.getChildren().addAll(nameHolder, iconHolder);   
+
+        return hBox;
     }
 
     public void getView() throws Exception {
