@@ -322,7 +322,7 @@ public class InfoReplaceController extends OtherServicesController {
         });
     }
 
-    private void displayRequestDate(Request request) {
+    public void displayRequestDate(Request request) {
         String reqsDate = request.getRequestDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);

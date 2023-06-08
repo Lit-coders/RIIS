@@ -5,9 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.riis.controller.BaseController.OtherServicesController;
@@ -325,39 +322,6 @@ public class InfoRenewalController extends OtherServicesController {
                 e.printStackTrace();
             }
         });
-    }
-
-    private void displayRequestDate(Request request) {
-        String reqsDate = request.getRequestDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);
-        String reqDate = requestedDate(dateTime);
-        alertMessage("Error", reqDate);
-    }
-
-    public String requestedDate(LocalDateTime dateTime) {
-        LocalDateTime today = LocalDateTime.now();
-        int dateGap = (int) ChronoUnit.DAYS.between(dateTime, today);
-        if (dateGap <= 1) {
-            double timegap = ChronoUnit.HOURS.between(dateTime, today);
-            if (timegap < 1) {
-                int mingap = (int) ChronoUnit.MINUTES.between(dateTime, today);
-                return "Already requested today, " + mingap + " minute(s) ago.";
-            } else {
-                return "Already requested today, " + timegap + " hour(s) ago.";
-            }
-        } else if (dateGap < 7) {
-            return "Requested, " + dateGap + " days ago.";
-        } else if (dateGap < 31) {
-            int weekgap = (int) ChronoUnit.WEEKS.between(dateTime, today);
-            return "Requested, " + weekgap + " week(s) ago.";
-        } else if (dateGap < 365) {
-            int monthgap = (int) ChronoUnit.MONTHS.between(dateTime, today);
-            return "Requested, " + monthgap + " month(s) ago.";
-        } else {
-            int yeargap = (int) ChronoUnit.YEARS.between(dateTime, today);
-            return "Requested, " + yeargap + " year(s) ago.";
-        }
     }
 
     @Override
