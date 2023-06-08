@@ -144,6 +144,7 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
 
             pis.setString(2, formattedDateTime);
             pis.setString(3, currentDateTime.plusYears(3).format(formatter));
+            pis.setInt(4, 0);
 
             pis.executeUpdate();
         } catch (Exception e) {
