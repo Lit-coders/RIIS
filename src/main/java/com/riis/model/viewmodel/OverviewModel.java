@@ -1,6 +1,7 @@
 package com.riis.model.viewmodel;
 
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class OverviewModel {
     private static OverviewModel instance;
@@ -23,6 +24,7 @@ public class OverviewModel {
     private String tot_residents_femaleText;
     private Label lastLogin; 
     private String lastLoginText;
+    private VBox recentActivity;
 
     private OverviewModel() {
     }
@@ -176,5 +178,13 @@ public class OverviewModel {
     
     public void setTotResidentsFemaleTextComp() {
         this.tot_residents_female.setText(tot_residents_femaleText);
+    }
+
+    public VBox getRecentActivityComp() {
+        return recentActivity;
+    }
+
+    public void bindRecentActivity(VBox recentActivity) {
+        this.recentActivity = recentActivity;
     }
 }
