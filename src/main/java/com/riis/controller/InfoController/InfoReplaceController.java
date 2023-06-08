@@ -1,13 +1,19 @@
 package com.riis.controller.InfoController;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.riis.controller.BaseController.OtherServicesController;
 import com.riis.dao.KebeleResidentDAO;
 import com.riis.dao.KebeleResidentDAOImpl;
+import com.riis.dao.RequestDAO;
+import com.riis.dao.RequestDAOImpl;
 import com.riis.dao.ResidentDAO;
 import com.riis.dao.ResidentDAOImpl;
 import com.riis.model.databasemodel.KebeleResident;
+import com.riis.model.databasemodel.Request;
 import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.SidebarModel;
 
@@ -109,7 +115,8 @@ public class InfoReplaceController extends OtherServicesController {
     }
 
     private void displayResidentDetail(Resident resident, String givenDate, String expDate, Label label,
-            int expStatus) {
+            int expStatus) throws Exception {
+        ResidentDAO residentDAO = new ResidentDAOImpl();
         expand_btn.setDisable(false);
         if (expStatus == 1) {
             idExp_label.setVisible(true);
@@ -117,8 +124,13 @@ public class InfoReplaceController extends OtherServicesController {
             idExp_label.setVisible(false);
         }
         id = resident.getResidentId();
-        // Image img = new Image(resident.getPhotoPath());
-        // resident_img.setImage(img);
+        id = resident.getResidentId();
+        if(residentDAO.getResidentImageByID(id) != null){
+            Image img = new Image(residentDAO.getResidentImageByID(id));
+            resident_img.setImage(img);
+        } else {
+            resident_img.setImage(null);
+        }
         checkSelectedLabel(label);
         approve_btn.setDisable(false);
         String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
@@ -150,7 +162,11 @@ public class InfoReplaceController extends OtherServicesController {
             String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
             Label label = new Label(fullName);
             label.setOnMouseClicked(event -> {
-                displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                try {
+                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
             edit(label);
             id_list.getChildren().add(label);
@@ -236,7 +252,11 @@ public class InfoReplaceController extends OtherServicesController {
             String givenDate = kebeleResident.getIdgivenDate();
             String expDate = kebeleResident.getIdExpDate();
             label.setOnMouseClicked(clicked -> {
-                displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                try {
+                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
         }
     }
@@ -265,7 +285,11 @@ public class InfoReplaceController extends OtherServicesController {
                 String givenDate = kebeleResident.getIdgivenDate();
                 String expDate = kebeleResident.getIdExpDate();
                 label.setOnMouseClicked(clicked -> {
-                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                    try {
+                        displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 });
             }
         }
@@ -273,8 +297,62 @@ public class InfoReplaceController extends OtherServicesController {
 
     public void handleApproveBtn() {
         approve_btn.setOnAction(event -> {
-            System.out.println("Approve button clicked!");
+            try {
+                if (!isRequested(id)) {
+                    RequestDAO requestDAO = new RequestDAOImpl();
+                    Request request = new Request(id, 0, 1, 0, 2);
+                    if (requestDAO.addRequest(request)) {
+                        for (int i = 1; i < detail_box.getChildren().size(); i++) {
+                            HBox box = (HBox) detail_box.getChildren().get(i);
+                            Label label = (Label) box.getChildren().get(1);
+                            label.setText("---");
+                        }
+                        alertMessage("Success", "Lost ID replacement successfully requested!");
+                    } else {
+                        alertMessage("Error", "Lost ID replacement request failed!");
+                    }
+                } else {
+                    RequestDAO requestDAO = new RequestDAOImpl();
+                    Request request = requestDAO.getRequestByRID(id);
+                    displayRequestDate(request);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
+    }
+
+    private void displayRequestDate(Request request) {
+        String reqsDate = request.getRequestDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);
+        String reqDate = requestedDate(dateTime);
+        alertMessage("Error", reqDate);
+    }
+
+    public String requestedDate(LocalDateTime dateTime) {
+        LocalDateTime today = LocalDateTime.now();
+        int dateGap = (int) ChronoUnit.DAYS.between(dateTime, today);
+        if (dateGap <= 1) {
+            double timegap = ChronoUnit.HOURS.between(dateTime, today);
+            if (timegap < 1) {
+                int mingap = (int) ChronoUnit.MINUTES.between(dateTime, today);
+                return "Already requested today, " + mingap + " minute(s) ago.";
+            } else {
+                return "Already requested today, " + timegap + " hour(s) ago.";
+            }
+        } else if (dateGap < 7) {
+            return "Requested, " + dateGap + " days ago.";
+        } else if (dateGap < 31) {
+            int weekgap = (int) ChronoUnit.WEEKS.between(dateTime, today);
+            return "Requested, " + weekgap + " week(s) ago.";
+        } else if (dateGap < 365) {
+            int monthgap = (int) ChronoUnit.MONTHS.between(dateTime, today);
+            return "Requested, " + monthgap + " month(s) ago.";
+        } else {
+            int yeargap = (int) ChronoUnit.YEARS.between(dateTime, today);
+            return "Requested, " + yeargap + " year(s) ago.";
+        }
     }
 
     @Override
