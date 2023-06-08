@@ -3,21 +3,18 @@ package com.riis.controller.InfoController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.List;
 
-import com.riis.controller.Controller;
-import com.riis.model.databasemodel.ExpId;
-import com.riis.model.databasemodel.Request;
+import com.riis.controller.BaseController.OtherServicesController;
+import com.riis.dao.KebeleResidentDAO;
+import com.riis.dao.KebeleResidentDAOImpl;
+import com.riis.dao.ResidentDAO;
+import com.riis.dao.ResidentDAOImpl;
+import com.riis.model.databasemodel.KebeleResident;
 import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.SidebarModel;
-import com.riis.utils.JAlert;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,17 +25,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-public class InfoRenewalController implements Controller {
+public class InfoRenewalController extends OtherServicesController {
     int clickedIdex = 0;
     int id;
     VBox detail_box;
-    private double xOffset = 0;
-    private double yOffset = 0;
+
     @FXML
     private Label Phone_label;
 
@@ -95,53 +88,12 @@ public class InfoRenewalController implements Controller {
     }
 
     @FXML
-    void searchResidentID(ActionEvent event) {
-        if (!search_field.getText().isBlank()) {
-            String sql1 = "SELECT * FROM Resident";
-            String token = search_field.getText().toLowerCase();
-            ArrayList<Resident> residents = ResidentData.getResidentData(sql1);
-            id_list.getChildren().clear();
-            boolean isFound = false;
-            for (Resident resident : residents) {
-                if (resident.getName().toLowerCase().contains(token)
-                        || resident.getFName().toLowerCase().contains(token)
-                        || resident.getGFName().toLowerCase().contains(token)) {
-                    String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
-                    Label label = new Label(fullName);
-                    edit(label);
-                    id_list.getChildren().add(label);
-                    isFound = true;
-                    String sql = "SELECT * FROM KebeleResidentID WHERE ResidentId = '" + resident.getResidentId() + "'";
-                    ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql);
-                    ExpId expId = expIds.get(0);
-                    int expStatus = expId.getExpStatus();
-                    String givenDate = expId.getIdgivenDate();
-                    String expDate = expId.getIdExpDate();
-                    label.setOnMouseClicked(clicked -> {
-                        displayResidentDetail(resident, givenDate, expDate, label, expStatus);
-                    });
-                }
-            }
-
-            if (!isFound) {
-                String emptySearch = "Searching with '" + token
-                        + "' has not found any related resuts!\n try to search with resident's names and his/her house number.";
-                Label token_label = new Label(emptySearch);
-                token_label.setWrapText(true);
-                token_label.getStyleClass().add("token-label");
-                id_list.getChildren().add(token_label);
-                search_field.requestFocus();
-            }
-        }
-    }
-
-    @FXML
-    void clearSearchField(ActionEvent event) {
+    void clearSearchField(ActionEvent event) throws Exception {
         if (!search_field.getText().isEmpty()) {
             search_field.clear();
             search_field.requestFocus();
             id_list.getChildren().clear();
-            displayExpIdList();
+            displayKebeleResidentsList();
         }
     }
 
@@ -165,8 +117,8 @@ public class InfoRenewalController implements Controller {
             idExp_label.setVisible(false);
         }
         id = resident.getResidentId();
-        Image img = new Image(resident.getPhotoPath());
-        resident_img.setImage(img);
+        // Image img = new Image(resident.getPhotoPath());
+        // resident_img.setImage(img);
         checkSelectedLabel(label);
         approve_btn.setDisable(false);
         String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
@@ -183,25 +135,25 @@ public class InfoRenewalController implements Controller {
         name_label.setAlignment(Pos.CENTER);
     }
 
-    private void displayExpIdList() {
-        String sql1 = "SELECT * FROM KebeleResidentID";
-        ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql1);
-        for (ExpId expId : expIds) {
-            int rId = expId.getResidentId();
-            String givenDate = expId.getIdgivenDate();
-            String expDate = expId.getIdExpDate();
-            int expStatus = expId.getExpStatus();
-            String sql = "SELECT * FROM Resident WHERE ResidentID = '" + rId + "'";
-            ArrayList<Resident> Residents = ResidentData.getResidentData(sql);
-            for (Resident resident : Residents) {
-                String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
-                Label label = new Label(fullName);
-                label.setOnMouseClicked(event -> {
-                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
-                });
-                edit(label);
-                id_list.getChildren().add(label);
-            }
+    private void displayKebeleResidentsList() throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+
+        List<KebeleResident> kebeleResidents = kebeleResidentDAO.getAllKebeleResidents();
+        for (KebeleResident kebeleResident : kebeleResidents) {
+            int residentId = kebeleResident.getResidentId();
+            String givenDate = kebeleResident.getIdgivenDate();
+            String expDate = kebeleResident.getIdExpDate();
+            int expStatus = kebeleResident.getExpStatus();
+            Resident resident = residentDAO.getResidentByID(residentId);
+
+            String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
+            Label label = new Label(fullName);
+            label.setOnMouseClicked(event -> {
+                displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+            });
+            edit(label);
+            id_list.getChildren().add(label);
         }
     }
 
@@ -223,84 +175,160 @@ public class InfoRenewalController implements Controller {
         AnchorPane aPane = (AnchorPane) approve_btn.getParent();
         detail_box = (VBox) aPane.getChildren().get(2);
 
-        approve_btn.setOnAction(event -> {
-            LocalDateTime dateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-            String requestTime = dateTime.format(formatter);
-            if (!isRequested(id) && isIdExpired(id)) {
-                String sql = "INSERT INTO Request (RID, UnpaidRequest, RequestType, RequestDate) VALUES(" + id + ", "
-                        + 0 + ", " + 0 + ", '" + requestTime + "')";
-                if (ResidentData.addRequest(sql)) {
-                    for (int i = 1; i < detail_box.getChildren().size(); i++) {
-                        HBox box = (HBox) detail_box.getChildren().get(i);
-                        Label label = (Label) box.getChildren().get(1);
-                        label.setText("---");
-                    }
-                    alertMessage("Success", "successfully requested!");
+    }
+
+    // add listener to search field to display all kebele residents when it is empty
+    // and display searched kebele residents when it is not empty
+    private void addSearchFieldListener() {
+        search_field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                try {
+                    id_list.getChildren().clear();
+                    displayKebeleResidentsList();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                String token = newValue.toLowerCase();
+                try {
+                    id_list.getChildren().clear();
+                    displaySearchedKebeleResidents(token);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
     }
 
-    public boolean isIdExpired(int rid) {
-        String sql = "SELECT * FROM KebeleResidentId WHERE ResidentID = " + rid + " AND ExpirationStatus = 1";
-        ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql);
-        if (expIds != null) {
-            for (ExpId expId : expIds) {
-                if (expId.getResidentId() == rid && expId.getExpStatus() != 1) {
-                    return false;
-                } else if (expId.getResidentId() == rid && expId.getExpStatus() == 1) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean isRequested(int rid) {
-        String sql = "SELECT * FROM Request WHERE RID = " + rid + " AND RequestType = 0";
-        Request request = ResidentData.getRequestData(sql, rid);
-        if (request.getResidentID() == 11) {
-            System.out.println("Renewal is Not Requested for this Id");
-            return false;
-        } else {
-            displayRequestDate(request);
-            return true;
-        }
-    }
-
-    private void displayRequestDate(Request request) {
-        String reqsDate = request.getRequestDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-        LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);
-        String reqDate = requestedDate(dateTime);
-        alertMessage("Error", reqDate);
-    }
-
-    private String requestedDate(LocalDateTime dateTime) {
-        LocalDateTime today = LocalDateTime.now();
-        int dateGap = (int) ChronoUnit.DAYS.between(dateTime, today);
-        if (dateGap <= 1) {
-            double timegap = ChronoUnit.HOURS.between(dateTime, today);
-            if (timegap < 1) {
-                int mingap = (int) ChronoUnit.MINUTES.between(dateTime, today);
-                return "Already requested today, " + mingap + " minutes(s) ago.";
+    public void displaySearchedKebeleResidents(String token) throws Exception {
+        if (!search_field.getText().isBlank()) {
+            if (search_field.getText().matches("\\d")) {
+                // Search by Kebele Resident ID
+                searchByKRID(token);
             } else {
-                return "Already requested today, " + timegap + " hour(s) ago.";
+                // Search by Resident Name
+                searchByName(token);
             }
-        } else if (dateGap < 7) {
-            return "Requested, " + dateGap + " days ago.";
-        } else if (dateGap < 31) {
-            int weekgap = (int) ChronoUnit.WEEKS.between(dateTime, today);
-            return "Requested, " + weekgap + " week(s) ago.";
-        } else if (dateGap < 365) {
-            int monthgap = (int) ChronoUnit.MONTHS.between(dateTime, today);
-            return "Requested, " + monthgap + " month(s) ago.";
-        } else {
-            int yeargap = (int) ChronoUnit.YEARS.between(dateTime, today);
-            return "Requested, " + yeargap + " year(s) ago.";
         }
     }
+
+    public void searchByKRID(String token) throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        int KRID = Integer.parseInt(search_field.getText());
+        KebeleResident kebeleResident = kebeleResidentDAO.getKebeleResidentByKID(KRID);
+        if (kebeleResident == null) {
+            String emptySearch = "Searching with 'KebeleResidentID: " + id +
+                    "' has not found any related results!\nTry to search with the resident's name.";
+            Label token_label = new Label(emptySearch);
+            token_label.setWrapText(true);
+            token_label.getStyleClass().add("token-label");
+            id_list.getChildren().add(token_label);
+            search_field.requestFocus();
+        } else {
+            id_list.getChildren().clear();
+            Resident resident = residentDAO.getResidentByID(kebeleResident.getResidentId());
+            String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
+            Label label = new Label(fullName);
+            edit(label);
+            id_list.getChildren().add(label);
+            int expStatus = kebeleResident.getExpStatus();
+            String givenDate = kebeleResident.getIdgivenDate();
+            String expDate = kebeleResident.getIdExpDate();
+            label.setOnMouseClicked(clicked -> {
+                displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+            });
+        }
+    }
+
+    public void searchByName(String token) throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        id_list.getChildren().clear();
+        List<KebeleResident> kebeleResidents = kebeleResidentDAO.getKebeleResidentsByToken(token);
+        if (kebeleResidents.isEmpty()) {
+            String emptySearch = "Searching with '" + token +
+                    "' has not found any related results!\nTry to search with the Kebele Resident ID.";
+            Label token_label = new Label(emptySearch);
+            token_label.setWrapText(true);
+            token_label.getStyleClass().add("token-label");
+            id_list.getChildren().add(token_label);
+            search_field.requestFocus();
+        } else {
+            for (KebeleResident kebeleResident : kebeleResidents) {
+                Resident resident = residentDAO.getResidentByID(kebeleResident.getResidentId());
+                String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
+                Label label = new Label(fullName);
+                edit(label);
+                id_list.getChildren().add(label);
+                int expStatus = kebeleResident.getExpStatus();
+                String givenDate = kebeleResident.getIdgivenDate();
+                String expDate = kebeleResident.getIdExpDate();
+                label.setOnMouseClicked(clicked -> {
+                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                });
+            }
+        }
+    }
+
+    public void handleApproveBtn() {
+        approve_btn.setOnAction(event -> {
+            // try {
+            //     if (!isRequested(id) && isIdExpired(id)) {
+            //         RequestDAO requestDAO = new RequestDAOImpl();
+            //         Request request = new Request(id, 0, 1, 0, 1);
+            //         if (requestDAO.addRequest(request)) {
+            //             for (int i = 1; i < detail_box.getChildren().size(); i++) {
+            //                 HBox box = (HBox) detail_box.getChildren().get(i);
+            //                 Label label = (Label) box.getChildren().get(1);
+            //                 label.setText("---");
+            //             }
+            //             alertMessage("Success", "ID Renewal successfully requested!");
+            //         } else {
+            //             alertMessage("Error", "ID Renewal request failed!");
+            //         }
+            //     }
+            // } catch (Exception e) {
+            //     e.printStackTrace();
+            // }
+            System.out.println("Approve button clicked!");
+
+        });
+    }
+
+    // private void displayRequestDate(Request request) {
+    // String reqsDate = request.getRequestDate();
+    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm
+    // a");
+    // LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);
+    // String reqDate = requestedDate(dateTime);
+    // alertMessage("Error", reqDate);
+    // }
+
+    // private String requestedDate(LocalDateTime dateTime) {
+    // LocalDateTime today = LocalDateTime.now();
+    // int dateGap = (int) ChronoUnit.DAYS.between(dateTime, today);
+    // if (dateGap <= 1) {
+    // double timegap = ChronoUnit.HOURS.between(dateTime, today);
+    // if (timegap < 1) {
+    // int mingap = (int) ChronoUnit.MINUTES.between(dateTime, today);
+    // return "Already requested today, " + mingap + " minutes(s) ago.";
+    // } else {
+    // return "Already requested today, " + timegap + " hour(s) ago.";
+    // }
+    // } else if (dateGap < 7) {
+    // return "Requested, " + dateGap + " days ago.";
+    // } else if (dateGap < 31) {
+    // int weekgap = (int) ChronoUnit.WEEKS.between(dateTime, today);
+    // return "Requested, " + weekgap + " week(s) ago.";
+    // } else if (dateGap < 365) {
+    // int monthgap = (int) ChronoUnit.MONTHS.between(dateTime, today);
+    // return "Requested, " + monthgap + " month(s) ago.";
+    // } else {
+    // int yeargap = (int) ChronoUnit.YEARS.between(dateTime, today);
+    // return "Requested, " + yeargap + " year(s) ago.";
+    // }
+    // }
 
     @Override
     public void getView() throws Exception {
@@ -310,66 +338,21 @@ public class InfoRenewalController implements Controller {
         SidebarModel.borderPane.setCenter(anchorPane);
 
         approve_btn = (Button) anchorPane.getChildren().get(3);
-        idExp_label = (Label) anchorPane.getChildren().get(4);
-
+        handleApproveBtn();
+        
+        HBox hbox = (HBox) anchorPane.getChildren().get(0);
+        search_field = (TextField) hbox.getChildren().get(1);
+        
         VBox vbox = (VBox) anchorPane.getChildren().get(2);
-        expand_btn = (Button) vbox.getChildren().get(0);
+        VBox imageVBox  = (VBox) vbox.getChildren().get(0);
+        expand_btn = (Button) imageVBox.getChildren().get(0);
+        idExp_label = (Label) imageVBox.getChildren().get(1);
         resident_img = (ImageView) expand_btn.getGraphic();
         initializeNullLabels(vbox);
 
         ScrollPane pane = (ScrollPane) anchorPane.getChildren().get(1);
         id_list = (VBox) pane.getContent();
-        displayExpIdList();
-    }
-
-    public void alertMessage(String type, String message) {
-        JAlert alert = new JAlert(type, message);
-        alert.showAlert();
-    }
-
-    public void showPopupWindow(Image popupImage, Stage parentStage, String owner) {
-        Stage popupStage = new Stage();
-
-        Label resNamLabel = new Label(owner);
-        resNamLabel.setId("expand_header");
-
-        Button x_btn = new Button("x");
-        x_btn.setId("x_btn");
-        x_btn.setOnAction(event -> {
-            popupStage.close();
-        });
-
-        HBox titlebar = new HBox(resNamLabel, x_btn);
-        titlebar.setId("titlebar");
-        titlebar.setAlignment(Pos.CENTER);
-        titlebar.setSpacing(10);
-        titlebar.setOnMousePressed(e -> {
-            xOffset = e.getSceneX();
-            yOffset = e.getSceneY();
-        });
-
-        titlebar.setOnMouseDragged(e -> {
-            popupStage.setX(e.getScreenX() - xOffset);
-            popupStage.setY(e.getScreenY() - yOffset);
-        });
-
-        ImageView popupImageView = new ImageView(popupImage);
-        popupImageView.setFitWidth(480);
-        popupImageView.setFitHeight(480);
-        VBox root = new VBox(titlebar, popupImageView);
-        root.setId("root_box");
-        root.setAlignment(Pos.CENTER);
-        root.setSpacing(10);
-
-        Scene popupScene = new Scene(root, 500, 550);
-        popupScene.setFill(Color.TRANSPARENT);
-        popupScene.getStylesheets()
-                .add(getClass().getResource("/com/riis/css/Info_css/InfoReplace.css").toExternalForm());
-
-        popupStage.initStyle(StageStyle.TRANSPARENT);
-        popupStage.initModality(Modality.APPLICATION_MODAL);
-        popupStage.initOwner(parentStage);
-        popupStage.setScene(popupScene);
-        popupStage.showAndWait();
+        addSearchFieldListener();
+        displayKebeleResidentsList();
     }
 }

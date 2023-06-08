@@ -1,11 +1,13 @@
 package com.riis.controller.InfoController;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 
-import com.riis.controller.Controller;
-import com.riis.model.databasemodel.ExpId;
+import com.riis.controller.BaseController.OtherServicesController;
+import com.riis.dao.KebeleResidentDAO;
+import com.riis.dao.KebeleResidentDAOImpl;
+import com.riis.dao.ResidentDAO;
+import com.riis.dao.ResidentDAOImpl;
+import com.riis.model.databasemodel.KebeleResident;
 import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.SidebarModel;
 
@@ -25,23 +27,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class InfoReplaceController implements Controller{
-    int clikedIdex = 0;
+public class InfoReplaceController extends OtherServicesController {
+    int clickedIdex = 0;
     int id;
     VBox detail_box;
-    InfoRenewalController IRC = new InfoRenewalController();
-    
+
     @FXML
     private Label idExp_label;
 
-     @FXML
+    @FXML
     private Label Phone_label;
 
     @FXML
     private Button approve_btn;
 
     @FXML
-    private AnchorPane bocy_anchor;
+    private AnchorPane body_anchor;
 
     @FXML
     private Button clear_btn;
@@ -75,84 +76,49 @@ public class InfoReplaceController implements Controller{
 
     @FXML
     private Label sex_label;
-    
+
     @FXML
     void expandResidentPhoto(ActionEvent event) {
         Button btn = (Button) event.getSource();
         ImageView imgView = (ImageView) btn.getGraphic();
         Image img = (Image) imgView.getImage();
         Stage stage = (Stage) btn.getScene().getWindow();
-        IRC.showPopupWindow(img, stage, name_label.getText());
+        showPopupWindow(img, stage, name_label.getText());
     }
 
+    
     @FXML
-    void searchResidentID(ActionEvent event) {
-        if(!search_field.getText().isBlank()){
-            String sql1 = "SELECT * FROM Resident";
-            String token = search_field.getText().toLowerCase();
-            ArrayList<Resident> residents = ResidentData.getResidentData(sql1);
-            id_list.getChildren().clear();
-            boolean isFound = false;
-            for(Resident resident: residents){
-                if(resident.getName().toLowerCase().contains(token) || resident.getFName().toLowerCase().contains(token) || resident.getGFName().toLowerCase().contains(token)){
-                    String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
-                    Label label = new Label(fullName);
-                    edit(label);
-                    id_list.getChildren().add(label);
-                    isFound = true;
-                    String sql  = "SELECT * FROM KebeleResidentID WHERE ResidentId = '" + resident.getResidentId() + "'";
-                    ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql);
-                    ExpId expId = expIds.get(0);
-                    int expStatus = expId.getExpStatus();
-                    String givenDate = expId.getIdgivenDate();
-                    String expDate = expId.getIdExpDate();
-                    label.setOnMouseClicked(clicked ->{
-                        displayResidentDetail(resident, givenDate, expDate, label, expStatus);  
-                    });
-                }
-            }
-            if(!isFound){
-                String emptySearch = "Searching with '" + token + "' has not found any related resuts!\n try to search with resident's names and his/her house number.";
-                Label token_label = new Label(emptySearch);
-                token_label.setWrapText(true);
-                token_label.getStyleClass().add("token-label");
-                id_list.getChildren().add(token_label);
-                search_field.requestFocus();
-            }
-        }
-    }
-
-    @FXML
-    void clearSearchField(ActionEvent event) {
-        if(!search_field.getText().isEmpty()){
+    void clearSearchField(ActionEvent event) throws Exception {
+        if (!search_field.getText().isEmpty()) {
             search_field.clear();
             search_field.requestFocus();
             id_list.getChildren().clear();
-            displayExpIdList();
+            displayKebeleResidentsList();
         }
     }
-    
+
     private void checkSelectedLabel(Label label) {
         uncheckSelectedLabel();
         label.setStyle("-fx-background-color: #956cedbc;");
-        clikedIdex = id_list.getChildren().indexOf(label); 
+        clickedIdex = id_list.getChildren().indexOf(label);
     }
 
     private void uncheckSelectedLabel() {
-        Label l = (Label) id_list.getChildren().get(clikedIdex);
+        Label l = (Label) id_list.getChildren().get(clickedIdex);
         l.setStyle("-fx-background-color: #956ced;");
     }
-    
-    private void displayResidentDetail(Resident resident, String givenDate, String expDate, Label label, int expStatus){
+
+    private void displayResidentDetail(Resident resident, String givenDate, String expDate, Label label,
+            int expStatus) {
         expand_btn.setDisable(false);
-        if(expStatus == 1){
+        if (expStatus == 1) {
             idExp_label.setVisible(true);
         } else {
             idExp_label.setVisible(false);
         }
         id = resident.getResidentId();
-        Image img = new Image(resident.getPhotoPath());
-        resident_img.setImage(img);
+        // Image img = new Image(resident.getPhotoPath());
+        // resident_img.setImage(img);
         checkSelectedLabel(label);
         approve_btn.setDisable(false);
         String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
@@ -162,7 +128,6 @@ public class InfoReplaceController implements Controller{
         givend_label.setText(givenDate);
         expd_label.setText(expDate);
     }
-    
 
     private void edit(Label name_label) {
         name_label.getStyleClass().add("name-label");
@@ -170,32 +135,32 @@ public class InfoReplaceController implements Controller{
         name_label.setAlignment(Pos.CENTER);
     }
 
-    private void displayExpIdList() {
-        String sql1  = "SELECT * FROM KebeleResidentID";
-        ArrayList<ExpId> expIds = ResidentData.getExpResidentIdData(sql1);
-        for(ExpId expId: expIds){
-            int rId = expId.getResidentId();
-            String givenDate = expId.getIdgivenDate();
-            String expDate = expId.getIdExpDate();
-            int expStatus = expId.getExpStatus();
-            String sql = "SELECT * FROM Resident WHERE ResidentID = '" + rId + "'";
-            ArrayList<Resident> Residents = ResidentData.getResidentData(sql);
-            for(Resident resident: Residents){
-                String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
-                Label label = new Label(fullName);
-                label.setOnMouseClicked(event ->{
-                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
-                });
-                edit(label);
-                id_list.getChildren().add(label);
-            }
+    private void displayKebeleResidentsList() throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+
+        List<KebeleResident> kebeleResidents = kebeleResidentDAO.getAllKebeleResidents();
+        for (KebeleResident kebeleResident : kebeleResidents) {
+            int residentId = kebeleResident.getResidentId();
+            String givenDate = kebeleResident.getIdgivenDate();
+            String expDate = kebeleResident.getIdExpDate();
+            int expStatus = kebeleResident.getExpStatus();
+            Resident resident = residentDAO.getResidentByID(residentId);
+
+            String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
+            Label label = new Label(fullName);
+            label.setOnMouseClicked(event -> {
+                displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+            });
+            edit(label);
+            id_list.getChildren().add(label);
         }
     }
-    
+
     private void initializeNullLabels(VBox vbox) {
         HBox fname_box = (HBox) vbox.getChildren().get(1);
         name_label = (Label) fname_box.getChildren().get(1);
-        
+
         HBox phone_box = (HBox) vbox.getChildren().get(2);
         Phone_label = (Label) phone_box.getChildren().get(1);
 
@@ -210,28 +175,108 @@ public class InfoReplaceController implements Controller{
         AnchorPane aPane = (AnchorPane) approve_btn.getParent();
         detail_box = (VBox) aPane.getChildren().get(2);
 
-        approve_btn.setOnAction(event -> {
-            LocalDateTime dateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-            String requestTime = dateTime.format(formatter);
-            if(IRC.isRequested(id)) {
-                System.out.println("requested for renewal.");
-            } else if(IRC.isIdExpired(id)){
-                IRC.alertMessage("Error", "This id is Expired, It needs Rnewal!");
+    }
+
+    // add listener to search field to display all kebele residents when it is empty
+    // and display searched kebele residents when it is not empty
+    private void addSearchFieldListener() {
+        search_field.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                try {
+                    id_list.getChildren().clear();
+                    displayKebeleResidentsList();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
-                String sql = "INSERT INTO Request (RID, UnpaidRequest, RequestType, RequestDate) VALUES(" + id +", " + 0 + ", " + 0 + ", '" +  requestTime + "')";
-                if(ResidentData.addRequest(sql)){
-                    for(int i=1; i < detail_box.getChildren().size(); i++){
-                        HBox box = (HBox) detail_box.getChildren().get(i);
-                        Label label = (Label) box.getChildren().get(1);
-                        label.setText("---");
-                    }
-                    System.out.println("successfully requested!");
+                String token = newValue.toLowerCase();
+                try {
+                    id_list.getChildren().clear();
+                    displaySearchedKebeleResidents(token);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
     }
-    
+
+    public void displaySearchedKebeleResidents(String token) throws Exception {
+        if (!search_field.getText().isBlank()) {
+            if (search_field.getText().matches("\\d")) {
+                // Search by Kebele Resident ID
+                searchByKRID(token);
+            } else {
+                // Search by Resident Name
+                searchByName(token);
+            }
+        }
+    }
+
+    public void searchByKRID(String token) throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        int KRID = Integer.parseInt(search_field.getText());
+        KebeleResident kebeleResident = kebeleResidentDAO.getKebeleResidentByKID(KRID);
+        if (kebeleResident == null) {
+            String emptySearch = "Searching with 'KebeleResidentID: " + id +
+                    "' has not found any related results!\nTry to search with the resident's name.";
+            Label token_label = new Label(emptySearch);
+            token_label.setWrapText(true);
+            token_label.getStyleClass().add("token-label");
+            id_list.getChildren().add(token_label);
+            search_field.requestFocus();
+        } else {
+            id_list.getChildren().clear();
+            Resident resident = residentDAO.getResidentByID(kebeleResident.getResidentId());
+            String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
+            Label label = new Label(fullName);
+            edit(label);
+            id_list.getChildren().add(label);
+            int expStatus = kebeleResident.getExpStatus();
+            String givenDate = kebeleResident.getIdgivenDate();
+            String expDate = kebeleResident.getIdExpDate();
+            label.setOnMouseClicked(clicked -> {
+                displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+            });
+        }
+    }
+
+    public void searchByName(String token) throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        id_list.getChildren().clear();
+        List<KebeleResident> kebeleResidents = kebeleResidentDAO.getKebeleResidentsByToken(token);
+        if (kebeleResidents.isEmpty()) {
+            String emptySearch = "Searching with '" + token +
+                    "' has not found any related results!\nTry to search with the Kebele Resident ID.";
+            Label token_label = new Label(emptySearch);
+            token_label.setWrapText(true);
+            token_label.getStyleClass().add("token-label");
+            id_list.getChildren().add(token_label);
+            search_field.requestFocus();
+        } else {
+            for (KebeleResident kebeleResident : kebeleResidents) {
+                Resident resident = residentDAO.getResidentByID(kebeleResident.getResidentId());
+                String fullName = resident.getName() + " " + resident.getFName() + " " + resident.getGFName();
+                Label label = new Label(fullName);
+                edit(label);
+                id_list.getChildren().add(label);
+                int expStatus = kebeleResident.getExpStatus();
+                String givenDate = kebeleResident.getIdgivenDate();
+                String expDate = kebeleResident.getIdExpDate();
+                label.setOnMouseClicked(clicked -> {
+                    displayResidentDetail(resident, givenDate, expDate, label, expStatus);
+                });
+            }
+        }
+    }
+
+    public void handleApproveBtn() {
+        approve_btn.setOnAction(event -> {
+            System.out.println("Approve button clicked!");
+        });
+    }
+
     @Override
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoReplace.fxml"));
@@ -240,15 +285,21 @@ public class InfoReplaceController implements Controller{
         SidebarModel.borderPane.setCenter(anchorPane);
 
         approve_btn = (Button) anchorPane.getChildren().get(3);
-        idExp_label = (Label) anchorPane.getChildren().get(4);
+        handleApproveBtn();
+        
+        HBox hbox = (HBox) anchorPane.getChildren().get(0);
+        search_field = (TextField) hbox.getChildren().get(1);
         
         VBox vbox = (VBox) anchorPane.getChildren().get(2);
-        expand_btn = (Button) vbox.getChildren().get(0);
+        VBox imageVBox  = (VBox) vbox.getChildren().get(0);
+        expand_btn = (Button) imageVBox.getChildren().get(0);
+        idExp_label = (Label) imageVBox.getChildren().get(1);
         resident_img = (ImageView) expand_btn.getGraphic();
         initializeNullLabels(vbox);
 
         ScrollPane pane = (ScrollPane) anchorPane.getChildren().get(1);
         id_list = (VBox) pane.getContent();
-        displayExpIdList();
+        addSearchFieldListener();
+        displayKebeleResidentsList();
     }
 }
