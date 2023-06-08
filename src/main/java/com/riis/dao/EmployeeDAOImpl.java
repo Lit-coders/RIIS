@@ -1,5 +1,7 @@
 package com.riis.dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,7 +41,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         String query = "INSERT INTO employee (username, password, Name, FName, GFName, job) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setString(1, employee.getUserName());
-            pis.setString(2, employee.getPassword());
+            pis.setString(2, hashPassword(employee.getPassword()));
             pis.setString(3, employee.getFirstName());
             pis.setString(4, employee.getMiddleName());
             pis.setString(5, employee.getLastName());
@@ -118,5 +120,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-512");
+        byte[] hashedBytes = digest.digest(password.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashedBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        String hashedPassoword = sb.toString();        
+        return hashedPassoword;
     }
 }
