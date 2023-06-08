@@ -1,6 +1,8 @@
 package com.riis.controller.InfoController;
 
 import com.riis.controller.BaseController.BaseRequestsController;
+import com.riis.dao.KebeleResidentDAO;
+import com.riis.dao.KebeleResidentDAOImpl;
 import com.riis.dao.RequestDAO;
 import com.riis.dao.RequestDAOImpl;
 import com.riis.dao.ResidentDAO;
@@ -151,7 +153,8 @@ public class InfoRequestsController extends BaseRequestsController {
 
     public void updateRequest(Request request) throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
-        requestDAO.addToKebeleResidentID(request);
+        KebeleResidentDAO  kebeleResidentDAO = new KebeleResidentDAOImpl();
+        kebeleResidentDAO.addKebeleResident(request.getResidentID());
         String reqDate = request.getRequestDate();
         try {
             for (Node node : requestModel.getReqListComp().getChildren()) {

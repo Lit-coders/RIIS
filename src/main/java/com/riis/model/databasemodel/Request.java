@@ -23,6 +23,14 @@ public class Request {
         this.RequestDate = RequestDate;
     }
 
+    public Request(int ResidentID, int SealedRequest, int UnpaidRequest, int ApprovalRequest, int RequestType) {
+        this.ResidentID = ResidentID;
+        this.SealedRequest = SealedRequest;
+        this.UnpaidRequest = UnpaidRequest;
+        this.ApprovalRequest = ApprovalRequest;
+        this.RequestType = RequestType;
+    }
+
     public int getRequestID() {
         return RequestID;
     }
