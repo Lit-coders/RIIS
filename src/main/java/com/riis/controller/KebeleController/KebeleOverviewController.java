@@ -17,6 +17,11 @@ public class KebeleOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
         renderStatic();
+        updateDate();
+        updateLastLogin();
+        updateTime();
+        dynamicAnimator();
+        fetchRecentActivity();
     }
 
     @Override

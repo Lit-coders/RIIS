@@ -16,6 +16,11 @@ public class FinOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
         renderStatic();
+        updateDate();
+        updateLastLogin();
+        updateTime();
+        dynamicAnimator();
+        fetchRecentActivity();
         fetchRecentActivity();
         // other initialization will be done in the future this is for testing purpose
     }

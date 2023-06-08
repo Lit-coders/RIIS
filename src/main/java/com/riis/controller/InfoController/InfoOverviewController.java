@@ -16,6 +16,10 @@ public class InfoOverviewController extends BaseOverviewController {
 
     public void initialize() throws Exception {
         renderStatic();
+        updateDate();
+        updateLastLogin();
+        updateTime();
+        dynamicAnimator();
         fetchRecentActivity();
         // other initialization will be done in the future
     }
