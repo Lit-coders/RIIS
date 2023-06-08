@@ -137,8 +137,8 @@ public class InfoReplaceController extends OtherServicesController {
         name_label.setText(fullName);
         sex_label.setText(resident.getSex());
         Phone_label.setText(resident.getPhoneNumber());
-        givend_label.setText(givenDate);
-        expd_label.setText(expDate);
+        givend_label.setText(expDate);
+        expd_label.setText(givenDate);
     }
 
     private void edit(Label name_label) {
@@ -307,6 +307,7 @@ public class InfoReplaceController extends OtherServicesController {
                             Label label = (Label) box.getChildren().get(1);
                             label.setText("---");
                         }
+                        resident_img.setImage(null);
                         alertMessage("Success", "Lost ID replacement successfully requested!");
                     } else {
                         alertMessage("Error", "Lost ID replacement request failed!");
