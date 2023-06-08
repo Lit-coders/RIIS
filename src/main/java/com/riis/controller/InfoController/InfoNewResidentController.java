@@ -244,7 +244,6 @@ public class InfoNewResidentController implements Controller {
             }
         }
         ps.executeUpdate();
-        ResidentData.getNewResidentId(ResidentForm);
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         return rs.getInt(1);
