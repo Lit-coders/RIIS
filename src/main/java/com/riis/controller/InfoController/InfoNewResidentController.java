@@ -244,6 +244,7 @@ public class InfoNewResidentController implements Controller {
             }
         }
         ps.executeUpdate();
+        ResidentData.getNewResidentId(ResidentForm);
         ResultSet rs = ps.getGeneratedKeys();
         rs.next();
         return rs.getInt(1);
@@ -273,6 +274,15 @@ public class InfoNewResidentController implements Controller {
                         ResidentForm.get(i + 1).requestFocus();
                     }
                 } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                    if (ResidentForm.get(i).getText().isEmpty()) {
+                        if (i == 0) {
+                            ResidentForm.get(i).requestFocus();
+                        } else {
+                            ResidentForm.get(i - 1).requestFocus();
+                        }
+                    }
+                }
+                else if (event.getCode() == KeyCode.BACK_SPACE) {
                     if (ResidentForm.get(i).getText().isEmpty()) {
                         if (i == 0) {
                             ResidentForm.get(i).requestFocus();
