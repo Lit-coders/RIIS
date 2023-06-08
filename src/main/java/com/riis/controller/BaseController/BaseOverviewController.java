@@ -2,7 +2,9 @@ package com.riis.controller.BaseController;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import com.riis.context.UserContext;
@@ -18,6 +20,9 @@ import com.riis.model.viewmodel.OverviewModel;
 import com.riis.utils.DateProvider;
 import com.riis.utils.TextGenerator;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -98,14 +103,14 @@ public class BaseOverviewController implements Controller {
         String fullName = employee.getFirstName() + " " + employee.getLastName();
         return fullName;
     }
-    
+
     public String calculateLastLogin(String user) throws SQLException {
         String simplifiedLastLogin = "";
         String lastLogin = userContext.getLastLogin();
 
         if (lastLogin == null) {
             HBox lastLoginBox = (HBox) overviewModel.getLastLoginComp().getParent();
-            VBox lastLoginVBox = (VBox) lastLoginBox.getParent();   
+            VBox lastLoginVBox = (VBox) lastLoginBox.getParent();
             lastLoginVBox.getChildren().clear();
             VBox parent = (VBox) lastLoginVBox.getParent();
             lastLoginVBox.setAlignment(Pos.CENTER);
@@ -156,10 +161,6 @@ public class BaseOverviewController implements Controller {
         overviewModel.setLoggedInUserFullNameText(fullName);
         overviewModel.setLoggedInUserFullNameTextComp();
 
-        String lastLogin = calculateLastLogin(userContext.getUsername());
-        overviewModel.setLastLoginText(lastLogin);
-        overviewModel.setLastLoginComp(); 
-
     }
 
     public String greetingGenerator() {
@@ -167,15 +168,15 @@ public class BaseOverviewController implements Controller {
         String time = DateProvider.getTime();
         int hour = Integer.parseInt(time.split(":")[0]);
         String ap = time.split(" ")[1];
-        if(hour > 6 && ap.equals("AM")) {
+        if (hour > 6 && ap.equals("AM")) {
             greeting = "Good Morning";
-        } else if(hour < 6 && ap.equals("PM")) {
+        } else if (hour < 6 && ap.equals("PM")) {
             greeting = "Good Afternoon";
-        } else if(hour > 6 && ap.equals("PM")) {
+        } else if (hour > 6 && ap.equals("PM")) {
             greeting = "Good Evening";
         } else {
             greeting = "Good Night";
-        }   
+        }
         return greeting;
     }
 
@@ -183,8 +184,9 @@ public class BaseOverviewController implements Controller {
         HBox hBox = new HBox();
         HBox.setMargin(hBox, new Insets(0, 0, 0, 0));
         hBox.setMinHeight(40);
-        hBox.setPrefWidth(overviewModel.getRecentActivityComp().getPrefWidth() - 20);   
-        hBox.setStyle("-fx-background-color: #F5F0F0; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #F5F0F0; -fx-border-width: 3px");
+        hBox.setPrefWidth(overviewModel.getRecentActivityComp().getPrefWidth() - 20);
+        hBox.setStyle(
+                "-fx-background-color: #F5F0F0; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: #F5F0F0; -fx-border-width: 3px");
         hBox.setPadding(new Insets(0, 10, 0, 10));
 
         HBox nameHolder = new HBox();
@@ -193,7 +195,7 @@ public class BaseOverviewController implements Controller {
         ResidentDAO residentDAO = new ResidentDAOImpl();
         Resident resident = residentDAO.getResidentNameByID(request.getResidentID());
         String fullName = resident.getName() + " " + resident.getFName();
-        Text nameText = TextGenerator.generateText(fullName,"Poppins-Regular", 18, "#702FFC");
+        Text nameText = TextGenerator.generateText(fullName, "Poppins-Regular", 18, "#702FFC");
         nameHolder.getChildren().add(nameText);
 
         HBox iconHolder = new HBox();
@@ -202,17 +204,17 @@ public class BaseOverviewController implements Controller {
         SVGPath svgPath = new SVGPath();
         String svgContent = "";
 
-        if(request.getRequestType() == 0) { 
+        if (request.getRequestType() == 0) {
             svgContent = "M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z";
             svgPath.setContent(svgContent);
-        } else if(request.getRequestType() == 1) {
+        } else if (request.getRequestType() == 1) {
             svgContent = "M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z";
             svgPath.setContent(svgContent);
         } else {
             svgContent = "M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z";
             svgPath.setContent(svgContent);
         }
-        
+
         svgPath.setStroke(Color.valueOf("#702FFC"));
         svgPath.setFill(Color.valueOf("#F5F0F0"));
         svgPath.setScaleX(1.2);
@@ -222,10 +224,53 @@ public class BaseOverviewController implements Controller {
         nameHolder.prefWidthProperty().bind(hBox.widthProperty().divide(2));
         iconHolder.prefWidthProperty().bind(hBox.widthProperty().divide(2));
 
-
-        hBox.getChildren().addAll(nameHolder, iconHolder);   
+        hBox.getChildren().addAll(nameHolder, iconHolder);
 
         return hBox;
+    }
+
+    public void dynamicAnimator() throws SQLException {
+        Timeline timeline = new Timeline(new KeyFrame(javafx.util.Duration.minutes(1), ev -> {
+            try {
+                updateLastLogin();
+                updateDate();
+                updateTime();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    public void updateLastLogin() throws SQLException {
+        String lastLogin = calculateLastLogin(userContext.getUsername());
+        overviewModel.setLastLoginText(lastLogin);
+        overviewModel.setLastLoginComp();
+    }
+
+    public void updateDate() {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Format the date using a DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String formattedDate = currentDate.format(formatter);
+
+        // Update the label text with the formatted date
+        overviewModel.getDateComp().setText(formattedDate);
+    }
+
+    public void updateTime() {
+        // Get the current time
+        LocalTime currentTime = LocalTime.now();
+
+        // Format the time using a DateTimeFormatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String formattedTime = currentTime.format(formatter);
+
+        // Update the label text with the formatted time
+        overviewModel.getTimeComp().setText(formattedTime);
     }
 
     public void getView() throws Exception {

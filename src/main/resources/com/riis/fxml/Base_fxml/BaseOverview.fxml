@@ -25,7 +25,7 @@
                </VBox.margin>
                <children>
                   <Label fx:id="greeting" styleClass="simple-info-greeting" text="Good morning," />
-                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="Helen">
+                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="-">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
@@ -40,12 +40,12 @@
                   <Insets left="15.0" />
                </VBox.margin>
                <children>
-                  <Label fx:id="date" styleClass="simple-info-time" text="30 Apr 2023">
+                  <Label fx:id="date" styleClass="simple-info-time" text="-">
                      <padding>
                         <Insets right="25.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="time" styleClass="simple-info-time" text="6:00 PM" />
+                  <Label fx:id="time" styleClass="simple-info-time" text="-" />
                </children>
             </HBox>
          </children>
@@ -176,7 +176,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" prefHeight="113.0" prefWidth="221.0">
                            <children>
-                              <Label fx:id="lastLogin" text="1d" textFill="#7d4bd2">
+                              <Label fx:id="lastLogin" text="-" textFill="#7d4bd2">
                                  <font>
                                     <Font size="96.0" />
                                  </font>
