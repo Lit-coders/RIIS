@@ -51,9 +51,6 @@ public class InfoRequestsController extends BaseRequestsController {
         ObservableList<Request> requests  = requestDAO.getPendingSealedRequests();
         requests = sortReqDate(requests);
 
-        if(requests.size() == 0) {
-        }
-
         VBox reqList = requestModel.getReqListComp();
 
         for(Request request : requests) {
@@ -158,7 +155,13 @@ public class InfoRequestsController extends BaseRequestsController {
     public void updateRequest(Request request) throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
         KebeleResidentDAO  kebeleResidentDAO = new KebeleResidentDAOImpl();
-        kebeleResidentDAO.addKebeleResident(request.getResidentID());
+        if(request.getRequestType() == 0) {
+            kebeleResidentDAO.addKebeleResident(request.getResidentID());
+            System.out.println("added");
+        } else {
+            kebeleResidentDAO.updateKebeleResident(request.getRequestID());
+            System.out.println("updated");
+        }
         String reqDate = request.getRequestDate();
         try {
             for (Node node : requestModel.getReqListComp().getChildren()) {
