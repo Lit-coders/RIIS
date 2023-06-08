@@ -41,6 +41,7 @@ public class KebeleRequestsController extends BaseRequestsController {
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
         requestModel.setRequestTypeComp();
+        vboxListener("No approval requests for today !");
         initialize();
     }   
 

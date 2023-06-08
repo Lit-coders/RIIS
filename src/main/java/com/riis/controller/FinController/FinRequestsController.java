@@ -42,6 +42,7 @@ public class FinRequestsController extends BaseRequestsController {
 
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
+        vboxListener("No unpaid requests for today !");
         initialize();
     }   
 

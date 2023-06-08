@@ -41,6 +41,7 @@ public class InfoRequestsController extends BaseRequestsController {
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
         requestModel.setRequestTypeComp();
+        vboxListener("No sealed requests for today !");
         initialize();
     }
     
@@ -51,9 +52,6 @@ public class InfoRequestsController extends BaseRequestsController {
         requests = sortReqDate(requests);
 
         if(requests.size() == 0) {
-            Text text = TextGenerator.generateText("No sealed requests for today !","Poppins-Regular", 20, "#702FFC");
-            VBox reqList = requestModel.getReqListComp();
-            reqList.getChildren().add(text);
         }
 
         VBox reqList = requestModel.getReqListComp();
@@ -195,7 +193,5 @@ public class InfoRequestsController extends BaseRequestsController {
         alert.showAlert();
 
     }
-
-
 
 }
