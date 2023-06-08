@@ -42,14 +42,6 @@
     -fx-text-fill: #7D4BD2;
     -fx-font-weight: 700;
  }
-
- .list-view {
-    -fx-background-color: white;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-text-fill: #7D4BD2;
-    -fx-border-color: white;
- }
  
  .last-login-title {
     -fx-font-size: 20px;
@@ -98,3 +90,18 @@
     -fx-text-fill: white;
     -fx-font-weight: 700;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-radius: 15px;
+  }
+  
+  .scroll-pane,
+  .scroll-pane .viewport,
+  .scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-radius: 15;
+  }
+  .scroll-pane .thumb {
+    -fx-background-color: rgba(79, 19, 228, 0.537);
+  }
