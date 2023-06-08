@@ -1,5 +1,7 @@
 package com.riis.dao;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,6 +96,29 @@ public class ResidentDAOImpl implements ResidentDAO {
             e.printStackTrace();
         }
         return resident;
+    }
+
+    @Override
+    public InputStream getResidentImageByID(int rid) throws SQLException {
+        byte[] imgBytes = null;
+        Connection connection = DatabaseConnection.getInstance();
+        String query = "SELECT ResidentPhoto FROM Resident WHERE ResidentID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+            pis.setInt(1, rid);
+
+            ResultSet resultSet = pis.executeQuery();
+            while (resultSet.next()) {
+                imgBytes = resultSet.getBytes("ResidentPhoto");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(imgBytes == null) return null;
+
+        InputStream inputStream = new ByteArrayInputStream(imgBytes);
+
+        return inputStream;
     }
 
 }
