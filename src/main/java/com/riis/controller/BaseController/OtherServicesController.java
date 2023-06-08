@@ -1,11 +1,13 @@
 package com.riis.controller.BaseController;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import com.riis.controller.Controller;
 import com.riis.dao.KebeleResidentDAO;
 import com.riis.dao.KebeleResidentDAOImpl;
+import com.riis.model.databasemodel.Request;
 import com.riis.utils.JAlert;
 
 import javafx.geometry.Pos;
@@ -81,6 +83,14 @@ public class OtherServicesController implements Controller {
         KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
         boolean status = kebeleResidentDAO.checkIfRequestExists(rid);
         return status;
+    }
+
+    public void displayRequestDate(Request request) {
+        String reqsDate = request.getRequestDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(reqsDate, formatter);
+        String reqDate = requestedDate(dateTime);
+        alertMessage("Error", reqDate);
     }
 
     public String requestedDate(LocalDateTime dateTime) {
