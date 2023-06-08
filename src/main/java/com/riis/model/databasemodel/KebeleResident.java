@@ -1,12 +1,15 @@
 package com.riis.model.databasemodel;
 
-public class ExpId {
+public class KebeleResident {
     private int residentId;
     private String idGivenDate;
     private String idExpDate;
     private int expStatus;
 
-    public ExpId(int id, String givenDate, String expDate, int expStatus){
+    public KebeleResident() {
+    }
+
+    public KebeleResident(int id, String givenDate, String expDate, int expStatus){
         this.residentId = id;
         this.idGivenDate = givenDate;
         this.idExpDate = expDate;

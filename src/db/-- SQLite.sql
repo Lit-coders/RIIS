@@ -81,13 +81,16 @@ DELETE FROM Employee;
         FOREIGN KEY (MID) REFERENCES MapHolder (MapHolderID)
     )
     
-    CREATE TABLE KebeleResidentID (
+    CREATE TABLE KebeleResident (
+        KRID INTEGER PRIMARY KEY AUTOINCREMENT,
         ResidentID INTEGER,
         GivenDate DATE,
         ExpDate DATE,
         ExpirationStatus INTEGER CHECK (ExpirationStatus IN (0,1)),
         FOREIGN KEY (ResidentID) REFERENCES Resident (ResidentID)
-    )  
+    )
+
+    drop table KebeleResidentID  
 
     CREATE TABLE RenewalPayment (
         RPID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -127,8 +130,43 @@ DELETE FROM Employee;
         FOREIGN KEY (RID) REFERENCES Resident (ResidentID)
     );
 
-drop table Requests
+drop table Request
+delete from Request
      -- added tables
 
-    
+-- Resident table sample data for testing
+ 
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('John Doe', 'David Doe', 'Michael Doe', '1990-05-15', 'City XYZ', '1234567890', 'Jane Doe', 'Male', 'USA', 'Single', 'Engineer', 'O+', '123 ABC Street', '123456', '7890123456');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('Jane Smith', 'Robert Smith', 'William Smith', '1985-10-20', 'City ABC', '9876543210', 'Mary Smith', 'Female', 'UK', 'Married', 'Doctor', 'A-', '456 XYZ Street', '789012', '3456789012');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('Robert Johnson', 'Thomas Johnson', 'Daniel Johnson', '1978-08-02', 'City PQR', '5551234567', 'Emily Johnson', 'Male', 'Canada', 'Married', 'Teacher', 'B+', '789 Main Street', '345678', '9012345678');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('Sarah Williams', 'Jennifer Williams', 'Elizabeth Williams', '1995-12-10', 'City LMN', '7779876543', 'Jessica Williams', 'Female', 'Australia', 'Single', 'Artist', 'AB-', '456 Elm Street', '567890', '2345678901');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('Michael Brown', 'Christopher Brown', 'Anthony Brown', '1982-03-25', 'City UVW', '1112223333', 'Michelle Brown', 'Male', 'USA', 'Divorced', 'Lawyer', 'O-', '321 Oak Street', '678901', '8901234567');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('Emily Davis', 'Jessica Davis', 'Michelle Davis', '1998-06-18', 'City XYZ', '4445556666', 'Linda Davis', 'Female', 'Canada', 'Single', 'Software Engineer', 'A+', '567 Pine Street', '012345', '6789012345');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('William Wilson', 'Edward Wilson', 'Joseph Wilson', '1975-01-05', 'City ABC', '9998887777', 'Catherine Wilson', 'Male', 'UK', 'Married', 'Businessman', 'AB+', '789 Maple Street', '234567', '9012345678');
+
+INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP)
+VALUES ('Olivia Anderson', 'Sophia Anderson', 'Ava Anderson', '1989-09-12', 'City PQR', '2223334444', 'Emma Anderson', 'Female', 'USA', 'Married', 'Architect', 'B-', '123 Oak Street', '456789', '7890123456');
+
+-- KebeleResident table sample data for testing
+
+INSERT INTO KebeleResident (ResidentID, GivenDate, ExpDate, ExpirationStatus) VALUES (6, '2019-01-01', '2022-01-01', 0);
+INSERT INTO KebeleResident (ResidentID, GivenDate, ExpDate, ExpirationStatus) VALUES (7, '2014-01-01', '2017-01-01', 1);   
+INSERT INTO KebeleResident (ResidentID, GivenDate, ExpDate, ExpirationStatus) VALUES (8, '2010-01-01', '2013-01-01', 1);
+INSERT INTO KebeleResident (ResidentID, GivenDate, ExpDate, ExpirationStatus) VALUES (9, '2020-01-01', '2023-01-01', 1);
+INSERT INTO KebeleResident (ResidentID, GivenDate, ExpDate, ExpirationStatus) VALUES (10, '2022-01-01', '2025-01-01', 0);
+INSERT INTO KebeleResident (ResidentID, GivenDate, ExpDate, ExpirationStatus) VALUES (11, '2023-01-01', '2026-01-01', 0);
+
 

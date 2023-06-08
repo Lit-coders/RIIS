@@ -13,11 +13,9 @@ public interface RequestDAO {
     List<Request> getPendingUnpaidRequests() throws Exception;
     ObservableList<Request> getPendingUnapprovedRequests() throws Exception;
     ObservableList<Request> getPendingSealedRequests() throws Exception;
-    void addRequest(Request request) throws Exception;
-    void updateRequest(Request request) throws Exception;
-    void addToCreationPayment(Request request) throws Exception;
+    boolean addRequest(Request request) throws Exception;
     void approveRequest(Request request) throws Exception;
-    void addToKebeleResidentID(Request request) throws Exception;
     void deleteRequest(Request request) throws Exception;
-    
+    Request getRequestByRID(int rid) throws Exception;
+    void updateRequestTime(Request request) throws Exception;
 }

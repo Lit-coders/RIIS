@@ -43,7 +43,7 @@ public class RequestDAOImpl implements RequestDAO {
     }
 
     @Override
-    public void addRequest(Request request) throws ClassNotFoundException, SQLException {
+    public boolean addRequest(Request request) throws ClassNotFoundException, SQLException {
         Connection connection = DatabaseConnection.getInstance();
 
         String query = "INSERT INTO Request (RID, SealedRequest, UnpaidRequest, ApprovalRequest, RequestType, RequestDate) VALUES (?, ?, ?, ?, ?, ?)";
@@ -60,19 +60,11 @@ public class RequestDAOImpl implements RequestDAO {
 
             pis.setString(6, formattedDateTime);
             pis.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public void updateRequest(Request request) throws ClassNotFoundException, SQLException {
-        Connection connection = DatabaseConnection.getInstance();
-
-        String query = "UPDATE Request SET ApprovalRequest = ? WHERE RequestID = ?";
-        try (PreparedStatement pis = connection.prepareStatement(query);) {
-            pis.setInt(1, 1);
-            pis.setInt(2, request.getRequestID());
-            pis.executeUpdate();
-        }
+        return false;
     }
 
     @Override
@@ -97,9 +89,9 @@ public class RequestDAOImpl implements RequestDAO {
             }
             return requests;
         }
-        
 
     }
+
     @Override
     public ObservableList<Request> getPendingSealedRequests() throws SQLException {
         ObservableList<Request> requests = FXCollections.observableArrayList();
@@ -122,54 +114,32 @@ public class RequestDAOImpl implements RequestDAO {
             }
             return requests;
         }
-        
 
-    }
-
-    @Override
-    public void addToCreationPayment(Request request) throws ClassNotFoundException, SQLException {
-        Connection connection = DatabaseConnection.getInstance();
-        UserContext userContext = UserContext.getInstance();
-        String query = "INSERT INTO CreatePayment (ResidentID,username,TotalFee) VALUES (?, ?, ?)";
-        try (PreparedStatement pis = connection.prepareStatement(query);) {
-            pis.setInt(1, request.getResidentID());
-            pis.setString(2,  userContext.getUsername() );
-            pis.setInt(3, 25);
-            pis.executeUpdate();
-        }
     }
 
     @Override
     public void approveRequest(Request request) throws ClassNotFoundException, SQLException {
         Connection connection = DatabaseConnection.getInstance();
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+        UserContext userContext = UserContext.getInstance();
+        String query = "";
+        String job = employeeDAO.getEmployeeByUsername(userContext.getUsername()).getJob();
+        System.out.println(job);
+        if (job.equals("Information Officer")) {
+            query = "UPDATE Request SET UnpaidRequest = ? WHERE RequestID = ?";
+        } else if (job.equals("Finance Officer")) {
+            query = "UPDATE Request SET ApprovalRequest = ? WHERE RequestID = ?";
+        } else if (job.equals("Kebele Manager")) {
+            query = "UPDATE Request SET SealedRequest = ? WHERE RequestID = ?";
+        }
 
-        String query = "UPDATE Request SET SealedRequest = ? WHERE RequestID = ?";
-        try (PreparedStatement pis = connection.prepareStatement(query);) {
+        System.out.println(query);
+
+        try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setInt(1, 1);
             pis.setInt(2, request.getRequestID());
             pis.executeUpdate();
-        }
-    }
-
-    @Override
-    public void addToKebeleResidentID(Request request) throws ClassNotFoundException, SQLException {
-        Connection connection = DatabaseConnection.getInstance();
-        String query = "INSERT INTO KebeleResidentID (ResidentID,GivenDate,ExpDate,ExpirationStatus) VALUES (?,?,?,?)";
-        try (PreparedStatement pis = connection.prepareStatement(query);) {
-
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String formattedDateTime = currentDateTime.format(formatter);
-
-            LocalDateTime expDateTime = currentDateTime.plusYears(3);
-            String formattedExpDateTime = expDateTime.format(formatter);
-
-            pis.setInt(1, request.getResidentID());
-            pis.setString(2, formattedDateTime);
-            pis.setString(3, formattedExpDateTime);
-            pis.setInt(4, 0);
-
-            pis.executeUpdate();
+            updateRequestTime(request);
         }
     }
 
@@ -181,6 +151,46 @@ public class RequestDAOImpl implements RequestDAO {
         try (PreparedStatement pis = connection.prepareStatement(query);) {
             pis.setInt(1, request.getRequestID());
             pis.executeUpdate();
+        }
+    }
+
+    @Override
+    public Request getRequestByRID(int rid) throws SQLException {
+        Request request = new Request();
+        Connection connection = DatabaseConnection.getInstance();
+        String Query = "SELECT * FROM Request WHERE RID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(Query);) {
+            pis.setInt(1, rid);
+            ResultSet resultSet = pis.executeQuery();
+            while (resultSet.next()) {
+                request.setRequestID(resultSet.getInt("RequestID"));
+                request.setResidentID(resultSet.getInt("RID"));
+                request.setSealedRequest(resultSet.getInt("SealedRequest"));
+                request.setUnpaidRequest(resultSet.getInt("UnpaidRequest"));
+                request.setApprovalRequest(resultSet.getInt("ApprovalRequest"));
+                request.setRequestType(resultSet.getInt("RequestType"));
+                request.setRequestDate(resultSet.getString("RequestDate"));
+            }
+        }
+        return request;
+    }
+
+    @Override
+    public void updateRequestTime(Request request) throws SQLException {
+        Connection connection = DatabaseConnection.getInstance();
+
+        String query = "UPDATE Request SET RequestDate = ? WHERE RequestID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query);) {
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+            pis.setString(1, formattedDateTime);
+            pis.setInt(2, request.getRequestID());
+            pis.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

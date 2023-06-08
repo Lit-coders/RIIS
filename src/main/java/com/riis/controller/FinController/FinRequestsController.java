@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.riis.controller.BaseController.BaseRequestsController;
+import com.riis.dao.PaymentDAO;
+import com.riis.dao.PaymentDAOImpl;
 import com.riis.dao.RequestDAO;
 import com.riis.dao.RequestDAOImpl;
 import com.riis.dao.ResidentDAO;
@@ -158,7 +160,8 @@ public class FinRequestsController extends BaseRequestsController {
     // to be optimized later
     public void updateRequest(Request request) throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
-        requestDAO.updateRequest(request);
+        PaymentDAO paymentDAO = new PaymentDAOImpl();
+        requestDAO.approveRequest(request);
         String reqDate = request.getRequestDate();
         try {
             for (Node node : requestModel.getReqListComp().getChildren()) {
@@ -169,8 +172,13 @@ public class FinRequestsController extends BaseRequestsController {
                                 if (node3 instanceof Text) {
                                     if (((Text) node3).getText().equals(reqDate)) {
                                         removeApprovedRequest((HBox) node);
-                                        requestDAO.addToCreationPayment(request);
-                               
+                                        if(request.getRequestType() == 0) {
+                                            paymentDAO.addToCreationPayment(request);
+                                        } else if(request.getRequestType() == 1) {
+                                            paymentDAO.addToRenewalPayment(request);
+                                        } else {
+                                            paymentDAO.addToReplacementPayment(request);
+                                        }
                                     }
                                 }
                             }
