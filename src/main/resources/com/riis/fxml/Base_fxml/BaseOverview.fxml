@@ -5,9 +5,9 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -142,7 +142,16 @@
                   <Insets top="10.0" />
                </FlowPane.margin>
                <children>
-                  <ListView fx:id="listView" prefHeight="257.0" prefWidth="701.0" />
+                  <Label styleClass="simple-info-greeting" text="Recent Activity" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="8.0" />
+                  <ScrollPane layoutY="52.0" prefHeight="208.0" prefWidth="701.0">
+                     <content>
+                        <VBox fx:id="recentActivity" prefHeight="203.0" prefWidth="681.0" spacing="9.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
             <VBox prefHeight="232.0" prefWidth="231.0" styleClass="residents">
