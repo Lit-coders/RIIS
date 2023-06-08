@@ -43,7 +43,7 @@ public class RequestDAOImpl implements RequestDAO {
     }
 
     @Override
-    public void addRequest(Request request) throws ClassNotFoundException, SQLException {
+    public boolean addRequest(Request request) throws ClassNotFoundException, SQLException {
         Connection connection = DatabaseConnection.getInstance();
 
         String query = "INSERT INTO Request (RID, SealedRequest, UnpaidRequest, ApprovalRequest, RequestType, RequestDate) VALUES (?, ?, ?, ?, ?, ?)";
@@ -60,7 +60,11 @@ public class RequestDAOImpl implements RequestDAO {
 
             pis.setString(6, formattedDateTime);
             pis.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
     @Override
