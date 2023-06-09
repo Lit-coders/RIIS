@@ -9,6 +9,7 @@ import com.riis.model.databasemodel.Employee;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +45,12 @@ public class AddEmployeeController implements Controller {
 
     @FXML
     private TextField pass_field;
+
+    @FXML
+    public void initialize() {
+        Platform.runLater(Fname_field::requestFocus);
+
+    }
 
     @FXML
     void addEmployee(ActionEvent event) throws SQLException {
