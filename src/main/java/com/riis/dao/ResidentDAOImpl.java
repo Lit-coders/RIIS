@@ -121,4 +121,20 @@ public class ResidentDAOImpl implements ResidentDAO {
         return inputStream;
     }
 
+    @Override
+    public String getGender(int rid) throws Exception {
+        String sex = "";
+        Connection connection = DatabaseConnection.getInstance();
+        String query = "SELECT Sex FROM Resident WHERE ResidentID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query)) {
+            pis.setInt(1, rid);
+            ResultSet resultSet =  pis.executeQuery();
+            while(resultSet.next()) {
+                sex = resultSet.getString("Sex");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sex;
+    }
 }

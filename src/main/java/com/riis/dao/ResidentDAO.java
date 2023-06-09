@@ -10,4 +10,5 @@ public interface ResidentDAO {
     List<Resident> getAllResidents() throws Exception;      
     Resident getResidentByID(int id) throws Exception;
     InputStream getResidentImageByID(int id) throws Exception;
+    String getGender(int id) throws Exception;
 }
