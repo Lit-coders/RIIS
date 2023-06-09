@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -148,6 +150,24 @@ public class AddEmployeeController implements Controller {
     public void alertMessage(String message){
         JAlert alert = new JAlert("Error",message);
         alert.showAlert();
+    }
+
+    @FXML
+    void handleKeyPress (KeyEvent event){
+        TextField currentField = (TextField) event.getSource();
+        VBox box = (VBox) currentField.getParent();
+        int totalSize = box.getChildren().size();
+        int currentIndex = box.getChildren().indexOf(currentField);
+        if (event.getCode() == KeyCode.ENTER){
+            if (currentIndex < totalSize-2){
+                box.getChildren().get(currentIndex+2).requestFocus();
+            }
+            else{
+                approve_btn.fire();
+            }
+
+        }
+
     }
 
 
