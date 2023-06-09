@@ -50,6 +50,7 @@ public class AdminSidebarController implements Controller {
     public void initialize() throws Exception {
         setupDragHandlers();
         logout_btn.setStyle("-fx-fill: #976eef;");
+        max_btn.setDisable(true);
         SidebarModel.handleHover(close_btn);
         SidebarModel.handleHover(max_btn);
         SidebarModel.handleHover(mini_btn);
