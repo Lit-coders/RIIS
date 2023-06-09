@@ -166,6 +166,13 @@ public class AddEmployeeController implements Controller {
                 approve_btn.fire();
             }
 
+        } else if (event.getCode() == KeyCode.BACK_SPACE){
+            if (currentIndex >=2 && currentField.getText().isEmpty()){
+                box.getChildren().get(currentIndex-2).requestFocus();
+            } 
+            else{
+                box.getChildren().get(currentIndex).requestFocus();
+            }
         }
 
     }
