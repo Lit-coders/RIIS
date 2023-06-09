@@ -76,17 +76,22 @@ public class EmployeeDetailController implements Controller{
 
     @FXML
     void removeEmployee(ActionEvent event) throws Exception {
-        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-        boolean isRemoved = employeeDAO.deleteEmployee(Uname_label.getText());
-        if(isRemoved){
-            JAlert alert = new JAlert("Success", "Employee has been removed");
-            alert.show();
-        } else {
-            JAlert alert = new JAlert("Error", "Employee has not been removed");
-            alert.show();
+        JAlert jalert = new JAlert("Confirmation", "Are you sure you want to remove the employee");
+        jalert.showAlert();
+        if(jalert.getResult().getText().equals("Approve")){    
+            EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+            boolean isRemoved = employeeDAO.deleteEmployee(Uname_label.getText());
+            if(isRemoved){
+                JAlert alert = new JAlert("Success", "Employee has been removed");
+                alert.show();
+            } else {
+                JAlert alert = new JAlert("Error", "Employee has not been removed");
+                alert.show();
+            }
+            RemoveEmployeeController removeEmployeeController = new RemoveEmployeeController();
+            removeEmployeeController.getView();
+
         }
-        RemoveEmployeeController removeEmployeeController = new RemoveEmployeeController();
-        removeEmployeeController.getView();
     }
 
     public void setEmployeeData(Employee employee){
