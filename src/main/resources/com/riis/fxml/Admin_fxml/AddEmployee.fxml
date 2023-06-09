@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -69,11 +70,11 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOP" fx:id="job_field" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <ComboBox fx:id="job" prefHeight="33.0" prefWidth="273.0" promptText="Select Job" style="-fx-border-color: #bcbcbc;" styleClass="combo-box">
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets left="2.0" top="5.0" />
                      </VBox.margin>
-                  </TextField>
+                  </ComboBox>
                </children>
                <padding>
                   <Insets left="5.0" right="5.0" />
