@@ -19,6 +19,7 @@ import com.riis.model.databasemodel.Request;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -151,6 +152,7 @@ public class InfoNewResidentController implements Controller {
         MapHolderForm.add(HOFName);
         MapHolderForm.add(HOGFName);
         MapHolderForm.add(HOP);
+        Platform.runLater(Name::requestFocus);
     }
 
     @Override
@@ -158,7 +160,6 @@ public class InfoNewResidentController implements Controller {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoNewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
-
     }
 
     public void clearForm() {
