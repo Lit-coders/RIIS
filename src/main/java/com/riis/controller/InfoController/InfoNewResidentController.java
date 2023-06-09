@@ -19,6 +19,8 @@ import com.riis.model.databasemodel.Request;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +33,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class InfoNewResidentController implements Controller {
     @FXML
@@ -131,7 +135,7 @@ public class InfoNewResidentController implements Controller {
     private int invalidTextfield;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws Exception {
         ResidentForm.add(Name);
         ResidentForm.add(FName);
         ResidentForm.add(GFName);
@@ -151,14 +155,15 @@ public class InfoNewResidentController implements Controller {
         MapHolderForm.add(HOFName);
         MapHolderForm.add(HOGFName);
         MapHolderForm.add(HOP);
+        Platform.runLater(ResidentForm.get(0)::requestFocus);
     }
 
     @Override
     public void getView() throws Exception {
+        System.out.println("something happened but lala is on the way");
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoNewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
-
     }
 
     public void clearForm() {
