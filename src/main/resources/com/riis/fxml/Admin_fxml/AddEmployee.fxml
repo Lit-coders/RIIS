@@ -19,7 +19,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOName" fx:id="Fname_field" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
+                  <TextField id="HOName" fx:id="Fname_field" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="233.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -29,7 +29,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOFName" fx:id="Lname_field" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="HOFName" fx:id="Lname_field" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -39,7 +39,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOGFName" fx:id="Mname_field" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
+                  <TextField id="HOGFName" fx:id="Mname_field" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -49,7 +49,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOP" fx:id="Uname_field" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="HOP" fx:id="Uname_field" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -59,7 +59,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOP" fx:id="pass_field" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="HOP" fx:id="pass_field" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -69,7 +69,7 @@
                         <Insets left="8.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="HOP" fx:id="job_field" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
+                  <TextField id="HOP" fx:id="job_field" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="238.0" styleClass="txt-field">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
