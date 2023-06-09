@@ -9,7 +9,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -24,8 +23,8 @@
                   <Insets left="15.0" />
                </VBox.margin>
                <children>
-                  <Label fx:id="greeting" styleClass="simple-info-greeting" text="Good morning," />
-                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="-">
+                  <Label fx:id="greeting" styleClass="simple-info-greeting" text="{Greeting}" />
+                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="{firstName}">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
@@ -40,17 +39,17 @@
                   <Insets left="15.0" />
                </VBox.margin>
                <children>
-                  <Label fx:id="date" styleClass="simple-info-time" text="-">
+                  <Label fx:id="date" styleClass="simple-info-time" text="{date}">
                      <padding>
                         <Insets right="25.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="time" styleClass="simple-info-time" text="-" />
+                  <Label fx:id="time" styleClass="simple-info-time" text="{time}" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <FlowPane layoutX="14.0" layoutY="115.0" prefHeight="509.0" prefWidth="933.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="120.0">
+      <AnchorPane layoutX="6.0" layoutY="120.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="120.0">
          <children>
             <VBox alignment="CENTER" prefHeight="232.0" prefWidth="231.0" styleClass="residents">
                <children>
@@ -69,18 +68,18 @@
                         </MenuButton>
                      </children>
                   </HBox>
-                  <AnchorPane prefHeight="200.0">
+                  <HBox alignment="CENTER" prefHeight="196.0" prefWidth="231.0">
                      <children>
-                        <Label fx:id="tot_residents" layoutX="63.0" text="27" textFill="#7d4bd2">
+                        <Label fx:id="tot_residents" text="{tot}" textFill="#7d4bd2">
                            <font>
                               <Font size="96.0" />
                            </font>
                         </Label>
                      </children>
-                  </AnchorPane>
+                  </HBox>
                </children>
             </VBox>
-            <Pane prefHeight="232.0" prefWidth="231.0" style="-fx-background-color: white;" styleClass="pane">
+            <Pane layoutX="241.0" prefHeight="232.0" prefWidth="231.0" style="-fx-background-color: white;" styleClass="pane">
                <children>
                   <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="63.0" prefWidth="231.0">
                      <children>
@@ -99,7 +98,7 @@
                   </HBox>
                   <VBox alignment="TOP_CENTER" layoutY="65.0" prefHeight="167.0" prefWidth="116.0" styleClass="pane">
                      <children>
-                        <Label fx:id="tot_residents_male" styleClass="gender-stat" text="15">
+                        <Label fx:id="tot_residents_male" styleClass="gender-stat" text="{m}">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -109,7 +108,7 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="65.0" prefHeight="167.0" prefWidth="115.0" style="-fx-background-color: white;">
                      <children>
-                        <Label fx:id="tot_residents_female" styleClass="gender-stat" text="12">
+                        <Label fx:id="tot_residents_female" styleClass="gender-stat" text="{f}">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -118,14 +117,8 @@
                      </children>
                   </VBox>
                </children>
-               <FlowPane.margin>
-                  <Insets left="10.0" right="10.0" />
-               </FlowPane.margin>
             </Pane>
-            <AnchorPane prefHeight="232.0" prefWidth="464.0" style="-fx-background-color: white; -fx-background-radius: 20;">
-               <FlowPane.margin>
-                  <Insets />
-               </FlowPane.margin>
+            <AnchorPane layoutX="482.0" prefHeight="232.0" prefWidth="464.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                <children>
                   <BarChart prefHeight="232.0" prefWidth="464.0">
                     <xAxis>
@@ -137,10 +130,7 @@
                   </BarChart>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="257.0" prefWidth="701.0" style="-fx-background-color: white; -fx-background-radius: 20;">
-               <FlowPane.margin>
-                  <Insets top="10.0" />
-               </FlowPane.margin>
+            <AnchorPane layoutY="242.0" prefHeight="257.0" prefWidth="701.0" style="-fx-background-color: white; -fx-background-radius: 20;">
                <children>
                   <Label styleClass="simple-info-greeting" text="Recent Activity" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="8.0" />
                   <ScrollPane layoutY="52.0" prefHeight="208.0" prefWidth="701.0">
@@ -154,14 +144,15 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-            <VBox prefHeight="232.0" prefWidth="231.0" styleClass="residents">
+            <VBox layoutX="711.0" layoutY="242.0" prefHeight="232.0" prefWidth="231.0" styleClass="residents">
                <children>
                   <VBox alignment="CENTER" prefHeight="65.0" prefWidth="231.0" spacing="2.0">
                      <children>
-                        <Label fx:id="loggedInUserFullName" styleClass="last-login-title" text="Helen Shiferaw">
+                        <Label fx:id="loggedInUserFullName" styleClass="last-login-title" text="{fullName}">
                            <VBox.margin>
                               <Insets bottom="5.0" />
-                           </VBox.margin></Label>
+                           </VBox.margin>
+                        </Label>
                         <HBox alignment="CENTER" styleClass="last-login-bar">
                            <children>
                               <Label styleClass="last-login-title" text="Last login" />
@@ -187,14 +178,11 @@
                      </children>
                   </VBox>
                </children>
-               <FlowPane.margin>
-                  <Insets left="10.0" right="6.0" top="10.0" />
-               </FlowPane.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="7.0" />
                </padding>
             </VBox>
          </children>
-      </FlowPane>
+      </AnchorPane>
    </children>
 </AnchorPane>
