@@ -5,9 +5,9 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -25,7 +25,7 @@
                </VBox.margin>
                <children>
                   <Label fx:id="greeting" styleClass="simple-info-greeting" text="Good morning," />
-                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="Helen">
+                  <Label fx:id="loggedInUser" styleClass="simple-info-greeting" text="-">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
@@ -40,12 +40,12 @@
                   <Insets left="15.0" />
                </VBox.margin>
                <children>
-                  <Label fx:id="date" styleClass="simple-info-time" text="30 Apr 2023">
+                  <Label fx:id="date" styleClass="simple-info-time" text="-">
                      <padding>
                         <Insets right="25.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="time" styleClass="simple-info-time" text="6:00 PM" />
+                  <Label fx:id="time" styleClass="simple-info-time" text="-" />
                </children>
             </HBox>
          </children>
@@ -142,7 +142,16 @@
                   <Insets top="10.0" />
                </FlowPane.margin>
                <children>
-                  <ListView fx:id="listView" prefHeight="257.0" prefWidth="701.0" />
+                  <Label styleClass="simple-info-greeting" text="Recent Activity" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="8.0" />
+                  <ScrollPane layoutY="52.0" prefHeight="208.0" prefWidth="701.0">
+                     <content>
+                        <VBox fx:id="recentActivity" prefHeight="203.0" prefWidth="681.0" spacing="9.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
             <VBox prefHeight="232.0" prefWidth="231.0" styleClass="residents">
@@ -167,7 +176,7 @@
                      <children>
                         <HBox alignment="TOP_CENTER" prefHeight="113.0" prefWidth="221.0">
                            <children>
-                              <Label fx:id="lastLogin" text="1d" textFill="#7d4bd2">
+                              <Label fx:id="lastLogin" text="-" textFill="#7d4bd2">
                                  <font>
                                     <Font size="96.0" />
                                  </font>
