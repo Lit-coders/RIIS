@@ -49,6 +49,7 @@ public class AddEmployeeController implements Controller {
     @FXML
     public void initialize() {
         Platform.runLater(Fname_field::requestFocus);
+        handleKeyPress();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -169,26 +170,23 @@ public class AddEmployeeController implements Controller {
     }
 
     @FXML
-    void handleKeyPress(KeyEvent event) {
-        TextField currentField = (TextField) event.getSource();
-        VBox box = (VBox) currentField.getParent();
-        int totalSize = box.getChildren().size();
-        int currentIndex = box.getChildren().indexOf(currentField);
+    void handleKeyPress() {
+        Fname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, Lname_field));
+        Lname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, Mname_field));
+        Mname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, Uname_field));
+        Uname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, pass_field));
+        pass_field.setOnKeyPressed(event -> moveFocusOnEnter(event, job));
+        job.setOnKeyPressed(event -> moveFocusOnEnter(event, approve_btn));
+        job.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                job.show();
+            }
+        });
+    }
+    private void moveFocusOnEnter(javafx.scene.input.KeyEvent event, javafx.scene.Node nextNode) {
         if (event.getCode() == KeyCode.ENTER) {
-            if (currentIndex < totalSize - 2) {
-                box.getChildren().get(currentIndex + 2).requestFocus();
-            } else {
-                approve_btn.fire();
-            }
-
-        } else if (event.getCode() == KeyCode.BACK_SPACE) {
-            if (currentIndex >= 2 && currentField.getText().isEmpty()) {
-                box.getChildren().get(currentIndex - 2).requestFocus();
-            } else {
-                box.getChildren().get(currentIndex).requestFocus();
-            }
+            nextNode.requestFocus();
         }
-
     }
 
     @Override
