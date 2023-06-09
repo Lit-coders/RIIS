@@ -124,7 +124,7 @@ public class LoginController implements Controller {
     @FXML
     private void login() throws Exception {
 
-        String user = username.getText();
+        String user = username.getText().trim();
         String pass = password.getText();
         
         // Test: Print Username and Password in the console
