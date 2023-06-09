@@ -28,6 +28,7 @@ import com.riis.utils.TextGenerator;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -127,6 +128,7 @@ public class BaseOverviewController implements Controller {
             String date = (String) item.getUserData();
 
             try {
+                res_tot.setText(item.getText());
                 List<KebeleResident> kebeleResidents = fetchTotResidents(date);
                 overviewModel.setTotResidentsText(String.valueOf(kebeleResidents.size()));
                 overviewModel.setTotResidentsTextComp();
@@ -139,6 +141,10 @@ public class BaseOverviewController implements Controller {
         today.setOnAction(menuItemClickHandler);
         yesterday.setOnAction(menuItemClickHandler);
         thisWeek.setOnAction(menuItemClickHandler);
+
+        Platform.runLater(() -> {
+            today.fire();
+        });
 
     }
 
@@ -161,6 +167,7 @@ public class BaseOverviewController implements Controller {
             String date = (String) item.getUserData();
 
             try {
+                gen_tot.setText(item.getText());
                 List<KebeleResident> kebeleResidents = fetchTotResidents(date);
                 List<Integer> totResClassified = countKebeleResidents(kebeleResidents);
                 overviewModel.setTotResidentsMaleText(totResClassified.get(0).toString());
@@ -177,6 +184,9 @@ public class BaseOverviewController implements Controller {
         yesterday.setOnAction(menuItemClickHandler);
         thisWeek.setOnAction(menuItemClickHandler);
 
+        Platform.runLater(() -> {
+            today.fire();
+        });
     }
 
     public List<Integer> countKebeleResidents(List<KebeleResident> kebeleResidents) throws Exception {
