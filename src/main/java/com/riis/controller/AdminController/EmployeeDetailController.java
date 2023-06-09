@@ -76,7 +76,7 @@ public class EmployeeDetailController implements Controller{
 
     @FXML
     void removeEmployee(ActionEvent event) throws Exception {
-        JAlert jalert = new JAlert("Confirmation", "Are you sure you want to remove the employee");
+        JAlert jalert = new JAlert("Confirmation", "Are you sure you want to remove" +" " + Fname_label.getText()+ " " + Lname_label.getText());
         jalert.showAlert();
         if(jalert.getResult().getText().equals("Approve")){    
             EmployeeDAO employeeDAO = new EmployeeDAOImpl();
