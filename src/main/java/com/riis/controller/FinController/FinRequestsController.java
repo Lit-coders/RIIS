@@ -42,6 +42,7 @@ public class FinRequestsController extends BaseRequestsController {
 
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
+        vboxListener("No unpaid requests for today !");
         initialize();
     }   
 
@@ -50,6 +51,12 @@ public class FinRequestsController extends BaseRequestsController {
 
         List<Request> requests  = requestDAO.getPendingUnpaidRequests();
         requests = sortReqDate(requests);
+
+        if(requests.size() == 0) {
+            Text text = TextGenerator.generateText("No Unpaid requests for today !","Poppins-Regular", 20, "#702FFC");
+            VBox reqList = requestModel.getReqListComp();
+            reqList.getChildren().add(text);
+        }
 
         VBox reqList = requestModel.getReqListComp();
 

@@ -111,12 +111,14 @@ public class BaseOverviewController implements Controller {
         if (lastLogin == null) {
             HBox lastLoginBox = (HBox) overviewModel.getLastLoginComp().getParent();
             VBox lastLoginVBox = (VBox) lastLoginBox.getParent();
-            lastLoginVBox.getChildren().clear();
-            VBox parent = (VBox) lastLoginVBox.getParent();
-            lastLoginVBox.setAlignment(Pos.CENTER);
-            lastLoginVBox.prefHeightProperty().bind(parent.heightProperty());
-            Text never = TextGenerator.generateText("Never", "Poppins-SemiBold", 28, "#702FFC");
-            lastLoginVBox.getChildren().add(never);
+            if(lastLoginVBox != null) {
+                lastLoginVBox.getChildren().clear();
+                VBox parent = (VBox) lastLoginVBox.getParent();
+                lastLoginVBox.setAlignment(Pos.CENTER);
+                lastLoginVBox.prefHeightProperty().bind(parent.heightProperty());
+                Text never = TextGenerator.generateText("Never", "Poppins-SemiBold", 28, "#702FFC");
+                lastLoginVBox.getChildren().add(never);
+            }
         } else {
             // make the last login time into a LocalDateTime object
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
