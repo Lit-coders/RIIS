@@ -1,6 +1,9 @@
 package com.riis.controller.AdminController;
 
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.riis.controller.Controller;
 import com.riis.dao.EmployeeDAO;
@@ -10,14 +13,18 @@ import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -49,7 +56,7 @@ public class AddEmployeeController implements Controller {
     @FXML
     public void initialize() {
         Platform.runLater(Fname_field::requestFocus);
-        handleKeyPress();
+        // handleKeyPress();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -57,9 +64,15 @@ public class AddEmployeeController implements Controller {
                         "Information Officer");
             }
         });
+        job.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE && job.getSelectionModel().isEmpty()) {
+                pass_field.requestFocus();
+                event.consume();
+            }
+        });
+
         // job.setStyle(
                 // "-fx-background-color:white;-fx-border-radius:20px;-fx-border-color:#cacaca;-fx-border-width:1.5px;");
-
     }
 
     @FXML
@@ -169,24 +182,62 @@ public class AddEmployeeController implements Controller {
         alert.showAlert();
     }
 
+
     @FXML
-    void handleKeyPress() {
-        Fname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, Lname_field));
-        Lname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, Mname_field));
-        Mname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, Uname_field));
-        Uname_field.setOnKeyPressed(event -> moveFocusOnEnter(event, pass_field));
-        pass_field.setOnKeyPressed(event -> moveFocusOnEnter(event, job));
-        job.setOnKeyPressed(event -> moveFocusOnEnter(event, approve_btn));
-        job.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
+    public void handleKeyPress(KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER){
+            if (event.getSource() == Fname_field){
+                Lname_field.requestFocus();
+            }
+            else if (event.getSource() == Lname_field){
+                Mname_field.requestFocus();
+            } 
+            else if(event.getSource() == Mname_field){
+                Uname_field.requestFocus();
+            }
+            else if (event.getSource() == Uname_field){
+                pass_field.requestFocus();
+            }
+            else if (event.getSource() == pass_field){
+                job.requestFocus();
                 job.show();
             }
-        });
-    }
-    private void moveFocusOnEnter(javafx.scene.input.KeyEvent event, javafx.scene.Node nextNode) {
-        if (event.getCode() == KeyCode.ENTER) {
-            nextNode.requestFocus();
+            else if(event.getSource() == job){
+                job.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null && job.isShowing() && isEnterPressed() ) {
+                        approve_btn.fire();
+                    }
+                });
+            }
         }
+        else if(event.getCode() == KeyCode.BACK_SPACE ){
+            if (event.getSource() == Lname_field & Lname_field.getText().isEmpty()){
+                Fname_field.requestFocus();
+            }
+            
+            else if (event.getSource() == Mname_field & Mname_field.getText().isEmpty()){
+                Lname_field.requestFocus();
+            }
+            
+            else if (event.getSource() == Uname_field & Uname_field.getText().isEmpty()){
+                Mname_field.requestFocus();
+            }
+            
+            else if (event.getSource() == pass_field & pass_field.getText().isEmpty()){
+                Uname_field.requestFocus();
+            }
+            
+            else if (event.getSource() == job ){
+   
+                pass_field.requestFocus();
+            }
+        }
+        
+    }
+
+    private boolean isEnterPressed() {
+        Set<KeyCombination> keys = job.getScene().getAccelerators().keySet();
+        return keys.contains(KeyCode.ENTER);
     }
 
     @Override
