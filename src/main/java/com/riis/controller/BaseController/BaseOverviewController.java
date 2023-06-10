@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.riis.context.UserContext;
@@ -30,6 +29,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -401,8 +402,8 @@ public class BaseOverviewController implements Controller {
         overviewModel.getTimeComp().setText(formattedTime);
     }
 
-    public List<Request> sortReqDate(List<Request> requests) {
-        Collections.reverse(requests);
+    public ObservableList<Request> sortReqDate(ObservableList<Request> requests) {
+        FXCollections.reverse(requests);
         return requests;
     }
 

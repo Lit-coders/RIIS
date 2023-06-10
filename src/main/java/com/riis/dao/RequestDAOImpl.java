@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.riis.context.UserContext;
 import com.riis.database.DatabaseConnection;
@@ -18,8 +16,8 @@ import javafx.collections.ObservableList;
 public class RequestDAOImpl implements RequestDAO {
 
     @Override
-    public List<Request> getPendingUnpaidRequests() throws ClassNotFoundException, SQLException {
-        List<Request> requests = new ArrayList<>();
+    public ObservableList<Request> getPendingUnpaidRequests() throws ClassNotFoundException, SQLException {
+        ObservableList<Request> requests = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getInstance();
 
         String query = "SELECT * FROM Request WHERE UnpaidRequest = 1 AND ApprovalRequest = 0 and SealedRequest = 0";

@@ -1,12 +1,12 @@
 package com.riis.controller.FinController;
 
-import java.util.List;
-
 import com.riis.controller.BaseController.BaseOverviewController;
 import com.riis.dao.RequestDAO;
 import com.riis.dao.RequestDAOImpl;
 import com.riis.model.databasemodel.Request;
 import com.riis.model.viewmodel.SidebarModel;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
@@ -34,7 +34,7 @@ public class FinOverviewController extends BaseOverviewController {
 
     public void fetchRecentActivity() throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
-        List<Request> unpaidRequests = requestDAO.getPendingUnapprovedRequests();  
+        ObservableList<Request> unpaidRequests = requestDAO.getPendingUnapprovedRequests();  
         unpaidRequests = sortReqDate(unpaidRequests);
         for(Request request : unpaidRequests) {
             HBox hBox = buildHBox(request);
