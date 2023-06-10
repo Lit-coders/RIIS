@@ -17,14 +17,14 @@ public class Resident {
     private String houseNumber;
     private String ecf;
     private String ecp;
-    private String photoPath;
+    private byte[] residentImage;
 
     public Resident() {
     }
     
     public Resident(int id, String name, String fName, String gFName, String dob, String pob, String phoneNumber, String mName,
     String sex, String citizenship, String maritalStatus, String job,
-    String bType, String houseNumber, String ecf, String ecp, String photoPath) {
+    String bType, String houseNumber, String ecf, String ecp, byte[] residentImage) {
         this.residentId = id;
         this.name = name;
         this.fName = fName;
@@ -41,7 +41,7 @@ public class Resident {
         this.houseNumber = houseNumber;
         this.ecf = ecf;
         this.ecp = ecp;
-        this.photoPath = photoPath;
+        this.residentImage = residentImage;
     }
 
     public Resident(int residentId, String name, String fatherName, String gFatherName, String sex, String phone) {
@@ -183,12 +183,12 @@ public class Resident {
         this.ecp = ecp;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public byte[] getResidentImage() {
+        return residentImage;
     }
 
-    public void setPhotoPath(String path) {
-        this.photoPath = path;
+    public void setResidentImage(byte[] residentImage) {
+        this.residentImage = residentImage;
     }
 }
 
