@@ -51,6 +51,12 @@ public class InfoRequestsController extends BaseRequestsController {
         ObservableList<Request> requests  = requestDAO.getPendingSealedRequests();
         requests = sortReqDate(requests);
 
+        if(requests.size() == 0) {
+            Text text = TextGenerator.generateText("No Sealed requests for today !","Poppins-Regular", 20, "#702FFC");
+            VBox reqList = requestModel.getReqListComp();
+            reqList.getChildren().add(text);
+        }
+
         VBox reqList = requestModel.getReqListComp();
 
         for(Request request : requests) {

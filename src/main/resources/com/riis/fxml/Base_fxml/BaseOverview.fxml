@@ -6,7 +6,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -55,22 +54,23 @@
                <children>
                   <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="96.0" prefWidth="231.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="131.0" styleClass="tot-residents" text="Residents">
+                        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
-                        </Label>
-                        <MenuButton mnemonicParsing="false" styleClass="drop-down" text="Today">
+                           <children>
+                              <Label styleClass="tot-residents" text="Residents" />
+                           </children>
+                        </HBox>
+                        <MenuButton fx:id="res_tot" mnemonicParsing="false" styleClass="drop-down" text="Today">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
                           </items>
                         </MenuButton>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="196.0" prefWidth="231.0">
+                  <HBox alignment="BASELINE_CENTER" prefHeight="196.0" prefWidth="231.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label fx:id="tot_residents" text="{tot}" textFill="#7d4bd2">
+                        <Label fx:id="tot_residents" text="{tot}" textFill="#7d4bd2" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="96.0" />
                            </font>
@@ -83,15 +83,16 @@
                <children>
                   <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="63.0" prefWidth="231.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="129.0" styleClass="tot-residents" text="Gender">
+                        <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
-                        </Label>
-                        <MenuButton mnemonicParsing="false" styleClass="drop-down" text="Today">
+                           <children>
+                              <Label styleClass="tot-residents" text="Gender" />
+                           </children>
+                        </HBox>
+                        <MenuButton fx:id="gen_tot" mnemonicParsing="false" styleClass="drop-down" text="Today">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
                            </items>
                         </MenuButton>
                      </children>
@@ -106,7 +107,7 @@
                         <Label styleClass="gender-stat-labels" text="Male" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="65.0" prefHeight="167.0" prefWidth="115.0" style="-fx-background-color: white;">
+                  <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="65.0" prefHeight="167.0" prefWidth="115.0">
                      <children>
                         <Label fx:id="tot_residents_female" styleClass="gender-stat" text="{f}">
                            <VBox.margin>

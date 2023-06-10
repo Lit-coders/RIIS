@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -157,14 +159,14 @@
                         </TextField>
                         <Label text="Date of Birth" textFill="#3330e1">
                            <VBox.margin>
-                              <Insets left="8.0" top="5.0" />
+                              <Insets bottom="5.0" left="8.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <TextField id="DOB" fx:id="DOB" onKeyPressed="#handleKeyPress" prefHeight="31.0" prefWidth="261.0" styleClass="txt-field">
-                           <VBox.margin>
-                              <Insets top="5.0" />
-                           </VBox.margin>
-                        </TextField>
+                        <HBox alignment="CENTER" prefHeight="31.0" prefWidth="234.0" styleClass="date-picker-hbox">
+                           <children>
+                              <DatePicker fx:id="datePicker" prefHeight="20.0" prefWidth="205.0" promptText="Select date" />
+                           </children>
+                        </HBox>
                         <Label text="Place of Birth" textFill="#3330e1">
                            <VBox.margin>
                               <Insets left="8.0" top="5.0" />
