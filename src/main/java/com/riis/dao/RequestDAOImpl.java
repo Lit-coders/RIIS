@@ -124,7 +124,6 @@ public class RequestDAOImpl implements RequestDAO {
         UserContext userContext = UserContext.getInstance();
         String query = "";
         String job = employeeDAO.getEmployeeByUsername(userContext.getUsername()).getJob();
-        System.out.println(job);
         if (job.equals("Information Officer")) {
             query = "UPDATE Request SET UnpaidRequest = ? WHERE RequestID = ?";
         } else if (job.equals("Finance Officer")) {
@@ -132,8 +131,6 @@ public class RequestDAOImpl implements RequestDAO {
         } else if (job.equals("Kebele Manager")) {
             query = "UPDATE Request SET SealedRequest = ? WHERE RequestID = ?";
         }
-
-        System.out.println(query);
 
         try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setInt(1, 1);

@@ -255,9 +255,6 @@ public class BaseOverviewController implements Controller {
             // get the current time
             LocalDateTime now = DateProvider.getDateTime();
 
-            System.out.println(lastLoginTime);
-            System.out.println(now);
-
             Duration duration = Duration.between(lastLoginTime, now);
 
             long days = duration.toDays();
