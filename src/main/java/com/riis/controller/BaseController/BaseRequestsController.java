@@ -33,11 +33,6 @@ public class BaseRequestsController implements Controller {
 
     public void vboxListener(String message) {
         // listen for changes in the vbox if there are any hbox children
-        if(requestModel.getReqListComp().getChildren().size() == 0) {
-            Text text = TextGenerator.generateText(message,"Poppins-Regular", 20, "#702FFC");
-            VBox reqList = requestModel.getReqListComp();
-            reqList.getChildren().add(text);
-        }
         requestModel.getReqListComp().getChildren().addListener(new ListChangeListener<Node>() {
             @Override
             public void onChanged(Change<? extends Node> c) {
