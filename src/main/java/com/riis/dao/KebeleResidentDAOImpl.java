@@ -181,17 +181,15 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
     @Override
     public void updateKebeleResident(int id) throws Exception {
         Connection connection = DatabaseConnection.getInstance();
-        String query = "UPDATE KebeleResident SET ExpirationStatus = ? , GivenDate = ? , ExpDate = ? WHERE ResidentID = ?";
+        String query = "UPDATE KebeleResident SET ExpirationStatus = ? , ExpDate = ? WHERE ResidentID = ?";
         try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setInt(1, 0);
 
             LocalDateTime currentDateTime = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDateTime = currentDateTime.format(formatter);
 
-            pis.setString(2, formattedDateTime);
-            pis.setString(3, currentDateTime.plusYears(3).format(formatter));
-            pis.setInt(4, id);
+            pis.setString(2, currentDateTime.plusYears(3).format(formatter));
+            pis.setInt(3, id);
             pis.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

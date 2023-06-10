@@ -164,7 +164,7 @@ public class InfoRequestsController extends BaseRequestsController {
         if(request.getRequestType() == 0) {
             kebeleResidentDAO.addKebeleResident(request.getResidentID());
         } else {
-            kebeleResidentDAO.updateKebeleResident(request.getRequestID());
+            kebeleResidentDAO.updateKebeleResident(request.getResidentID());
         }
         String reqDate = request.getRequestDate();
         try {
