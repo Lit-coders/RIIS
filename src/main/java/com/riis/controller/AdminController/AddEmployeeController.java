@@ -24,6 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -65,11 +66,28 @@ public class AddEmployeeController implements Controller {
             }
         });
         job.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && job.getSelectionModel().isEmpty()) {
+            if (event.getCode() == KeyCode.BACK_SPACE ) {
                 pass_field.requestFocus();
                 event.consume();
             }
         });
+
+        job.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (job.getSelectionModel().getSelectedItem() != null) {
+                    approve_btn.fire();
+                    event.consume(); // Prevent further handling of the Enter key event
+                }
+            }
+        });
+        
+        // job.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        //     if (newValue != null && job.isShowing() ) {
+        //         System.out.println("lalafonte hune");
+        //         approve_btn.fire();
+        //     }
+        // });
+
 
         // job.setStyle(
                 // "-fx-background-color:white;-fx-border-radius:20px;-fx-border-color:#cacaca;-fx-border-width:1.5px;");
@@ -202,14 +220,11 @@ public class AddEmployeeController implements Controller {
                 job.requestFocus();
                 job.show();
             }
-            else if(event.getSource() == job){
-                job.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null && job.isShowing() && isEnterPressed() ) {
-                        approve_btn.fire();
-                    }
-                });
+
             }
-        }
+   
+            
+        
         else if(event.getCode() == KeyCode.BACK_SPACE ){
             if (event.getSource() == Lname_field & Lname_field.getText().isEmpty()){
                 Fname_field.requestFocus();
@@ -226,20 +241,15 @@ public class AddEmployeeController implements Controller {
             else if (event.getSource() == pass_field & pass_field.getText().isEmpty()){
                 Uname_field.requestFocus();
             }
-            
-            else if (event.getSource() == job ){
-   
-                pass_field.requestFocus();
+
             }
         }
-        
+    
+    
+    private boolean isEnterPressed(KeyEvent event) {
+        KeyCodeCombination enterKeyCombination = new KeyCodeCombination(KeyCode.ENTER);
+        return enterKeyCombination.match(event);
     }
-
-    private boolean isEnterPressed() {
-        Set<KeyCombination> keys = job.getScene().getAccelerators().keySet();
-        return keys.contains(KeyCode.ENTER);
-    }
-
     @Override
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/AddEmployee.fxml"));
