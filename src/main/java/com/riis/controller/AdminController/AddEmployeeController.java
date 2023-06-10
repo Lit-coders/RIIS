@@ -57,7 +57,7 @@ public class AddEmployeeController implements Controller {
     @FXML
     public void initialize() {
         Platform.runLater(Fname_field::requestFocus);
-        // handleKeyPress();
+        
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -65,6 +65,7 @@ public class AddEmployeeController implements Controller {
                         "Information Officer");
             }
         });
+
         job.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.BACK_SPACE ) {
                 pass_field.requestFocus();
@@ -76,21 +77,10 @@ public class AddEmployeeController implements Controller {
             if (event.getCode() == KeyCode.ENTER) {
                 if (job.getSelectionModel().getSelectedItem() != null) {
                     approve_btn.fire();
-                    event.consume(); // Prevent further handling of the Enter key event
+                    event.consume(); 
                 }
             }
         });
-        
-        // job.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        //     if (newValue != null && job.isShowing() ) {
-        //         System.out.println("lalafonte hune");
-        //         approve_btn.fire();
-        //     }
-        // });
-
-
-        // job.setStyle(
-                // "-fx-background-color:white;-fx-border-radius:20px;-fx-border-color:#cacaca;-fx-border-width:1.5px;");
     }
 
     @FXML
@@ -245,11 +235,6 @@ public class AddEmployeeController implements Controller {
             }
         }
     
-    
-    private boolean isEnterPressed(KeyEvent event) {
-        KeyCodeCombination enterKeyCombination = new KeyCodeCombination(KeyCode.ENTER);
-        return enterKeyCombination.match(event);
-    }
     @Override
     public void getView() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Admin_fxml/AddEmployee.fxml"));
