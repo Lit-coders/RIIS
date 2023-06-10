@@ -164,7 +164,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="31.0" prefWidth="234.0" styleClass="date-picker-hbox">
                            <children>
-                              <DatePicker prefHeight="20.0" prefWidth="205.0" />
+                              <DatePicker fx:id="datePicker" prefHeight="20.0" prefWidth="205.0" promptText="Select date" />
                            </children>
                         </HBox>
                         <Label text="Place of Birth" textFill="#3330e1">
