@@ -1,9 +1,6 @@
 package com.riis.controller.AdminController;
 
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import com.riis.controller.Controller;
 import com.riis.dao.EmployeeDAO;
@@ -13,7 +10,6 @@ import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -159,14 +155,6 @@ public class AddEmployeeController implements Controller {
                     return false;
                 }
             }
-            // if(i == 1 || i == 3 || i == 5 || i == 11){
-            // String alphaPattern = "^[a-zA-Z\\s]*$";
-            // if(field.getText().matches(alphaPattern)){
-            // Data.alertMessage("Error", "You have inserted invalid data!");
-            // field.requestFocus();
-            // return false;
-            // }
-            // }
         }
         return true;
     }

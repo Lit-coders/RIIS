@@ -215,7 +215,6 @@ public class InfoNewResidentController implements Controller {
 
     @Override
     public void getView() throws Exception {
-        System.out.println("something happened but lala is on the way");
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoNewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
@@ -561,7 +560,6 @@ public class InfoNewResidentController implements Controller {
     public void alertMessage(String message) {
         JAlert alert = new JAlert("Error", message);
         alert.showAlert();
-        System.out.println(invalidTextfield);
         if (invalidTextfield < 17) {
             ResidentForm.get(invalidTextfield).requestFocus();
         } else {

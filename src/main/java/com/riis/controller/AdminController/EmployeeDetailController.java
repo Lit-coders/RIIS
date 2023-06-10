@@ -95,8 +95,6 @@ public class EmployeeDetailController implements Controller{
     }
 
     public void setEmployeeData(Employee employee){
-        String fullName = employee.getFirstName() + " " + employee.getLastName() + " " + employee.getMiddleName();
-        System.out.println(fullName);
         name_label.setText(employee.getFirstName() + "'s Information");
         Fname_label.setText(employee.getFirstName());
         Lname_label.setText(employee.getLastName());
@@ -138,7 +136,6 @@ public class EmployeeDetailController implements Controller{
 
         HBox hbox = (HBox) anchorPane.getChildren().get(0);
         VBox vbox = (VBox) anchorPane.getChildren().get(1);
-        System.out.println();
 
         initializeNullControls(hbox, vbox);
     }
