@@ -141,7 +141,7 @@ public class InfoNewResidentController implements Controller {
     private int invalidTextfield;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws Exception {
         ResidentForm.add(Name);
         ResidentForm.add(FName);
         ResidentForm.add(GFName);
@@ -215,6 +215,7 @@ public class InfoNewResidentController implements Controller {
 
     @Override
     public void getView() throws Exception {
+        System.out.println("something happened but lala is on the way");
         Parent root = FXMLLoader.load(getClass().getResource("/com/riis/fxml/Info_fxml/InfoNewResident.fxml"));
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
