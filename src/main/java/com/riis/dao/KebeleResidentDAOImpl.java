@@ -204,7 +204,7 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
         if (date.equals("today")) {
             query = "SELECT * FROM KebeleResident WHERE GivenDate  =  date('now')";
         } else if (date.equals("week")) {
-            query = "SELECT * FROM KebeleResident WHERE GivenDate = date('now', '-7 day')";
+            query = "SELECT * FROM KebeleResident WHERE DATE(GivenDate) >= DATE('now', 'weekday 0', '-6 days')";
         } else if (date.equals("yesterday")) {
             query = "SELECT * FROM KebeleResident WHERE GivenDate = date('now', '-1 day')";
         }

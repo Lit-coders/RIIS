@@ -219,7 +219,6 @@ public class BaseOverviewController implements Controller {
             } else if (date.equals("yesterday")) {
                 kebeleResidents.addAll(kebeleResidentDAO.getAllKebeleResidentsByDate("yesterday"));
             } else if (date.equals("week")) {
-                kebeleResidents.addAll(kebeleResidentDAO.getAllKebeleResidentsByDate("today"));
                 kebeleResidents.addAll(kebeleResidentDAO.getAllKebeleResidentsByDate("week"));
             }
         }
