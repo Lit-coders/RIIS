@@ -5,17 +5,23 @@ import com.riis.database.DatabaseConnection;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import com.riis.controller.Controller;
+import com.riis.dao.MapHolderDAO;
+import com.riis.dao.MapHolderDAOImpl;
 import com.riis.dao.RequestDAO;
 import com.riis.dao.RequestDAOImpl;
+import com.riis.dao.ResidentDAO;
+import com.riis.dao.ResidentDAOImpl;
+import com.riis.model.databasemodel.MapHolder;
 import com.riis.model.databasemodel.Request;
+import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 
@@ -23,7 +29,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,6 +40,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
 
 public class InfoNewResidentController implements Controller {
     @FXML
@@ -44,7 +53,7 @@ public class InfoNewResidentController implements Controller {
     private TextField GFName;
 
     @FXML
-    private TextField DOB;
+    private DatePicker datePicker;
 
     @FXML
     private TextField POB;
@@ -136,7 +145,7 @@ public class InfoNewResidentController implements Controller {
         ResidentForm.add(Name);
         ResidentForm.add(FName);
         ResidentForm.add(GFName);
-        ResidentForm.add(DOB);
+        // ResidentForm.add(DOB);
         ResidentForm.add(POB);
         ResidentForm.add(phoneNumber);
         ResidentForm.add(MName);
@@ -152,7 +161,56 @@ public class InfoNewResidentController implements Controller {
         MapHolderForm.add(HOFName);
         MapHolderForm.add(HOGFName);
         MapHolderForm.add(HOP);
-        Platform.runLater(Name::requestFocus);
+        Platform.runLater(() -> {
+            Name.requestFocus();
+            datePicker.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    Boolean idDateValid = dateValidator();
+                    if (idDateValid) {
+                        POB.requestFocus();
+                    } else {
+                        JAlert alert = new JAlert("Error","Invalid Date! Please enter a valid date");
+                        alert.showAlert();
+                    }
+                }
+            });
+            Scene scene = (Scene) datePicker.getScene();
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.BACK_SPACE && datePicker.isFocused() && datePicker.getValue() == null) {
+                    ResidentForm.get(2).requestFocus();
+                }
+            });
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+                @Override
+                public String toString(LocalDate date) {
+                    try{
+                        if (datePicker.getValue() != null) {
+                            return dateFormatter.format(datePicker.getValue());
+                        } else {
+                            return "";
+                        }
+                    } catch (Exception e) {
+                        return "";
+                    }
+                }
+
+                @Override
+                public LocalDate fromString(String string) {
+                    try{
+                        if (datePicker.getValue() != null) {
+                            return LocalDate.parse(string, dateFormatter);
+                        } else {
+                            return null;
+                        }
+                    } catch (Exception e) {
+                        return null;
+                    }
+                }
+            };
+            datePicker.setConverter(converter);
+        });
     }
 
     @Override
@@ -169,6 +227,9 @@ public class InfoNewResidentController implements Controller {
         for (TextField field : MapHolderForm) {
             field.clear();
         }
+        datePicker.setValue(null);
+        imageHolder.getChildren().remove(residentImage);
+        mapImageHolder.getChildren().remove(mapImage);
     }
 
     public InputStream fileChoser() throws FileNotFoundException {
@@ -208,10 +269,11 @@ public class InfoNewResidentController implements Controller {
     }
 
     public void addResidentAndMapHolder() throws Exception {
-        if (checkMessage()) {
+        if (checkMessage()) { 
             if (!isRepeated()) {
                 int RID = addResident();
-                addMapHolder();
+                int MID  = addMapHolder();
+                addResidentMapHolder(RID, MID);
                 addRequest(RID);
                 successMessage("Resident Added Successfully");
                 mapImageHolder.getChildren().remove(mapImage);
@@ -219,6 +281,11 @@ public class InfoNewResidentController implements Controller {
                 clearForm();
             }
         }
+    }
+
+    public void addResidentMapHolder(int rid, int mid) throws Exception {
+        MapHolderDAO residentMapHolderDAO = new MapHolderDAOImpl();
+        residentMapHolderDAO.addResidentMapHolder(rid, mid);
     }
 
     public void addRequest(int id) throws Exception {
@@ -233,34 +300,47 @@ public class InfoNewResidentController implements Controller {
         requestDAO.addRequest(request);
     }
 
-    public int addResident() throws ClassNotFoundException, SQLException, IOException {
-        Connection connection = DatabaseConnection.getInstance();
-        PreparedStatement ps = connection
-                .prepareStatement("Insert into Resident Values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",java.sql.Statement.RETURN_GENERATED_KEYS);
-        for (int i = 0; i < ResidentForm.size(); i++) {
-            ps.setString(i + 2, ResidentForm.get(i).getText());
-            if (i == ResidentForm.size() - 1) {
-                byte[] ResidentImageData = ResidentImageBinary.readAllBytes();
-                ps.setBytes(i + 3, ResidentImageData);
-            }
-        }
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        rs.next();
-        return rs.getInt(1);
+    public int addResident() throws Exception {
+        Resident resident = new Resident();
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        
+        resident.setName(ResidentForm.get(0).getText());
+        resident.setFName(ResidentForm.get(1).getText());
+        resident.setGFName(ResidentForm.get(2).getText());
+        resident.setDOB(datePicker.getValue().toString());
+        resident.setPOB(ResidentForm.get(3).getText());
+        resident.setPhoneNumber(ResidentForm.get(4).getText());
+        resident.setMName(ResidentForm.get(5).getText());
+        resident.setSex(ResidentForm.get(6).getText());
+        resident.setCitizenship(ResidentForm.get(7).getText());
+        resident.setMaritalStatus(ResidentForm.get(8).getText());
+        resident.setJob(ResidentForm.get(9).getText());
+        resident.setBType(ResidentForm.get(10).getText());
+        resident.setHouseNumber(ResidentForm.get(11).getText());
+        resident.setECF(ResidentForm.get(12).getText());
+        resident.setECP(ResidentForm.get(13).getText());
+        byte[] residentImage = ResidentImageBinary.readAllBytes();
+        resident.setResidentImage(residentImage);
+
+        int rid = residentDAO.addResident(resident);
+
+        return rid;
     }
 
-    public void addMapHolder() throws ClassNotFoundException, SQLException, IOException {
-        Connection connection = DatabaseConnection.getInstance();
-        PreparedStatement ps = connection.prepareStatement("Insert into MapHolder Values (?,?,?,?,?,?)");
-        for (int i = 0; i < MapHolderForm.size(); i++) {
-            ps.setString(i + 2, MapHolderForm.get(i).getText());
-            if (i == MapHolderForm.size() - 1) {
-                byte[] MapImageData = MapImageBinary.readAllBytes();
-                ps.setBytes(i + 3, MapImageData);
-            }
-        }
-        ps.executeUpdate();
+    public int addMapHolder() throws Exception {
+        MapHolder mapHolder = new MapHolder();
+        MapHolderDAO mapHolderDAO = new MapHolderDAOImpl();
+
+        mapHolder.setMapHolderName(MapHolderForm.get(0).getText());
+        mapHolder.setMapHolderFName(MapHolderForm.get(1).getText());
+        mapHolder.setMapHolderGFName(MapHolderForm.get(2).getText());
+        mapHolder.setMapHolderPhoneNum(MapHolderForm.get(3).getText());
+        byte[] mapImage = MapImageBinary.readAllBytes();
+        mapHolder.setMapHolderPhoto(mapImage);
+
+        int mid = mapHolderDAO.addMapHolder(mapHolder);
+
+        return mid;
     }
 
     @FXML
@@ -271,21 +351,18 @@ public class InfoNewResidentController implements Controller {
                     if (i == ResidentForm.size() - 1) {
                         MapHolderForm.get(0).requestFocus();
                     } else {
-                        ResidentForm.get(i + 1).requestFocus();
+                        if (i == 2) {
+                            datePicker.requestFocus();
+                        } else {
+                            ResidentForm.get(i + 1).requestFocus();
+                        }
                     }
                 } else if (event.getCode() == KeyCode.BACK_SPACE) {
                     if (ResidentForm.get(i).getText().isEmpty()) {
                         if (i == 0) {
                             ResidentForm.get(i).requestFocus();
-                        } else {
-                            ResidentForm.get(i - 1).requestFocus();
-                        }
-                    }
-                }
-                else if (event.getCode() == KeyCode.BACK_SPACE) {
-                    if (ResidentForm.get(i).getText().isEmpty()) {
-                        if (i == 0) {
-                            ResidentForm.get(i).requestFocus();
+                        } else if (i == 3) {
+                            datePicker.requestFocus();
                         } else {
                             ResidentForm.get(i - 1).requestFocus();
                         }
@@ -317,6 +394,15 @@ public class InfoNewResidentController implements Controller {
 
     public Boolean checkMessage() {
         for (TextField field : ResidentForm) {
+            if(ResidentForm.indexOf(field) == 3) {
+                boolean isDateValid = dateValidator();
+                if(!isDateValid) {
+                    JAlert alert = new JAlert("Error","Invalid Date! Please enter a valid date");
+                    alert.showAlert();
+                    datePicker.requestFocus();
+                    return isDateValid;
+                }
+            }
             boolean isEmpty = emptyFieldChecker(field);
             if (!isEmpty) {
                 invalidTextfield = ResidentForm.indexOf(field);
@@ -328,13 +414,6 @@ public class InfoNewResidentController implements Controller {
                     if (!isValid) {
                         invalidTextfield = ResidentForm.indexOf(field);
                         alertMessage("Please enter a valid phone number");
-                        return isValid;
-                    }
-                } else if (field == DOB) {
-                    boolean isValid = datePatternChecker(field.getText());
-                    if (!isValid) {
-                        invalidTextfield = ResidentForm.indexOf(field);
-                        alertMessage("Please enter a valid date");
                         return isValid;
                     }
                 } else if (field == house_number) {
@@ -399,14 +478,6 @@ public class InfoNewResidentController implements Controller {
         return true;
     }
 
-    public boolean datePatternChecker(String date) {
-        String datePattern = "\\d{2}-\\d{2}-\\d{4}";
-        if (!date.matches(datePattern)) {
-            return false;
-        }
-        return true;
-    }
-
     public boolean stringPatternChecker(String string) {
         String alphaPattern = "^[a-zA-Z\\s]*$";
         if (!string.matches(alphaPattern)) {
@@ -423,6 +494,28 @@ public class InfoNewResidentController implements Controller {
         return true;
     }
 
+    public boolean dateValidator() {
+        LocalDate date = datePicker.getValue();
+    
+        if (date == null) {
+            return false;
+        }
+    
+        if (date.isAfter(LocalDate.now().minusYears(18))) {
+            return false;
+        }
+    
+        if (date.isBefore(LocalDate.of(1900, 1, 1))) {
+            return false;
+        }
+    
+        if (!date.toString().matches("\\d{4}-\\d{2}-\\d{2}")) {
+            return false;
+        }
+    
+        return true;
+    }
+
     public boolean houseNumberChecker(String houseNumber) {
         String houseNumberPattern = "^[a-zA-Z0-9]{1,5}$";
         if (!houseNumber.matches(houseNumberPattern)) {
@@ -432,13 +525,17 @@ public class InfoNewResidentController implements Controller {
     }
 
     public boolean selectedImageChecker() {
-        if (residentImage == null || mapImage == null) {
-            alertMessage("Please select an image");
+        if (residentImage == null) {
+            alertMessage("Please select a resident image");
+
+            return false;
+        } else if (mapImage == null) {
+            alertMessage("Please select a map image");
             return false;
         }
         return true;
     }
-    
+
     public boolean isRepeated() {
         try {
             Connection connection = DatabaseConnection.getInstance();
@@ -457,22 +554,22 @@ public class InfoNewResidentController implements Controller {
             e.printStackTrace();
         }
         return false;
-        
+
     }
-    
+
     public void alertMessage(String message) {
         JAlert alert = new JAlert("Error", message);
         alert.showAlert();
         System.out.println(invalidTextfield);
-        if(invalidTextfield < 17) {
+        if (invalidTextfield < 17) {
             ResidentForm.get(invalidTextfield).requestFocus();
         } else {
             MapHolderForm.get(invalidTextfield - 17).requestFocus();
         }
     }
 
-     public void successMessage(String message) {
-        JAlert alert = new JAlert("Success",message);
+    public void successMessage(String message) {
+        JAlert alert = new JAlert("Success", message);
         alert.showAlert();
-     }
+    }
 }
