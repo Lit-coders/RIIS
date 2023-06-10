@@ -183,6 +183,9 @@ public class AddEmployeeController implements Controller {
             TextField field = (TextField) box.getChildren().get(i);
             field.clear();
         }
+        if (job.getSelectionModel().getSelectedItem() != null) {
+            job.getSelectionModel().select("Please select job");
+        }
         TextField field = (TextField) box.getChildren().get(1);
         field.requestFocus();
     }
