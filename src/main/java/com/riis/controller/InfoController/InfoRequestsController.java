@@ -41,6 +41,7 @@ public class InfoRequestsController extends BaseRequestsController {
         AnchorPane anchorPane = (AnchorPane) root;
         SidebarModel.borderPane.setCenter(anchorPane);
         requestModel.setRequestTypeComp();
+        vboxListener("No sealed requests for today !");
         initialize();
     }
     
@@ -154,7 +155,13 @@ public class InfoRequestsController extends BaseRequestsController {
     public void updateRequest(Request request) throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
         KebeleResidentDAO  kebeleResidentDAO = new KebeleResidentDAOImpl();
-        kebeleResidentDAO.addKebeleResident(request.getResidentID());
+        if(request.getRequestType() == 0) {
+            kebeleResidentDAO.addKebeleResident(request.getResidentID());
+            System.out.println("added");
+        } else {
+            kebeleResidentDAO.updateKebeleResident(request.getRequestID());
+            System.out.println("updated");
+        }
         String reqDate = request.getRequestDate();
         try {
             for (Node node : requestModel.getReqListComp().getChildren()) {
@@ -189,7 +196,5 @@ public class InfoRequestsController extends BaseRequestsController {
         alert.showAlert();
 
     }
-
-
 
 }
