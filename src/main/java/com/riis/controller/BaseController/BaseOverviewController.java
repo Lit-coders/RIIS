@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.riis.context.UserContext;
@@ -398,6 +399,11 @@ public class BaseOverviewController implements Controller {
 
         // Update the label text with the formatted time
         overviewModel.getTimeComp().setText(formattedTime);
+    }
+
+    public List<Request> sortReqDate(List<Request> requests) {
+        Collections.reverse(requests);
+        return requests;
     }
 
     public void getView() throws Exception {

@@ -36,6 +36,7 @@ public class KebeleOverviewController extends BaseOverviewController {
     public void fetchRecentActivity() throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
         List<Request> unpaidRequests = requestDAO.getPendingSealedRequests();  
+        unpaidRequests = sortReqDate(unpaidRequests);
         for(Request request : unpaidRequests) {
             HBox hBox = buildHBox(request);
             overviewModel.getRecentActivityComp().getChildren().add(hBox);
