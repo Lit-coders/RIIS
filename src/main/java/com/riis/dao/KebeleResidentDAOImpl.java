@@ -45,7 +45,7 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
         try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setInt(1, kid);
             ResultSet resultSet = pis.executeQuery();
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 kebeleResident.setResidentId(resultSet.getInt("ResidentID"));
                 kebeleResident.setIdGivenDate(resultSet.getString("GivenDate"));
                 kebeleResident.setIdExpDate(resultSet.getString("ExpDate"));
@@ -139,7 +139,7 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
             pis.setInt(1, id);
 
             LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formattedDateTime = currentDateTime.format(formatter);
 
             pis.setString(2, formattedDateTime);
@@ -157,8 +157,8 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
         List<KebeleResident> kebeleResidents = new ArrayList<>();
         Connection connection = DatabaseConnection.getInstance();
         String query = "SELECT * FROM KebeleResident " +
-                       "INNER JOIN Resident ON KebeleResident.ResidentID = Resident.ResidentID " +
-                       "WHERE Resident.Name LIKE ? OR Resident.FName LIKE ? OR Resident.GFName LIKE ?";
+                "INNER JOIN Resident ON KebeleResident.ResidentID = Resident.ResidentID " +
+                "WHERE Resident.Name LIKE ? OR Resident.FName LIKE ? OR Resident.GFName LIKE ?";
         try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setString(1, "%" + token + "%");
             pis.setString(2, "%" + token + "%");
@@ -177,24 +177,50 @@ public class KebeleResidentDAOImpl implements KebeleResidentDAO {
         }
         return kebeleResidents;
     }
-    
+
     @Override
     public void updateKebeleResident(int id) throws Exception {
         Connection connection = DatabaseConnection.getInstance();
-        String query = "UPDATE KebeleResident SET ExpirationStatus = ? , ExpDate = ? , GivenDate = ? WHERE ResidentID = ?";
+        String query = "UPDATE KebeleResident SET ExpirationStatus = ? , ExpDate = ? WHERE ResidentID = ?";
         try (PreparedStatement pis = connection.prepareStatement(query)) {
             pis.setInt(1, 0);
 
             LocalDateTime currentDateTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String formattedDateTime = currentDateTime.format(formatter);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             pis.setString(2, currentDateTime.plusYears(3).format(formatter));
-            pis.setString(3, formattedDateTime);
-            pis.setInt(4, id);
+            pis.setInt(3, id);
             pis.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<KebeleResident> getAllKebeleResidentsByDate(String date) throws SQLException {
+        List<KebeleResident> kebeleResidents = new ArrayList<>();
+        Connection connection = DatabaseConnection.getInstance();
+        String query = "";
+        if (date.equals("today")) {
+            query = "SELECT * FROM KebeleResident WHERE GivenDate  =  date('now')";
+        } else if (date.equals("week")) {
+            query = "SELECT * FROM KebeleResident WHERE DATE(GivenDate) >= DATE('now', 'weekday 0', '-6 days')";
+        } else if (date.equals("yesterday")) {
+            query = "SELECT * FROM KebeleResident WHERE GivenDate = date('now', '-1 day')";
+        }
+        try (PreparedStatement pis = connection.prepareStatement(query)) {
+            ResultSet resultSet = pis.executeQuery();
+            while (resultSet.next()) {
+                KebeleResident kebeleResident = new KebeleResident();
+                kebeleResident.setResidentId(resultSet.getInt("ResidentID"));
+                kebeleResident.setIdGivenDate(resultSet.getString("GivenDate"));
+                kebeleResident.setIdExpDate(resultSet.getString("ExpDate"));
+                kebeleResident.setExpStatus(resultSet.getInt("ExpirationStatus"));
+                kebeleResidents.add(kebeleResident);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return kebeleResidents;
     }
 }

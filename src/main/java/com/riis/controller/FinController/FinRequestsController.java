@@ -1,8 +1,5 @@
 package com.riis.controller.FinController;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.riis.controller.BaseController.BaseRequestsController;
 import com.riis.dao.PaymentDAO;
 import com.riis.dao.PaymentDAOImpl;
@@ -16,6 +13,8 @@ import com.riis.model.viewmodel.SidebarModel;
 import com.riis.utils.JAlert;
 import com.riis.utils.TextGenerator;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -49,7 +48,7 @@ public class FinRequestsController extends BaseRequestsController {
     public void fetchRequests() throws Exception {
         RequestDAO requestDAO = new RequestDAOImpl();
 
-        List<Request> requests  = requestDAO.getPendingUnpaidRequests();
+        ObservableList<Request> requests  = requestDAO.getPendingUnpaidRequests();
         requests = sortReqDate(requests);
 
         if(requests.size() == 0) {
@@ -66,8 +65,8 @@ public class FinRequestsController extends BaseRequestsController {
         }
     }
 
-    public List<Request> sortReqDate(List<Request> requests) {
-        Collections.reverse(requests);
+    public ObservableList<Request> sortReqDate(ObservableList<Request> requests) {
+        FXCollections.reverse(requests);
         return requests;
     }
 

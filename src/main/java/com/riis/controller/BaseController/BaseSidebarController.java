@@ -49,6 +49,7 @@ public class BaseSidebarController implements Controller {
         SidebarModel.handleHover(logout_btn);
         SidebarModel.handleHover(user_btn);
         SidebarModel.titlebar = titlebar;
+        titlebar.prefWidthProperty().bind(header.widthProperty());
         checkHBox(overview);
     }
 

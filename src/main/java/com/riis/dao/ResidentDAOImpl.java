@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,4 +122,58 @@ public class ResidentDAOImpl implements ResidentDAO {
         return inputStream;
     }
 
+    @Override
+    public String getGender(int rid) throws Exception {
+        String sex = "";
+        Connection connection = DatabaseConnection.getInstance();
+        String query = "SELECT Sex FROM Resident WHERE ResidentID = ?";
+        try (PreparedStatement pis = connection.prepareStatement(query)) {
+            pis.setInt(1, rid);
+            ResultSet resultSet =  pis.executeQuery();
+            while(resultSet.next()) {
+                sex = resultSet.getString("Sex");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sex;
+    }
+    
+    @Override
+    public int addResident(Resident resident) throws Exception {
+        int rid = 0;
+        Connection connection = DatabaseConnection.getInstance();
+        String query = "INSERT INTO Resident (Name, FName, GFName, DOB, POB, PhoneNumber, MotherName, Sex, Citizenship, MaritalStatus, Job, BloodType, HouseNumber, ECF, ECP, ResidentPhoto) " +
+               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pis = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pis.setString(1, resident.getName());
+            pis.setString(2, resident.getFName());
+            pis.setString(3, resident.getGFName());
+            pis.setString(4, resident.getDOB());
+            pis.setString(5, resident.getPOB());
+            pis.setString(6, resident.getPhoneNumber());
+            pis.setString(7, resident.getMName());
+            pis.setString(8, resident.getSex());
+            pis.setString(9, resident.getCitizenship());
+            pis.setString(10, resident.getMaritalStatus());
+            pis.setString(11, resident.getJob());
+            pis.setString(12, resident.getBType());
+            pis.setString(13, resident.getHouseNumber());
+            pis.setString(14, resident.getECF());
+            pis.setString(15, resident.getECP());
+            pis.setBytes(16, resident.getResidentImage());
+
+            pis.executeUpdate();
+            ResultSet resultSet = pis.getGeneratedKeys();
+            if(resultSet.next()) {
+                rid = resultSet.getInt(1);
+            } else {
+                throw new Exception("Resident ID not generated");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rid;
+    }
 }

@@ -6,14 +6,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.riis.context.UserContext;
 import com.riis.controller.Controller;
 import com.riis.dao.EmployeeDAO;
 import com.riis.dao.EmployeeDAOImpl;
+import com.riis.dao.KebeleResidentDAO;
+import com.riis.dao.KebeleResidentDAOImpl;
 import com.riis.dao.ResidentDAO;
 import com.riis.dao.ResidentDAOImpl;
 import com.riis.model.databasemodel.Employee;
+import com.riis.model.databasemodel.KebeleResident;
 import com.riis.model.databasemodel.Request;
 import com.riis.model.databasemodel.Resident;
 import com.riis.model.viewmodel.OverviewModel;
@@ -23,12 +28,19 @@ import com.riis.utils.TextGenerator;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -51,6 +63,12 @@ public class BaseOverviewController implements Controller {
 
     @FXML
     protected Label time;
+
+    @FXML
+    protected MenuButton res_tot;
+
+    @FXML 
+    protected MenuButton gen_tot;
 
     @FXML
     protected Label tot_residents;
@@ -89,12 +107,123 @@ public class BaseOverviewController implements Controller {
         overviewModel.bindLoggedInUserFullName(loggedInUserFullName);
         overviewModel.bindDate(date);
         overviewModel.bindTime(time);
+        initializeMenuButtonsRes();
+        initializeMenuButtonsGen();
         overviewModel.bindTotResidents(tot_residents);
         overviewModel.bindTotResidentsMale(tot_residents_male);
         overviewModel.bindTotResidentsFemale(tot_residents_female);
         overviewModel.bindLastLogin(lastLogin);
         overviewModel.bindRecentActivity(recentActivity);
         // recent activity and bar chart are remaining
+    }
+    
+    public void initializeMenuButtonsRes() {
+        MenuItem all = createMenuItem("All", "all");
+        MenuItem today = createMenuItem("Today", "today");
+        MenuItem yesterday = createMenuItem("Yesterday", "yesterday");
+        MenuItem thisWeek = createMenuItem("This Week", "week");
+
+        res_tot.getItems().addAll(all, today, yesterday, thisWeek);
+
+        EventHandler<ActionEvent> menuItemClickHandler = e -> {
+            MenuItem item = (MenuItem) e.getSource();
+            String date = (String) item.getUserData();
+
+            try {
+                res_tot.setText(item.getText());
+                List<KebeleResident> kebeleResidents = fetchTotResidents(date);
+                overviewModel.setTotResidentsText(String.valueOf(kebeleResidents.size()));
+                overviewModel.setTotResidentsTextComp();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+
+        all.setOnAction(menuItemClickHandler);
+        today.setOnAction(menuItemClickHandler);
+        yesterday.setOnAction(menuItemClickHandler);
+        thisWeek.setOnAction(menuItemClickHandler);
+
+        Platform.runLater(() -> {
+            today.fire();
+        });
+
+    }
+
+    private MenuItem createMenuItem(String text, String date) {
+        MenuItem menuItem = new MenuItem(text);
+        menuItem.setUserData(date);
+        return menuItem;
+    }
+
+    public void initializeMenuButtonsGen() {
+        MenuItem all = createMenuItem("All", "all");
+        MenuItem today = createMenuItem("Today", "today");
+        MenuItem yesterday = createMenuItem("Yesterday", "yesterday");
+        MenuItem thisWeek = createMenuItem("This Week", "week");
+        
+        gen_tot.getItems().addAll(all, today, yesterday, thisWeek);
+
+        EventHandler<ActionEvent> menuItemClickHandler = e -> {
+            MenuItem item = (MenuItem) e.getSource();
+            String date = (String) item.getUserData();
+
+            try {
+                gen_tot.setText(item.getText());
+                List<KebeleResident> kebeleResidents = fetchTotResidents(date);
+                List<Integer> totResClassified = countKebeleResidents(kebeleResidents);
+                overviewModel.setTotResidentsMaleText(totResClassified.get(0).toString());
+                overviewModel.setTotResidentsMaleTextComp();
+                overviewModel.setTotResidentsFemaleText(totResClassified.get(1).toString());
+                overviewModel.setTotResidentsFemaleTextComp();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        };
+
+        all.setOnAction(menuItemClickHandler);
+        today.setOnAction(menuItemClickHandler);
+        yesterday.setOnAction(menuItemClickHandler);
+        thisWeek.setOnAction(menuItemClickHandler);
+
+        Platform.runLater(() -> {
+            today.fire();
+        });
+    }
+
+    public List<Integer> countKebeleResidents(List<KebeleResident> kebeleResidents) throws Exception {
+        ResidentDAO residentDAO = new ResidentDAOImpl();
+        List<Integer> totResClassified = new ArrayList<>(List.of(0, 0));
+        for(KebeleResident kebeleResident: kebeleResidents) {
+            int rid = kebeleResident.getResidentId();
+            String gender = residentDAO.getGender(rid);
+            if(gender.equalsIgnoreCase("male")) {
+                totResClassified.set(0, totResClassified.get(0) + 1);
+            } else if(gender.equalsIgnoreCase("female")){
+                totResClassified.set(1, totResClassified.get(1) + 1);
+            }
+        }
+        return totResClassified;
+    }
+    
+
+    public List<KebeleResident> fetchTotResidents(String date) throws Exception {
+        KebeleResidentDAO kebeleResidentDAO = new KebeleResidentDAOImpl();
+        List<KebeleResident> kebeleResidents = kebeleResidentDAO.getAllKebeleResidents();
+        if (date.equals("all")) {
+            return kebeleResidents;
+        } else {
+            kebeleResidents.clear();
+            if (date.equals("today")) {
+                kebeleResidents.addAll(kebeleResidentDAO.getAllKebeleResidentsByDate("today"));
+            } else if (date.equals("yesterday")) {
+                kebeleResidents.addAll(kebeleResidentDAO.getAllKebeleResidentsByDate("yesterday"));
+            } else if (date.equals("week")) {
+                kebeleResidents.addAll(kebeleResidentDAO.getAllKebeleResidentsByDate("week"));
+            }
+        }
+        
+        return kebeleResidents;
     }
 
     public String getFullName(String user) throws SQLException {
@@ -126,9 +255,6 @@ public class BaseOverviewController implements Controller {
 
             // get the current time
             LocalDateTime now = DateProvider.getDateTime();
-
-            System.out.println(lastLoginTime);
-            System.out.println(now);
 
             Duration duration = Duration.between(lastLoginTime, now);
 
@@ -273,6 +399,11 @@ public class BaseOverviewController implements Controller {
 
         // Update the label text with the formatted time
         overviewModel.getTimeComp().setText(formattedTime);
+    }
+
+    public ObservableList<Request> sortReqDate(ObservableList<Request> requests) {
+        FXCollections.reverse(requests);
+        return requests;
     }
 
     public void getView() throws Exception {
