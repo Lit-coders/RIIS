@@ -85,6 +85,8 @@ So, we decided to solve these problems by creating this application. This applic
    mvn flyway:migrate
    ```
 
+   > Note: Make sure to create a database named `riis.db` inside `./src/db` if the migration fails.
+
 4. Run the project by running the following maven command in the terminal.
 
    ```bash
