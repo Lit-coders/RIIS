@@ -12,6 +12,7 @@ import org.sqlite.SQLiteDataSource;
 
 public class DatabaseConnection {
     private static DataSource dataSource;
+    private static String DATABASE_URL = "./src/db/riis.db";
 
     private DatabaseConnection() {
 
@@ -20,7 +21,7 @@ public class DatabaseConnection {
     static {
         // Initialize the connection pool
         SQLiteDataSource sqLiteDataSource = new SQLiteDataSource();
-        sqLiteDataSource.setUrl("jdbc:sqlite:src\\db\\riis.db");
+        sqLiteDataSource.setUrl("jdbc:sqlite:" + DATABASE_URL);
         dataSource = sqLiteDataSource;
     }
 
@@ -28,14 +29,14 @@ public class DatabaseConnection {
         return dataSource.getConnection();
     }
 
-    public static boolean checkDatabase(String databaseUrl) throws ClassNotFoundException, SQLException {
-        File databaseFile = new File(databaseUrl);
+    public static boolean checkDatabase() throws ClassNotFoundException, SQLException {
+        File databaseFile = new File(DATABASE_URL);
 
         if (!databaseFile.exists()) {
             System.err.println("Database file not found");
             return false;
         } else {
-            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + databaseUrl)) {
+            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_URL)) {
                 DatabaseMetaData metaData = connection.getMetaData();
                 try {
                     metaData.getTables(null, null, "%", null);

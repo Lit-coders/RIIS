@@ -1,6 +1,5 @@
 package com.riis.dao;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +11,8 @@ import java.util.List;
 import com.riis.database.DatabaseConnection;
 import com.riis.model.databasemodel.Employee;
 import com.riis.utils.DateProvider;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
@@ -124,13 +125,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-512");
-        byte[] hashedBytes = digest.digest(password.getBytes());
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hashedBytes) {
-            sb.append(String.format("%02x", b));
-        }
-        String hashedPassoword = sb.toString();        
-        return hashedPassoword;
+        String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        return hashedPassword;
     }
 }

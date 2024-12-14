@@ -1,10 +1,11 @@
-            
 # Ignore Visual Studio Code directory
 .vscode/
+
+# Ignore target directory
+target/
 
 # Ignore compiled binary files
 bin/
 
 # Ignore the database
 src/db/*.db
-        

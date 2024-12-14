@@ -61,7 +61,7 @@
                </cursor></Button>
             <Text fill="#976eef" layoutX="51.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Login" wrappingWidth="198.24869537353516">
                <font>
-                  <Font name="Wingdings 3" size="27.0" />
+                  <Font name="Wingdings 3" size="23.0" />
                </font>
             </Text>
             <HBox fx:id="close_btn" alignment="CENTER" onMouseClicked="#closeLoginStage" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">

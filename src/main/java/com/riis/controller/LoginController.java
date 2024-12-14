@@ -1,7 +1,5 @@
 package com.riis.controller;
 
-
-
 import java.sql.SQLException;
 
 import com.riis.auth.AuthenticationManager;
@@ -32,7 +30,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class LoginController implements Controller { 
+public class LoginController implements Controller {
     @FXML
     private HBox close_btn;
 
@@ -63,7 +61,6 @@ public class LoginController implements Controller {
     public Label errorMessage;
 
     private UserContext userContext = UserContext.getInstance();
-    
 
     public LoginController(Stage stage) {
         this.stage = stage;
@@ -72,7 +69,7 @@ public class LoginController implements Controller {
     public LoginController() {
         this.errorMessage = new Label("Server is not connected");
     }
-    
+
     public void initialize() throws Exception {
         setupDragHandlers();
         handleHoverCloseButton();
@@ -109,10 +106,10 @@ public class LoginController implements Controller {
         stage.show();
 
         isDatabaseConnected();
-    } 
+    }
 
     public void isDatabaseConnected() throws Exception {
-        if(DatabaseConnection.checkDatabase("src\\db\\riis.db")) {
+        if (DatabaseConnection.checkDatabase()) {
             System.out.println("Database is connected");
         } else {
             JAlert alert = new JAlert("Error", "Please contact your system administrator, Server is Down!!");
@@ -126,10 +123,9 @@ public class LoginController implements Controller {
 
         String user = username.getText().trim();
         String pass = password.getText();
-        
+
         // Test: Print Username and Password in the console
         System.out.println("Username: " + username.getText());
-        System.out.println("Password: " + password.getText());
         String job = AuthenticationManager.authenticate(user, pass);
 
         if (!job.isEmpty()) {
@@ -137,8 +133,8 @@ public class LoginController implements Controller {
             // handler user data
             userHandler(user);
             Stage stage = (Stage) loginButton.getScene().getWindow();
-            
-            switch(job) {
+
+            switch (job) {
                 case "Information Officer":
                     InfoSidebarController sidebarController = new InfoSidebarController(stage);
                     sidebarController.getView();
@@ -159,7 +155,7 @@ public class LoginController implements Controller {
             }
         } else {
             System.out.println("Login Failed");
-            JAlert alert = new JAlert("Error","Invalid Username or Password");
+            JAlert alert = new JAlert("Error", "Invalid Username or Password");
             alert.showAlert();
         }
     }
@@ -172,20 +168,20 @@ public class LoginController implements Controller {
 
     @FXML
     void handleKeyPress(KeyEvent event) throws Exception {
-        if(event.getSource() == username){
-            if (event.getCode()== KeyCode.ENTER){
+        if (event.getSource() == username) {
+            if (event.getCode() == KeyCode.ENTER) {
                 TextPassword.setVisible(false);
                 password.setVisible(true);
                 visibleEyeImage.setVisible(true);
                 InvisibleEyeImage.setVisible(false);
                 password.requestFocus();
             }
-        } else if(event.getSource() == password){
-            if (event.getCode()== KeyCode.ENTER){
+        } else if (event.getSource() == password) {
+            if (event.getCode() == KeyCode.ENTER) {
                 login();
             }
-        } else if(event.getSource() == TextPassword){
-            if (event.getCode()== KeyCode.ENTER){
+        } else if (event.getSource() == TextPassword) {
+            if (event.getCode() == KeyCode.ENTER) {
                 login();
             }
         }
@@ -222,8 +218,8 @@ public class LoginController implements Controller {
             });
         }
     }
- 
-   private void userHandler(String user) throws SQLException {            
+
+    private void userHandler(String user) throws SQLException {
         // set the logged in user
         userContext.setUsername(user);
 
@@ -236,4 +232,3 @@ public class LoginController implements Controller {
         employeeDAO.captureLoginTime(user);
     }
 }
-
