@@ -53,7 +53,7 @@ public class AddEmployeeController implements Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                job.getItems().addAll("System Administrator", "Kebele Manger", "Finance Officer",
+                job.getItems().addAll("System Administrator", "Kebele Manager", "Finance Officer",
                         "Information Officer");
             }
         });
