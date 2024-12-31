@@ -18,20 +18,34 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 
 public class BaseSidebarController implements Controller {
-    @FXML protected HBox header;
-    @FXML protected Label titlebar;
-    @FXML protected Button user_btn;
-    @FXML protected Button logout_btn;
-    @FXML protected Button mini_btn;
-    @FXML protected Button max_btn;
-    @FXML protected Button close_btn;
-    @FXML protected VBox sidebar;
-    @FXML protected HBox overview;
-    @FXML protected HBox requests;
-    @FXML protected HBox new_resident;
-    @FXML protected HBox id_renewal;
-    @FXML protected HBox replace_id;
-    @FXML protected Parent root;
+    @FXML
+    protected HBox header;
+    @FXML
+    protected Label titlebar;
+    @FXML
+    protected Button user_btn;
+    @FXML
+    protected Button logout_btn;
+    @FXML
+    protected Button mini_btn;
+    @FXML
+    protected Button max_btn;
+    @FXML
+    protected Button close_btn;
+    @FXML
+    protected VBox sidebar;
+    @FXML
+    protected HBox overview;
+    @FXML
+    protected HBox requests;
+    @FXML
+    protected HBox new_resident;
+    @FXML
+    protected HBox id_renewal;
+    @FXML
+    protected HBox replace_id;
+    @FXML
+    protected Parent root;
     protected Stage stage;
     protected HBox previousClickedHbox = null;
     protected HBox clickedHbox = null;
@@ -134,8 +148,25 @@ public class BaseSidebarController implements Controller {
 
     }
 
+    public String formatTitle(String input) {
+        String[] words = input.split("_");
+
+        StringBuilder formattedTitle = new StringBuilder();
+
+        for (String word : words) {
+            if (word.length() > 0) {
+                formattedTitle.append(Character.toUpperCase(word.charAt(0)));
+                formattedTitle.append(word.substring(1).toLowerCase());
+                formattedTitle.append(" ");
+            }
+        }
+
+        return formattedTitle.toString().trim();
+    }
+
     protected void setTitlebar(String title) {
-        SidebarModel.titlebar.setText(title);
+        String formattedTitle = formatTitle(title);
+        SidebarModel.titlebar.setText(formattedTitle);
     }
 
     @FXML
@@ -153,7 +184,7 @@ public class BaseSidebarController implements Controller {
             return;
         }
         stage.setMaximized(true);
-        isMaximized = true; 
+        isMaximized = true;
     }
 
     @FXML
